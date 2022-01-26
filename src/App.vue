@@ -1,5 +1,14 @@
 <template>
-    <component :is="layout" class="tracking-[.15rem] font-neutralFace text-white underline-offset-2 h-screen">
+    <component
+        :is="layout"
+        class="
+            tracking-[.15rem]
+            font-neutralFace
+            text-white
+            underline-offset-2
+            h-screen
+        "
+    >
         <router-view />
     </component>
 </template>

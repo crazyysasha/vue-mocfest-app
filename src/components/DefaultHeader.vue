@@ -1,5 +1,5 @@
 <template>
-    <header class="flex overflow-y-auto">
+    <header class="">
         <transition
             enter-active-class="transform transition duration-200"
             enter-from-class="scale-0"
@@ -21,41 +21,39 @@
                 >
                     <path d="M13 24L1 12L13 0" stroke="white" />
                 </svg>
-                На главную
+                <span v-if="!isCollapsed"> На главную </span>
             </router-link>
         </transition>
-        <ul
-            class="
-                flex flex-col
-                transform
-                overflow-y-auto
-                rotate-180
-                text-sm
-                uppercase
-            "
-        >
-            <li class="my-auto"></li>
-            <li v-for="link in links" :key="link.url" class="p-1 m-1 my-auto">
-                <router-link
-                    :to="link.url"
-                    :exact="link.exact"
-                    class="
-                        writing-vertical
-                        hover:opacity-50
-                        transition
-                        duration-200
-                    "
-                >
-                    {{ link.title }}
-                </router-link>
-            </li>
-            <li class="my-auto"></li>
-        </ul>
+        <a> </a>
+        <div class="h-screen overflow-y-auto">
+            <ul
+                class="flex h-full flex-col transform text-sm uppercase"
+                :class="{ 'rotate-180': !isCollapsed }"
+                ref="menu"
+            >
+                <li class="my-auto"></li>
+                <li v-for="link in links" :key="link.url" class="my-auto">
+                    <router-link
+                        :to="link.url"
+                        :exact="link.exact"
+                        class="hover:opacity-50 transition duration-200"
+                        :class="{ 'writing-vertical': !isCollapsed }"
+                    >
+                        <div class="p-1 m-1 inline-block">
+                            {{ link.title }}
+                        </div>
+                    </router-link>
+                </li>
+                <li class="my-auto"></li>
+            </ul>
+        </div>
     </header>
 </template>
 
 
 <script>
+import { inject } from "vue";
+
 export default {
     data: () => ({
         links: [
@@ -66,7 +64,16 @@ export default {
             { title: "Партнеры", url: "/partners" },
         ],
     }),
-    setup() {},
+    setup() {
+        const menu = inject("menu");
+
+        const isCollapsed = inject("isCollapsed");
+
+        return {
+            menu,
+            isCollapsed,
+        };
+    },
 };
 </script>
 

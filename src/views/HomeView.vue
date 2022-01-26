@@ -34,7 +34,7 @@
                             <!-- leave-active-class="transform transition duration-200"
                             leave-to-class="scale-0"
                             leave-from-class="scale-100" -->
-                            <div v-if="!isLoading">
+                            <div>
                                 <div
                                     class="
                                         text-lg
@@ -107,7 +107,13 @@ export default {
     setup() {
         const store = useStore();
 
-        onMounted(() => store.getters["events/all"].length == 0 ? store.dispatch("events/getAll"):'');
+        const loadEventsData = () => {
+            if (!store.getters["events/isLoaded"]) {
+                store.dispatch("events/getAll");
+            }
+        };
+
+        onMounted(loadEventsData);
 
         return {
             events: computed(() => store.getters["events/all"]),

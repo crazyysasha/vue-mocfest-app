@@ -5,27 +5,33 @@ export default {
     state: {
         data: [],
         loading: false,
+        loaded: false,
     },
     mutations: {
-        set(state, payload) {
+        setData(state, payload) {
 
             state.data = payload;
         },
-        loading(state, payload) {
+        setLoadingStatus(state, payload) {
             state.loading = payload;
+        },
+        setLoadedStatus(state) {
+            state.loaded = true;
         }
     },
     actions: {
         async getAll({ commit }) {
-            commit('loading', true);
+            commit('setLoadingStatus', true);
             const { data } = await eventsApi.getAll();
-            commit('set', data);
+            commit('setData', data);
+            commit('setLoadedStatus');
             await new Promise(resolve => setTimeout(resolve, .01));
-            commit('loading', false);
-        }
+            commit('setLoadingStatus', false);
+        },
     },
     getters: {
         all: (state) => state.data,
         isLoading: (state) => state.loading,
+        isLoaded: (state) => state.loaded,
     },
 };
