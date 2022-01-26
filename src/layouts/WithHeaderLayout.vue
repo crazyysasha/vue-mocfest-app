@@ -4,7 +4,7 @@
         :class="{ 'flex-col': isCollapsed }"
         ref="container"
     >
-        <DefaultHeader :class="{ 'order-2 hidden': !isCollapsed }"></DefaultHeader>
+        <DefaultHeader :class="{ 'order-2': !isCollapsed }"></DefaultHeader>
         <main class="flex-1 flex overflow-y-auto">
             <slot></slot>
         </main>

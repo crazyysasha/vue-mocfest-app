@@ -1,5 +1,6 @@
 <template>
     <header class="">
+
         <transition
             enter-active-class="transform transition duration-200"
             enter-from-class="scale-0"
@@ -24,8 +25,43 @@
                 <span v-if="!isCollapsed"> На главную </span>
             </router-link>
         </transition>
-        <a> </a>
-        <div class="h-screen overflow-y-auto">
+        <button
+            @click.prevent="toggleMenu"
+            class="focus:outline-none block p-4 mx-auto"
+            :class="{ hidden: !isCollapsed }"
+        >
+            <span
+                class="
+                    w-6
+                    scale-110
+                    h-px
+                    block
+                    bg-white
+                    my-2
+                    transform
+                    transition
+                    duration-200
+                    ease
+                "
+                :class="{ 'rotate-45 translate-y-[4.5px]': isOpen }"
+            ></span>
+            <span
+                class="
+                    w-6
+                    scale-110
+                    h-px
+                    block
+                    bg-white
+                    my-2
+                    transform
+                    transition
+                    duration-200
+                    ease
+                "
+                :class="{ '-rotate-45 -translate-y-[4.5px]': isOpen }"
+            ></span>
+        </button>
+        <div class="h-screen overflow-y-auto" :class="{'hidden': !isOpen && isCollapsed }">
             <ul
                 class="flex h-full flex-col transform text-sm uppercase"
                 :class="{ 'rotate-180': !isCollapsed }"
@@ -52,7 +88,7 @@
 
 
 <script>
-import { inject } from "vue";
+import { inject, ref } from "vue";
 
 export default {
     data: () => ({
@@ -69,9 +105,17 @@ export default {
 
         const isCollapsed = inject("isCollapsed");
 
+        let isOpen = ref(false);
+
+        const toggleMenu = () => {
+            isOpen.value = !isOpen.value;
+        };
+
         return {
             menu,
             isCollapsed,
+            isOpen,
+            toggleMenu,
         };
     },
 };
