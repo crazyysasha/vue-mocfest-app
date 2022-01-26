@@ -12,7 +12,7 @@
                 v-if="$route.path != '/'"
                 to="/"
                 @click="hideMenu"
-                class="flex items-center absolute left-5 top-[1.05rem]"
+                class="flex items-center absolute left-5 top-[1.05rem] z-20"
             >
                 <svg
                     class="h-6 w-6 mr-1"

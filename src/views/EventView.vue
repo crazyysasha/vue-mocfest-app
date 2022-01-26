@@ -1,6 +1,28 @@
 <template>
-    <div class="flex w-full h-screen">
-        <div class="w-1/3 overflow-y-auto p-10 mt-10 text-sm flex flex-col">
+    <div class="flex flex-wrap w-full">
+        <div
+            class="bg-black sticky top-0 w-full"
+            :class="{ 'block lg:hidden': !isCollapsed, hidden: isCollapsed }"
+        >
+            <div class="h-14"></div>
+        </div>
+        <div
+            class="
+                lg:w-2/5
+                xl:w-1/3
+                overflow-y-auto
+                lg:h-screen
+                px-10
+                text-sm
+                flex flex-col
+            "
+        >
+            <div
+                class="bg-black sticky top-0 w-full"
+                :class="{ hidden: isCollapsed }"
+            >
+                <div class="h-14"></div>
+            </div>
             <div class="mb-5">
                 <h1
                     class="
@@ -160,7 +182,7 @@
                     экспериментального формата
                 </p>
             </div>
-            <div class="mt-auto ">
+            <div class="mt-auto mb-4">
                 <button
                     class="
                         block
@@ -178,7 +200,15 @@
                 </button>
             </div>
         </div>
-        <div class="w-2/3 grid grid-cols-3 overflow-y-auto">
+        <div
+            class="
+                lg:w-3/5
+                xl:w-2/3
+                grid grid-cols-3
+                lg:h-screen
+                overflow-y-auto
+            "
+        >
             <div>
                 <a href="../assets/images/gallery/1.jpg">
                     <img src="../assets/images/gallery/1.jpg" alt="" />
@@ -218,7 +248,13 @@
 
 
 <script>
-export default {};
+import { inject } from "vue";
+export default {
+    setup() {
+        const isCollapsed = inject("isCollapsed");
+        return { isCollapsed };
+    },
+};
 </script>
 
 <style>
