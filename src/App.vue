@@ -1,30 +1,19 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <component :is="layout" class="tracking-[.15rem] font-neutralFace text-white underline-offset-2 h-screen">
+        <router-view />
+    </component>
 </template>
+<script>
+import { useRoute } from "vue-router";
+import WithHeaderLayout from "./layouts/WithHeaderLayout.vue";
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+export default {
+    setup() {
+        const route = useRoute();
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+        return {
+            layout: route.meta?.layout || WithHeaderLayout,
+        };
+    },
+};
+</script>

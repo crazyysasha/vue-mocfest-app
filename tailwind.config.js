@@ -1,6 +1,6 @@
 module.exports = {
   content: [
-    "./index.html",
+    "./public/index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   presets: [],
@@ -373,6 +373,13 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+      neutralFace: [
+        'NeutralFace',
+      ],
+      montserrat: [
+        'Montserrat',
+      ],
+      
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],

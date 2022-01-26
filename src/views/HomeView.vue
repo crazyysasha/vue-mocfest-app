@@ -1,18 +1,118 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div class="mx-auto flex flex-col p-1 w-96 tracking-[.2rem]">
+        <div class="border border-white mt-auto">
+            <div class="p-3 px-4">
+                <img src="@/assets/logo.png" alt="" class="mx-auto" />
+            </div>
+            <div class="p-2 flex flex-col">
+                <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
+                    <div class="h-10 w-10 animate-pulse rounded-full bg-white">
+                        <div
+                            class="animate-ping h-10 w-10 rounded-full bg-white"
+                        ></div>
+                    </div>
+                </div>
+                <div v-for="event in events" :key="event.slug">
+                    <router-link
+                        :to="{ name: 'event', params: { slug: event.slug } }"
+                        class="
+                            flex flex-col
+                            w-full
+                            text-center
+                            group
+                            hover:opacity-50
+                            transition
+                            duration-200
+                        "
+                        :class="{ 'p-2': !isLoading }"
+                    >
+                        <transition
+                            enter-active-class="transform transition duration-200"
+                            enter-from-class="scale-0"
+                            enter-to-class="scale-100"
+                        >
+                            <!-- leave-active-class="transform transition duration-200"
+                            leave-to-class="scale-0"
+                            leave-from-class="scale-100" -->
+                            <div v-if="!isLoading">
+                                <div
+                                    class="
+                                        text-lg
+                                        group-hover:underline
+                                        underline-offset-2
+                                        leading-6
+                                    "
+                                >
+                                    {{ event.title }}
+                                </div>
+                                <div
+                                    class="
+                                        text-xs
+                                        tracking-normal
+                                        font-thin font-montserrat
+                                    "
+                                    v-html="event.subtitle"
+                                ></div>
+                            </div>
+                        </transition>
+                    </router-link>
+                </div>
+            </div>
+            <button
+                class="
+                    text-center
+                    block
+                    w-full
+                    p-4
+                    border-t-2 border-dashed border-white
+                    hover:bg-white hover:text-black
+                    transition
+                    duration-200
+                    tracking-[.2rem]
+                "
+            >
+                Купить билет
+            </button>
+        </div>
+        <div class="font-montserrat text-center text-sm my-auto">
+            <div class="">
+                <div class="my-2">
+                    <a href="" class="hover:opacity-50">Facebook </a>
+                    /
+                    <a href="" class="hover:opacity-50">Instagram </a>
+                    /
+                    <a href="" class="hover:opacity-50">Email </a>
+                </div>
+                <div class="my-2">
+                    <a href="" class="hover:opacity-50">Telegram </a>
+                    /
+                    <a href="" class="hover:opacity-50">Telegram Bot</a>
+                </div>
+                <div class="my-2">
+                    <a href="tel:+998946036085" class="hover:opacity-50">
+                        +998 94 603 60 85
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
+
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { computed, onMounted } from "vue";
+import { useStore } from "vuex";
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+    setup() {
+        const store = useStore();
+
+        onMounted(() => store.getters["events/all"].length == 0 ? store.dispatch("events/getAll"):'');
+
+        return {
+            events: computed(() => store.getters["events/all"]),
+            isLoading: computed(() => store.getters["events/isLoading"]),
+        };
+    },
+};
 </script>
