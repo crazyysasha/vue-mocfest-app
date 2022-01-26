@@ -2,10 +2,9 @@
     <div
         class="bg-black relative flex items-stretch"
         :class="{ 'flex-col': isCollapsed }"
-        ref="container"
     >
         <DefaultHeader :class="{ 'order-2': !isCollapsed }"></DefaultHeader>
-        <main class="flex-1 flex overflow-y-auto">
+        <main class="flex-1 flex overflow-y-auto bg-black">
             <slot></slot>
         </main>
     </div>
@@ -26,9 +25,12 @@ export default {
 
         provide("menu", menu);
 
-        const { height } = useWindowSize();
+        const { height, width } = useWindowSize();
 
         const isCollapsed = computed(() => {
+            if (width.value < 600) {
+                return true;
+            }
             if (menu.value == null) {
                 return false;
             }
@@ -41,7 +43,7 @@ export default {
                     menuHeight += element.offsetHeight;
                 }
             });
-
+            console.log(height.value, menuHeight + 20);
             return height.value < menuHeight + 20;
         });
 
