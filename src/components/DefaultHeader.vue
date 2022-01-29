@@ -107,7 +107,7 @@
                         class="hover:opacity-50 transition duration-200"
                         :class="{ 'writing-vertical': !isCollapsed }"
                     >
-                        <div class="p-1 inline-block">
+                        <div class="p-1 inline-block text-lg">
                             {{ link.title }}
                         </div>
                     </router-link>
