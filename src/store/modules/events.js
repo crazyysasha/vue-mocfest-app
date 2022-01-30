@@ -1,9 +1,9 @@
-import eventsApi from "@/api/events";
+import { getAllEvents } from "@/api/events";
 
 export default {
     namespaced: true,
     state: {
-        data: [],        
+        data: [],
         loading: false,
         loaded: false,
     },
@@ -22,16 +22,17 @@ export default {
     actions: {
         async getAll({ commit }) {
             commit('setLoadingStatus', true);
-            const { data } = await eventsApi.getAll();
+            const { data } = await getAllEvents();
             commit('setData', data);
             commit('setLoadedStatus');
             await new Promise(resolve => setTimeout(resolve, .01));
+            sleep(1);
             commit('setLoadingStatus', false);
         },
     },
     getters: {
         all: (state) => state.data,
-        test: (state) => state.test, 
+        test: (state) => state.test,
         isLoading: (state) => state.loading,
         isLoaded: (state) => state.loaded,
     },
