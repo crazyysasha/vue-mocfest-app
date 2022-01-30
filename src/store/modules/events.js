@@ -3,7 +3,7 @@ import eventsApi from "@/api/events";
 export default {
     namespaced: true,
     state: {
-        data: [],
+        data: [],        
         loading: false,
         loaded: false,
     },
@@ -31,6 +31,7 @@ export default {
     },
     getters: {
         all: (state) => state.data,
+        test: (state) => state.test, 
         isLoading: (state) => state.loading,
         isLoaded: (state) => state.loaded,
     },

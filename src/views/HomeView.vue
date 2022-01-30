@@ -113,8 +113,7 @@ export default {
             }
         };
 
-        onMounted(loadEventsData);
-
+        onMounted(loadEventsData);        
         return {
             events: computed(() => store.getters["events/all"]),
             isLoading: computed(() => store.getters["events/isLoading"]),
