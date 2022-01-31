@@ -43,7 +43,6 @@ export default {
                     menuHeight += element.offsetHeight;
                 }
             });
-            console.log(height.value, menuHeight + 20);
             return height.value < menuHeight + 20;
         });
 

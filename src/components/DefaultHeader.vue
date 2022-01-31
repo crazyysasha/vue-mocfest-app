@@ -151,7 +151,7 @@ export default {
         links: [
             { title: "Команда", url: "/comand" },
             { title: "Галерея", url: "/gallery" },
-            { title: "Карта", url: "/map" },
+            { title: "Карта", url: "/events" },
             { title: "Манифест", url: "/manifesto", exact: true },
             { title: "Партнеры", url: "/partners" },
         ],

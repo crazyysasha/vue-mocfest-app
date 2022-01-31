@@ -1,6 +1,6 @@
 <template>
     <component
-        :is="layout"
+        :is="this.$route.meta.layout || WithHeaderLayout"
         class="
             tracking-[.15rem]
             font-neutralFace
@@ -13,16 +13,17 @@
     </component>
 </template>
 <script>
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 import WithHeaderLayout from "./layouts/WithHeaderLayout.vue";
 
 export default {
+    components: { WithHeaderLayout },
     setup() {
-        const route = useRoute();
-
-        return {
-            layout: route.meta?.layout || WithHeaderLayout,
-        };
+        // const route = useRoute();
+        // console.log(route.meta);
+        // return {
+        //     layout: route.meta?.layout || WithHeaderLayout,
+        // };
     },
 };
 </script>

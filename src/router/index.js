@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 import WithHeaderLayout from "@/layouts/WithHeaderLayout.vue";
+import WithoutHeaderLayout from "@/layouts/WithoutHeaderLayout.vue";
 
 const routes = [
   {
@@ -21,7 +22,7 @@ const routes = [
     path: '/events/:slug*',
     name: 'events',
     component: () => import(/* webpackChunkName: "event" */ '../views/EventsView.vue'),
-    meta: {},
+    meta: { layout: WithoutHeaderLayout },
   },
   {
     path: '/about',
@@ -35,7 +36,15 @@ const routes = [
     path: '/partners',
     name: 'partners',
     component: () => import(/* webpackChunkName: "about" */ '../views/PartnersView.vue')
-  }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    meta: {
+      layout: WithoutHeaderLayout
+    },
+    component: () => import(/* webpackChunkName: "about" */ '../views/NotFoundView.vue')
+  },
 ]
 
 const router = createRouter({

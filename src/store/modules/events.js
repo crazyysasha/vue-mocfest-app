@@ -26,7 +26,7 @@ export default {
             commit('setData', data);
             commit('setLoadedStatus');
             await new Promise(resolve => setTimeout(resolve, .01));
-            
+
             commit('setLoadingStatus', false);
         },
     },
