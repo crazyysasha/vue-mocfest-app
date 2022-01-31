@@ -37,7 +37,8 @@ const routes = [
   {
     path: '/partners',
     name: 'partners',
-    component: () => import(/* webpackChunkName: "about" */ '../views/PartnersView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/PartnersView.vue'),
+    meta: { layout: WithHeaderLayout },
   },
   {
     path: '/:pathMatch(.*)*',
