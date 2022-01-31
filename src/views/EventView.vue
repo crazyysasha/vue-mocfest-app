@@ -196,51 +196,68 @@
                         duration-200
                     "
                     @click="toggleModalOne"
-                > Купить билеты
-        </button>
-      </div>
-    </div>
-    <div class="lg:w-3/5 xl:w-2/3 grid grid-cols-3 lg:h-screen overflow-y-auto">
-      <div>
-        <stack :column-min-width="320" :gutter-width="8" :gutter-height="8">
-          <stack-item v-for="(item, i) in items" :key="i">
-            {{ item.someContent }}
-          </stack-item>
-        </stack>
-      </div>
-        <MainModal
-            @close="toggleModalOne"
-            v-model:modalActive="modalActiveOne"
-            :modalOpen="modalOpen"
+                >
+                    Купить билеты
+                </button>
+            </div>
+        </div>
+        <div
+            class="
+                lg:w-3/5
+                xl:w-2/3
+                grid grid-cols-3
+                lg:h-screen
+                overflow-y-auto
+            "
         >
-            <ModalQuantity
-                :toggleModal="toggleModalTwo"
-                :incQuantity="incQuantity"
-                :decQuantity="decQuantity"
-                :quantity="quantityTicket"
-                :toggleSelect="toggleSelect"
-                :activeSelect="activeSelect"
-            />
-        </MainModal>
-        <MainModal @close="toggleModalTwo" v-model:modalActive="modalActiveTwo">
-            <ModalStatus
-                :toggleModal="toggleModalThree"
-                :incQuantity="incQuantity"
-                :decQuantity="decQuantity"
-                :quantity="quantityTicket"
-                :toggleSelect="toggleSelect"
-                :activeSelect="activeSelect"
-            />
-        </MainModal>
-        <MainModal
-            @close="toggleModalThree"
-            v-model:modalActive="modalActiveThree"
-        >
-            <ModalPayment
-                :toggleSelect="toggleSelect"
-                :activeSelect="activeSelect"
-            />
-        </MainModal>
+            <div>
+                <stack
+                    :column-min-width="320"
+                    :gutter-width="8"
+                    :gutter-height="8"
+                >
+                    <stack-item v-for="(item, i) in items" :key="i">
+                        {{ item.someContent }}
+                    </stack-item>
+                </stack>
+            </div>
+            <MainModal
+                @close="toggleModalOne"
+                v-model:modalActive="modalActiveOne"
+                :modalOpen="modalOpen"
+            >
+                <ModalQuantity
+                    :toggleModal="toggleModalTwo"
+                    :incQuantity="incQuantity"
+                    :decQuantity="decQuantity"
+                    :quantity="quantityTicket"
+                    :toggleSelect="toggleSelect"
+                    :activeSelect="activeSelect"
+                />
+            </MainModal>
+            <MainModal
+                @close="toggleModalTwo"
+                v-model:modalActive="modalActiveTwo"
+            >
+                <ModalStatus
+                    :toggleModal="toggleModalThree"
+                    :incQuantity="incQuantity"
+                    :decQuantity="decQuantity"
+                    :quantity="quantityTicket"
+                    :toggleSelect="toggleSelect"
+                    :activeSelect="activeSelect"
+                />
+            </MainModal>
+            <MainModal
+                @close="toggleModalThree"
+                v-model:modalActive="modalActiveThree"
+            >
+                <ModalPayment
+                    :toggleSelect="toggleSelect"
+                    :activeSelect="activeSelect"
+                />
+            </MainModal>
+        </div>
     </div>
 </template>
 
