@@ -12,7 +12,7 @@
                 v-if="$route.path != '/'"
                 to="/"
                 @click="hideMenu"
-                class="flex items-center absolute left-5 top-[1.05rem] z-20"
+                class="flex items-center absolute left-2.5  top-[1.05rem] z-20"
             >
                 <svg
                     class="h-6 w-6 mr-1"
@@ -28,7 +28,7 @@
         <transition name="margin" mode="out-in">
             <button
                 @click.prevent="toggleMenu"
-                class="focus:outline-none block p-4 transition duration-200"
+                class="focus:outline-none block p-4 transition duration-200 z-20 absolute"
                 :class="{
                     hidden: !isCollapsed,
                     'mx-auto': $route.path == '/',
@@ -70,27 +70,25 @@
         </transition>
         <div
             class="
-                overflow-y-auto
                 transition-all
                 duration-200
                 ease
                 left-0
-                right-0
-                bg-black
+                right-0 
                 flex flex-col
+                overflow-hidden
             "
             :class="{
-                '-top-full bg-opacity-0': !isOpen && isCollapsed,
-                'top-10 bg-opacity-100': isOpen && isCollapsed,
-                absolute: isCollapsed,
+                'top-0 bg-opacity-0 h-0': !isOpen && isCollapsed,
+                'top-0 bg-opacity-100 h-screen': isOpen && isCollapsed,
+                'absolute backdrop-blur': isCollapsed,
             }"
-            :style="{height: isCollapsed ? 'calc(100vh - 2.5rem)' : '100vh'}"
         >
             <ul
                 class="flex flex-col transform text-sm uppercase text-center"
                 :class="{
                     'rotate-180 h-full': !isCollapsed,
-                    'my-5': isCollapsed,
+                    'my-5 mt-20': isCollapsed,
                 }"
                 ref="menu"
             >
