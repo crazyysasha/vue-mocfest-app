@@ -23,7 +23,7 @@ const routes = [
     path: '/events/:slug*',
     name: 'events',
     component: () => import(/* webpackChunkName: "event" */ '../views/EventsView.vue'),
-    meta: { layout: WithoutHeaderLayout },
+    meta: { layout: WithHeaderLayout },
   },
   {
     path: "/about",
