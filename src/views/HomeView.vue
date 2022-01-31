@@ -12,7 +12,7 @@
                         ></div>
                     </div>
                 </div>
-                <div v-for="event in events" :key="event.slug">
+                <div v-for="event in events" :key="event.slug">                    
                     <router-link
                         :to="{ name: 'event', params: { slug: event.slug } }"
                         class="
@@ -112,7 +112,7 @@ export default {
                 store.dispatch("events/getAll");
             }
         };
-
+        
         onMounted(loadEventsData);        
         return {
             events: computed(() => store.getters["events/all"]),

@@ -240,17 +240,23 @@
         :toggleModal="toggleModalTwo"
         :incQuantity="incQuantity"
         :decQuantity="decQuantity"
-        :quantity="quantityTicket" />
+        :quantity="quantityTicket"
+        :toggleSelect="toggleSelect"
+        :activeSelect="activeSelect" />
     </MainModal>
     <MainModal @close="toggleModalTwo" v-model:modalActive="modalActiveTwo">
       <ModalStatus 
         :toggleModal="toggleModalThree"
         :incQuantity="incQuantity"
         :decQuantity="decQuantity"
-        :quantity="quantityTicket" />
+        :quantity="quantityTicket"
+        :toggleSelect="toggleSelect"
+        :activeSelect="activeSelect" />
     </MainModal>
     <MainModal @close="toggleModalThree" v-model:modalActive="modalActiveThree">
-      <ModalPayment />
+      <ModalPayment
+        :toggleSelect="toggleSelect"
+        :activeSelect="activeSelect" />
     </MainModal>
   </div>
 </template>
@@ -273,7 +279,7 @@ export default {
     quantityTicket: 1,
     modalActiveOne: false,
     modalActiveTwo: false,
-    modalActiveThree: false,
+    modalActiveThree: false,    
   }),
   methods: {
     toggleModalOne() {
@@ -298,7 +304,7 @@ export default {
       if (this.quantityTicket > 1) {
         this.quantityTicket--;
       }
-    },
+    },    
   },
   components: {
     MainModal,
