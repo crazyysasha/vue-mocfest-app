@@ -202,37 +202,11 @@
     </div>
     <div class="lg:w-3/5 xl:w-2/3 grid grid-cols-3 lg:h-screen overflow-y-auto">
       <div>
-        <a href="../assets/images/gallery/1.jpg">
-          <img class="w-full" src="../assets/images/gallery/1.jpg" alt="" />
-        </a>
-        <a href="../assets/images/gallery/3.jpg">
-          <img class="w-full" src="../assets/images/gallery/3.jpg" alt="" />
-        </a>
-        <a href="../assets/images/gallery/5.jpg">
-          <img class="w-full" src="../assets/images/gallery/5.jpg" alt="" />
-        </a>
-      </div>
-      <div>
-        <a href="../assets/images/gallery/2.jpg">
-          <img class="w-full" src="../assets/images/gallery/2.jpg" alt="" />
-        </a>
-        <a href="../assets/images/gallery/4.jpg">
-          <img class="w-full" src="../assets/images/gallery/4.jpg" alt="" />
-        </a>
-        <a href="../assets/images/gallery/6.jpg">
-          <img class="w-full" src="../assets/images/gallery/6.jpg" alt="" />
-        </a>
-      </div>
-      <div>
-        <a href="../assets/images/gallery/1.jpg">
-          <img class="w-full" src="../assets/images/gallery/1.jpg" alt="" />
-        </a>
-        <a href="../assets/images/gallery/3.jpg">
-          <img class="w-full" src="../assets/images/gallery/3.jpg" alt="" />
-        </a>
-        <a href="../assets/images/gallery/5.jpg">
-          <img class="w-full" src="../assets/images/gallery/5.jpg" alt="" />
-        </a>
+        <stack :column-min-width="320" :gutter-width="8" :gutter-height="8">
+          <stack-item v-for="(item, i) in items" :key="i">
+            {{ item.someContent }}
+          </stack-item>
+        </stack>
       </div>
     </div>
     <MainModal @close="toggleModalOne" v-model:modalActive="modalActiveOne" :modalOpen="modalOpen">
@@ -269,11 +243,14 @@ import ModalQuantity from "@/components/ModalQuantity.vue";
 import ModalStatus from "@/components/ModalStatus.vue";
 import ModalPayment from "@/components/ModalPayment.vue";
 
+import { Stack, StackItem } from 'vue-stack-grid';
+
 export default {
   setup() {
     const isCollapsed = inject("isCollapsed");
     return { isCollapsed };
   },
+  
   data: () => ({
     modalOpen: false,
     quantityTicket: 1,
@@ -310,7 +287,8 @@ export default {
     MainModal,
     ModalQuantity,
     ModalStatus,
-    ModalPayment
+    ModalPayment,
+    Stack, StackItem,
   },
 };
 </script>
