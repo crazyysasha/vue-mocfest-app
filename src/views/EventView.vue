@@ -196,84 +196,18 @@
                         duration-200
                     "
                     @click="toggleModalOne"
-                >
-                    Купить билеты
-                </button>
-            </div>
-        </div>
-        <div class="lg:w-3/5 xl:w-2/3 lg:h-screen overflow-y-auto">
-            <div class="grid grid-cols-3">
-                <div>
-                    <a href="../assets/images/gallery/1.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/1.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <a href="../assets/images/gallery/3.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/3.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <a href="../assets/images/gallery/5.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/5.jpg"
-                            alt=""
-                        />
-                    </a>
-                </div>
-                <div>
-                    <a href="../assets/images/gallery/2.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/2.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <a href="../assets/images/gallery/4.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/4.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <a href="../assets/images/gallery/6.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/6.jpg"
-                            alt=""
-                        />
-                    </a>
-                </div>
-                <div>
-                    <a href="../assets/images/gallery/1.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/1.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <a href="../assets/images/gallery/3.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/3.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <a href="../assets/images/gallery/5.jpg">
-                        <img
-                            class="w-full"
-                            src="../assets/images/gallery/5.jpg"
-                            alt=""
-                        />
-                    </a>
-                </div>
-            </div>
-        </div>
+                > Купить билеты
+        </button>
+      </div>
+    </div>
+    <div class="lg:w-3/5 xl:w-2/3 grid grid-cols-3 lg:h-screen overflow-y-auto">
+      <div>
+        <stack :column-min-width="320" :gutter-width="8" :gutter-height="8">
+          <stack-item v-for="(item, i) in items" :key="i">
+            {{ item.someContent }}
+          </stack-item>
+        </stack>
+      </div>
         <MainModal
             @close="toggleModalOne"
             v-model:modalActive="modalActiveOne"
@@ -318,11 +252,14 @@ import ModalQuantity from "@/components/ModalQuantity.vue";
 import ModalStatus from "@/components/ModalStatus.vue";
 import ModalPayment from "@/components/ModalPayment.vue";
 
+import { Stack, StackItem } from "vue-stack-grid";
+
 export default {
     setup() {
         const isCollapsed = inject("isCollapsed");
         return { isCollapsed };
     },
+
     data: () => ({
         modalOpen: false,
         quantityTicket: 1,
@@ -341,13 +278,43 @@ export default {
             this.modalActiveOne = false;
             this.quantityTicket = 1;
         },
-        toggleModalThree() {
-            this.modalActiveThree = !this.modalActiveThree;
-            this.modalActiveTwo = false;
-            this.quantityTicket = 1;
+        data: () => ({
+            modalOpen: false,
+            quantityTicket: 1,
+            modalActiveOne: false,
+            modalActiveTwo: false,
+            modalActiveThree: false,
+        }),
+        methods: {
+            toggleModalOne() {
+                this.modalActiveOne = !this.modalActiveOne;
+                this.quantityTicket = 1;
+                this.modalOpen = !this.modalOpen;
+            },
+            toggleModalTwo() {
+                this.modalActiveTwo = !this.modalActiveTwo;
+                this.modalActiveOne = false;
+                this.quantityTicket = 1;
+            },
+            toggleModalThree() {
+                this.modalActiveThree = !this.modalActiveThree;
+                this.modalActiveTwo = false;
+                this.quantityTicket = 1;
+            },
+            incQuantity() {
+                this.quantityTicket++;
+            },
+            decQuantity() {
+                if (this.quantityTicket > 1) {
+                    this.quantityTicket--;
+                }
+            },
         },
-        incQuantity() {
-            this.quantityTicket++;
+        components: {
+            MainModal,
+            ModalQuantity,
+            ModalStatus,
+            ModalPayment,
         },
         decQuantity() {
             if (this.quantityTicket > 1) {
@@ -360,6 +327,8 @@ export default {
         ModalQuantity,
         ModalStatus,
         ModalPayment,
+        Stack,
+        StackItem,
     },
 };
 </script>

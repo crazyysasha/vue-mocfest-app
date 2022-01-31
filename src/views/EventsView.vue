@@ -7,29 +7,43 @@
             version: '2.1',
         }"
         :controls="[]"
-        :coords="[54.82896654088406, 39.831893822753904]"
-        class="w-full"
+        :coords="coords"
+        class="w-full filter grayscale invert"
     >   
     <div></div>
-        <!-- <ymap-marker
-            :coords="[54.82896654088406, 39.831893822753904]"
-            marker-id="123"
-        /> -->
+    <ymap-marker 
+      marker-id="123" 
+      :coords="coords"
+      :icon="markerIcon"
+    />
     </yandex-map>
 </template>
 
 
 <script>
-import { 
-    // ymapMarker,
-     yandexMap } from "vue-yandex-maps";
-export default {
-    components: {
-        yandexMap,
-        // ymapMarker,
-    },
-};
+    import { 
+        ymapMarker,
+        yandexMap } from "vue-yandex-maps";
+    export default {
+        components: {
+            yandexMap,
+            ymapMarker,
+        },
+        data: () => ({
+            coords: [41.311300, 69.279773],
+            markerIcon: {
+            layout: 'default#imageWithContent',
+            imageHref: 'https://cdn-icons-png.flaticon.com/512/1946/1946470.png',
+            imageSize: [60, 60],
+            imageOffset: [0, 0],
+            // content: '123 v12',
+            contentOffset: [0, 15],
+            // contentLayout: '<div style="background: red; width: 50px; color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+            }
+        })
+    };
 </script>
 
 <style>
+
 </style>

@@ -7,7 +7,8 @@ import '@/assets/styles/tailwind.css'
 
 
 
+
 createApp(App)
-    .use(store)
+    .use(store)    
     .use(router)
     .mount('#app')
