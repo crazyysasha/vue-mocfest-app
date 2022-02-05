@@ -171,7 +171,7 @@
 
 <script>
 export default {
-  props: ["toggleModal", "incQuantity", "decQuantity", "quantity"],
+  props: ["toggleModal", "incQuantity", "decQuantity", "quantity", "event", "payments"],
   data: () => ({
     activeSelect: false,
   }),

@@ -27,7 +27,7 @@
     export default {
         components: {
             yandexMap,
-            ymapMarker,
+            ymapMarker, 
         },
         data: () => ({
             coords: [41.311300, 69.279773],

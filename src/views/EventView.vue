@@ -12,7 +12,8 @@
         xl:w-1/3
         overflow-y-auto
         lg:h-screen
-        px-4 md:px-10
+        px-4
+        md:px-10
         text-sm
         flex flex-col
       "
@@ -35,7 +36,7 @@
             leading-1
           "
         >
-          мыкосмос
+          {{ this.$route.params.slug }}
         </h1>
       </div>
 
@@ -194,6 +195,24 @@
             transition
             duration-200
           "
+          v-if="event.date.length > 1"
+          @click="toggleModalTwo"
+        >
+          Купить билеты
+        </button>
+        <button
+          class="
+            block
+            w-full
+            border border-white
+            p-4
+            tracking-[.2rem]
+            text-lg
+            hover:bg-white hover:text-black
+            transition
+            duration-200
+          "
+          v-else
           @click="toggleModalOne"
         >
           Купить билеты
@@ -243,10 +262,14 @@
         :quantity="quantityTicket"
         :toggleSelect="toggleSelect"
         :activeSelect="activeSelect"
+        :event="event"        
       />
     </MainModal>
     <MainModal @close="toggleModalThree" v-model:modalActive="modalActiveThree">
-      <ModalPayment :toggleSelect="toggleSelect" :activeSelect="activeSelect" />
+      <ModalPayment 
+        :toggleSelect="toggleSelect" 
+        :activeSelect="activeSelect"
+        :payments="payments" />
     </MainModal>
   </div>
 </template>
@@ -254,6 +277,7 @@
 
 <script>
 import { inject, ref } from "vue";
+
 import MainModal from "@/components/MainModal.vue";
 import ModalQuantity from "@/components/ModalQuantity.vue";
 import ModalStatus from "@/components/ModalStatus.vue";
@@ -296,6 +320,15 @@ export default {
       index.value = imageIndex;
       boxIsOpen.value = true;
     };
+    const event = {
+      title: "Гроза",
+      date: [
+        {month: 'Март', day: '12'},
+        {month: 'Aprel', day: '23'}
+      ],
+    };
+    const payments = ["payme", "click"];
+
     return {
       isCollapsed,
       images,
@@ -303,6 +336,8 @@ export default {
       hideGallery,
       openGallery,
       index,
+      event,
+      payments,
     };
   },
   data: () => ({
@@ -336,6 +371,9 @@ export default {
         this.quantityTicket--;
       }
     },
+  },
+  mounted() {
+    console.log(this.event.date);
   },
 };
 </script>
