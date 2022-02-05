@@ -1,94 +1,111 @@
 <template>
     <header>
-        <transition
-            enter-active-class="transform transition duration-200"
-            enter-from-class="scale-0"
-            enter-to-class="scale-100"
-            leave-active-class="transform transition duration-200"
-            leave-to-class="scale-0"
-            leave-from-class="scale-100"
-        >
-            <router-link
-                v-if="$route.path != '/'"
-                to="/"
-                @click="hideMenu"
-                class="flex items-center absolute left-2.5  top-[1.05rem] z-20"
+        <div class="flex justify-between">
+            <transition
+                enter-active-class="transform transition duration-200"
+                enter-from-class="scale-0"
+                enter-to-class="scale-100"
+                leave-active-class="transform transition duration-200"
+                leave-to-class="scale-0"
+                leave-from-class="scale-100"
             >
-                <svg
-                    class="h-6 w-6 mr-1"
-                    viewBox="0 0 14 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                <router-link
+                    v-if="$route.path != '/'"
+                    to="/"
+                    @click="hideMenu"
+                    class="flex items-center p-4 left-2.5 top-[1.05rem] z-20"
+                    :class="{ absolute: !isCollapsed }"
                 >
-                    <path d="M13 24L1 12L13 0" stroke="white" />
-                </svg>
-                <span v-if="!isCollapsed"> На главную </span>
-            </router-link>
-        </transition>
-        <transition name="margin" mode="out-in">
-            <button
-                @click.prevent="toggleMenu"
-                class="focus:outline-none block p-4 transition duration-200 z-20 absolute"
-                :class="{
-                    hidden: !isCollapsed,
-                    'mx-auto': $route.path == '/',
-                    'ml-auto': $route.path != '/',
-                }"
-                v-bind:key="$route.path"
-            >
-                <span
+                    <svg
+                        class="h-6 w-6 mr-1"
+                        viewBox="0 0 14 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M13 24L1 12L13 0" stroke="white" />
+                    </svg>
+                    <span v-if="!isCollapsed"> На главную </span>
+                </router-link>
+            </transition>
+            <transition name="margin" mode="out-in">
+                <button
+                    @click.prevent="toggleMenu"
                     class="
-                        w-6
-                        scale-110
-                        h-px
+                        focus:outline-none
                         block
-                        bg-white
-                        my-2
-                        transform
+                        p-4
                         transition
                         duration-200
-                        ease
+                        z-20
                     "
-                    :class="{ 'rotate-45 translate-y-[4.5px]': isOpen }"
-                ></span>
-                <span
-                    class="
-                        w-6
-                        scale-110
-                        h-px
-                        block
-                        bg-white
-                        my-2
-                        transform
-                        transition
-                        duration-200
-                        ease
-                    "
-                    :class="{ '-rotate-45 -translate-y-[4.5px]': isOpen }"
-                ></span>
-            </button>
-        </transition>
+                    :class="{
+                        hidden: !isCollapsed,
+                        'mx-auto': $route.path == '/',
+                        'ml-auto': $route.path != '/',
+                    }"
+                    v-bind:key="$route.path"
+                >
+                    <span
+                        class="
+                            w-6
+                            scale-110
+                            h-px
+                            block
+                            bg-white
+                            my-2
+                            transform
+                            transition
+                            duration-200
+                            ease
+                        "
+                        :class="{ 'rotate-45 translate-y-[4.5px]': isOpen }"
+                    ></span>
+                    <span
+                        class="
+                            w-6
+                            scale-110
+                            h-px
+                            block
+                            bg-white
+                            my-2
+                            transform
+                            transition
+                            duration-200
+                            ease
+                        "
+                        :class="{ '-rotate-45 -translate-y-[4.5px]': isOpen }"
+                    ></span>
+                </button>
+            </transition>
+        </div>
         <div
             class="
                 transition-all
                 duration-200
                 ease
-                left-0
-                right-0 
                 flex flex-col
                 overflow-hidden
+                h-screen
+                -z-10
             "
             :class="{
                 'top-0 bg-opacity-0 h-0': !isOpen && isCollapsed,
-                'top-0 bg-opacity-100 h-screen': isOpen && isCollapsed,
-                'absolute backdrop-blur': isCollapsed,
+                'bg-opacity-100 h-screen': isOpen && isCollapsed,
+                'absolute backdrop-blur w-full top-0': isCollapsed,
             }"
         >
             <ul
-                class="flex flex-col transform text-sm uppercase text-center"
+                class="
+                    flex flex-col
+                    transform
+                    text-sm
+                    uppercase
+                    text-center
+                    h-screen
+                "
                 :class="{
                     'rotate-180 h-full': !isCollapsed,
-                    'my-5 mt-20': isCollapsed,
+                    'my-5 mt-20 w-full': isCollapsed,
                 }"
                 ref="menu"
             >
