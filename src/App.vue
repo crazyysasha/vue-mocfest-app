@@ -18,12 +18,5 @@ import WithHeaderLayout from "./layouts/WithHeaderLayout.vue";
 
 export default {
     components: { WithHeaderLayout },
-    setup() {
-        // const route = useRoute();
-        // console.log(route.meta);
-        // return {
-        //     layout: route.meta?.layout || WithHeaderLayout,
-        // };
-    },
 };
 </script>

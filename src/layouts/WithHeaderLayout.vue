@@ -1,10 +1,13 @@
 <template>
-    <div
-        class="bg-black relative flex items-stretch"
-        :class="{ 'flex-col overflow-y-auto': isCollapsed }"
-    >
-        <DefaultHeader class="bg-gradient-to-b from-black" :class="{ 'order-2': !isCollapsed, 'sticky top-0': isCollapsed }"></DefaultHeader>
-        <main class="flex-1 flex bg-black" :class="{'overflow-y-auto': !isCollapsed}">
+    <div class="flex" :class="{ 'overflow-y-auto flex-col': isCollapsed }">
+        <DefaultHeader
+            class="bg-gradient-to-b from-black"
+            :class="{ 'order-2': !isCollapsed, 'fixed top-0 w-full z-50': isCollapsed }"
+        ></DefaultHeader>
+        <main
+            class="flex-1 flex bg-black"
+            :class="{ 'overflow-y-auto': !isCollapsed }"
+        >
             <slot></slot>
         </main>
     </div>
@@ -47,6 +50,7 @@ export default {
         });
 
         provide("isCollapsed", isCollapsed);
+
         return { isCollapsed };
     },
 };
