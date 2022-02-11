@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto flex flex-col p-1 w-[25rem] tracking-[.2rem]">
+    <div class="mx-auto flex flex-col p-1 w-[25rem] tracking-[.2rem] py-5">
         <div class="border border-white mt-auto mx-2">
             <div class="p-3 px-4">
                 <img src="@/assets/logo.png" alt="" class="mx-auto" />
