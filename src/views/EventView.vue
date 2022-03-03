@@ -17,6 +17,7 @@
                 text-sm
                 flex flex-col
             "
+            ref="sidebarContainer"
         >
             <div
                 class="bg-black sticky top-0 w-full"
@@ -31,165 +32,131 @@
                         tracking-[.4rem]
                         underline
                         decoration-2
-                        underline-offset-4
-                        border-white
                         leading-1
                     "
+                    :class="{
+                        'animate-pulse bg-white overflow-hidden': isLoading,
+                        'underline-offset-4': !isLoading,
+                    }"
+                    :style="{
+                        width: isLoading
+                            ? `${
+                                  150 +
+                                  Math.random() *
+                                      ($refs.sidebarContainer.offsetWidth - 200)
+                              }px`
+                            : 'auto',
+                    }"
                 >
-                {{ event.title }}
+                    {{ event?.title ?? "Загрузка" }}
                 </h1>
             </div>
+            <div class="mb-5" v-if="isLoading">
+                <p
+                    class="font-montserrat tracking-normal mb-1"
+                    v-for="param in parseInt(2 + Math.random() * 3)"
+                    :key="param"
+                    :class="{
+                        'animate-pulse bg-white overflow-hidden': isLoading,
+                        'underline-offset-4': !isLoading,
+                    }"
+                    :style="{
+                        width: isLoading
+                            ? `${
+                                  150 +
+                                  Math.random() *
+                                      ($refs.sidebarContainer.offsetWidth - 200)
+                              }px`
+                            : 'auto',
+                    }"
+                >
+                    Загрузка
+                </p>
+            </div>
+            <div class="mb-5" v-if="!isLoading">
+                <p
+                    class="font-montserrat tracking-normal"
+                    v-for="param in event?.params"
+                    :key="param"
+                >
+                    {{ param.title }}:
 
-            <div class="mb-5">
-                <p class="font-montserrat tracking-normal">
-                    открытие: <span class="font-bold">{{event.date[0].day}}</span>
-                </p>
-                <p 
-                    class="font-montserrat tracking-normal" 
-                    v-for="d in event.date" 
-                    :key="d">
-                        Число: {{ d.day }}<br/>                    
-                        Время: <span v-for="t in d.times" :key="t"> в: {{t}} </span>
-                </p><br>
-                <p class="font-montserrat tracking-normal">
-                    локация:
-                    <router-link
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        :to="{
-                            name: 'events',
-                            params: { slug: 'mykosmos' },
-                        }"
+                    <span class="font-bold" v-if="param._group == 'text'">
+                        {{ param.value }}</span
                     >
-                        Бывш. завод узбум
-                    </router-link>
-                </p>
-                <p class="font-montserrat tracking-normal">
-                    лайнап:
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Bad sector</router-link
-                    >,
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Flyin Up</router-link
-                    >,
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Gio</router-link
-                    >,
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Lee Lu Lien</router-link
+                    <span
+                        class="font-bold"
+                        v-else-if="param._group == 'address'"
                     >
-                </p>
-                <p class="font-montserrat tracking-normal">
-                    Иммерсивные инсталяции:
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Данил Лашманов</router-link
-                    >,
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Азиза Пулатова</router-link
-                    >,
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Фалончи Писмадончиев</router-link
-                    >,
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                        >Джон Доу</router-link
-                    >,
-                    <router-link
-                        to="/"
-                        class="
-                            underline
-                            transition-opacity
-                            duration-200
-                            hover:opacity-50
-                            font-bold
-                        "
-                    >
-                        Олег Газманов
-                    </router-link>
+                        <router-link
+                            :to="{
+                                name: 'events',
+                                params: { slug: event.slug },
+                            }"
+                            class="
+                                underline
+                                transition-opacity
+                                duration-200
+                                hover:opacity-50
+                                font-bold
+                            "
+                        >
+                            {{ event.address }}
+                        </router-link>
+                    </span>
+
+                    <span class="font-bold" v-else-if="param._group == 'links'">
+                        <span v-for="(link, index) in param.items" :key="link">
+                            <a
+                                :href="link.url"
+                                :target="
+                                    link.is_new_blank == '1' ? '_blank' : false
+                                "
+                                class="
+                                    underline
+                                    transition-opacity
+                                    duration-200
+                                    hover:opacity-50
+                                    font-bold
+                                "
+                            >
+                                {{ link.label }} </a
+                            >{{ param.items.length > index ? ", " : "" }}
+                        </span>
+                    </span>
                 </p>
             </div>
-            <div class="font-montserrat tracking-normal">
-                <p class="mb-3">
-                    фестиваль мультимедийного искусства, главная цель которого —
-                    показать человека в составе бесконечной Вселенной, позволить
-                    людям отвлечься от обыденности и посмотреть на наше
-                    существование со стороны
+            <div class="font-montserrat tracking-normal" v-if="isLoading">
+                <p
+                    class="mb-3 bg-white animate-pulse"
+                    :style="{ width: `${Math.random * 5000}px` }"
+                >
+                    загрузка
                 </p>
-                <p class="mb-3">
-                    проект предоставляет возможность стать частью одного общего
-                    пространства, растворившись в интерактивной выставке,
-                    связывающей искусство с технологиями, в сопровождении музыки
-                    экспериментального формата
+                <p
+                    class="mb-3 bg-white animate-pulse"
+                    :style="{ width: `${Math.random * 5000}px` }"
+                >
+                    загрузка
+                </p>
+                <p
+                    class="mb-3 bg-white animate-pulse"
+                    :style="{ width: `${Math.random * 5000}px` }"
+                >
+                    загрузка
+                </p>
+                <p
+                    class="mb-3 bg-white animate-pulse"
+                    :style="{ width: `${Math.random * 5000}px` }"
+                >
+                    загрузка
                 </p>
             </div>
+            <div
+                class="font-montserrat tracking-normal"
+                v-if="!isLoading"
+                v-html="event?.description"
+            ></div>
             <div class="mt-auto mb-4">
                 <button
                     class="
@@ -199,26 +166,55 @@
                         p-4
                         tracking-[.2rem]
                         text-lg
-                        hover:bg-white hover:text-black
-                        transition
+                        transition-all
                         duration-200
                     "
-                    @click="openModal"
+                    :class="{
+                        'bg-black hover:bg-white hover:text-black': !isLoading,
+                        'bg-white animate-pulse text-white': isLoading,
+                    }"
+                    @click="modalIsOpen = true"
+                    :disabled="isLoading"
                 >
                     Купить билеты
                 </button>
             </div>
         </div>
         <div class="w-full lg:w-3/5 xl:w-2/3 lg:h-screen overflow-y-auto">
-            <div class="columns-2 md:columns-3 lg:columns-2 xl:columns-3 gap-0">
+            <div
+                class="columns-2 md:columns-3 lg:columns-2 xl:columns-3 gap-0"
+                v-if="!isLoading"
+            >
                 <a
                     @click.prevent="openGallery(index)"
-                    v-for="(img, index) in images"
+                    v-for="(img, index) in event?.images"
                     :key="index"
                     class="cursor-pointer block"
                 >
-                    <img :src="img" alt="" class="w-full" />
+                    <img :src="img.path" :alt="img.title" class="w-full" />
                 </a>
+            </div>
+            <div v-else class="flex items-center justify-center h-full">
+                <svg
+                    class="animate-spin h-10 w-10 m-auto text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"
+                    ></circle>
+                    <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                </svg>
             </div>
         </div>
 
@@ -226,119 +222,96 @@
             class="backdrop-blur"
             :visible="boxIsOpen"
             :index="index"
-            :imgs="images"
+            :imgs="event?.images.map((ob) => ob.path)"
             @hide="hideGallery"
         >
         </VueEasyLightbox>
-
-        
-        <MainModal @close="openModal" v-model:modalActive="modalActiveCheck">
-            <ModalCheckEvent
-                :toggleModalPayment="toggleModalPayment"
-                :incQuantity="incQuantity"
-                :decQuantity="decQuantity"
-                :quantity="quantityTicket"
-                :event="event"
-            />
-        </MainModal>
-        <MainModal
-            @close="modalActivePayment"
-            v-model:modalActive="modalActivePayment"
-        >
-            <ModalPayment />
-        </MainModal>
+        <c-modal v-model="modalIsOpen" v-slot="{ close }">
+            <button @click="close" class="absolute -right-8">
+                <span
+                    class="
+                        w-6
+                        scale-110
+                        h-px
+                        block
+                        bg-white
+                        my-2
+                        transform
+                        transition
+                        duration-200
+                        ease
+                        rotate-45
+                        translate-y-[4.5px]
+                    "
+                ></span>
+                <span
+                    class="
+                        w-6
+                        scale-110
+                        h-px
+                        block
+                        bg-white
+                        my-2
+                        transform
+                        transition
+                        duration-200
+                        ease
+                        -rotate-45
+                        -translate-y-[4.5px]
+                    "
+                ></span>
+            </button>
+            <buy-form> </buy-form>
+        </c-modal>
     </div>
 </template>
 
 
-<script>
-import { inject, ref } from "vue";
+<script setup>
+import { inject, onMounted, ref, watch } from "vue";
 
-import MainModal from "@/components/modal/MainModal.vue";
-import ModalCheckEvent from "@/components/modal/ModalCheckEvent.vue";
-import ModalPayment from "@/components/modal/ModalPayment.vue";
 import VueEasyLightbox from "vue-easy-lightbox";
 
-export default {
-    components: {
-        MainModal,
-        ModalPayment,
-        VueEasyLightbox,
-        ModalCheckEvent
-    },
-    setup() {
-        const isCollapsed = inject("isCollapsed");
+import CModal from "@/components/c-modal.vue";
+import BuyForm from "@/components/buy-form.vue";
+import useEvent from "@/composables/event";
+import { useRoute, useRouter } from "vue-router";
 
-        const boxIsOpen = ref(false);
-        const index = ref(0);
+const isCollapsed = inject("isCollapsed");
 
-        const images = [
-            require(`@/assets/images/gallery/2.jpg`),
-            require(`@/assets/images/gallery/1.jpg`),
-            require(`@/assets/images/gallery/4.jpg`),
-            require(`@/assets/images/gallery/5.jpg`),
-            require(`@/assets/images/gallery/2.jpg`),
-            require(`@/assets/images/gallery/3.jpg`),
-            require(`@/assets/images/gallery/1.jpg`),
-            require(`@/assets/images/gallery/5.jpg`),
-            require(`@/assets/images/gallery/6.jpg`),
-            require(`@/assets/images/gallery/4.jpg`),
-            require(`@/assets/images/gallery/3.jpg`),
-            require(`@/assets/images/gallery/6.jpg`),
-        ];
+const boxIsOpen = ref(false);
+const index = ref(0);
 
-        const hideGallery = () => {
-            boxIsOpen.value = false;
-        };
-        const openGallery = (imageIndex) => {
-            index.value = imageIndex;
-            boxIsOpen.value = true;
-        };
-        return {
-            isCollapsed,
-            images,
-            boxIsOpen,
-            hideGallery,
-            openGallery,
-            index,
-        };
-    },
-    data: () => ({
-        modalOpen: false,
-        quantityTicket: 1,
-        modalActiveCheck: false,
-        modalActivePayment: false,
-    }),
-    methods: {
-        openModal() {
-            if(this.event.date.length > 1) {
-                this.modalActiveCheck = !this.modalActiveCheck;
-                this.quantityTicket = 1;
-            } else {
-                this.modalActiveCheck = !this.modalActiveCheck;
-                this.quantityTicket = 1;
-                // this.modalOpen = !this.modalOpen;
-            }
-        },
-        toggleModalPayment() {
-            this.modalActivePayment = !this.modalActivePayment;
-            this.modalActiveCheck = false;
-            this.quantityTicket = 10;
-        },
-        incQuantity() {
-            this.quantityTicket++;
-        },
-        decQuantity() {
-            if (this.quantityTicket > 1) {
-                this.quantityTicket--;
-            }
-        },
-    },
-    computed: {
-        event() {
-            const event = this.$store.getters["events/all"].filter(event => event.slug === this.$route.params.slug)[0]
-            return event
-        }
-    },
+const route = useRoute();
+const { slug } = route.params;
+const router = useRouter();
+const { isLoading, event, isLoaded, fetchEvent, error } = useEvent(slug);
+const sidebarContainer = ref(null);
+
+watch(error, async () => {
+    if (error.value?.response?.status == 404) {
+        router.push({
+            name: "404",
+            // preserve current path and remove the first char to avoid the target URL starting with `//`
+            params: { pathMatch: route.path.substring(1).split("/") },
+            // preserve existing query and hash if any
+            query: route.query,
+            hash: route.hash,
+        });
+    }
+});
+
+onMounted(() => {
+    fetchEvent();
+});
+
+const hideGallery = () => {
+    boxIsOpen.value = false;
 };
+const openGallery = (imageIndex) => {
+    index.value = imageIndex;
+    boxIsOpen.value = true;
+};
+
+const modalIsOpen = ref(false);
 </script>
