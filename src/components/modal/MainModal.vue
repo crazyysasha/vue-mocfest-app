@@ -31,8 +31,9 @@
           class="
             z-50
             mx-auto
-            flex flex-col
             p-1
+            mt-20
+            flex flex-col
             w-[25rem]
             tracking-[.2rem]
             relative
@@ -121,6 +122,9 @@ export default {
       default: false,
     },
   },
+  data: () => ({
+    
+  }),
   methods: {
     close() {
       this.$emit("update:modalActive", false);

@@ -12,9 +12,9 @@
                         ></div>
                     </div>
                 </div>
-                <div v-for="event in events" :key="event.slug">                    
+                <div v-for="event in events" :key="event.id">                    
                     <router-link
-                        :to="{ name: 'event', params: { slug: event.slug } }"
+                        :to="{ name: 'event', params: { slug: event.id } }"
                         class="
                             flex flex-col
                             w-full
@@ -51,7 +51,7 @@
                                         tracking-normal
                                         font-thin font-montserrat
                                     "
-                                    v-html="event.subtitle"
+                                    v-html="event.date[0].day"
                                 ></div>
                             </div>
                         </transition>
@@ -119,5 +119,8 @@ export default {
             isLoading: computed(() => store.getters["events/isLoading"]),
         };
     },
+    mounted() {
+        console.log(this.$);
+    }
 };
 </script>

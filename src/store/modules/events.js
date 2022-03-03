@@ -22,17 +22,16 @@ export default {
     actions: {
         async getAll({ commit }) {
             commit('setLoadingStatus', true);
-            const { data } = await eventsApi.getAll();            
+            const { data } = await eventsApi.getAll();                        
             commit('setData', data);
             commit('setLoadedStatus');
-            await new Promise(resolve => setTimeout(resolve, .01));
+            // await new Promise(resolve => setTimeout(resolve, .01));
 
             commit('setLoadingStatus', false);
         },
     },
     getters: {
         all: (state) => state.data,
-        test: (state) => state.test,
         isLoading: (state) => state.loading,
         isLoaded: (state) => state.loaded,
     },

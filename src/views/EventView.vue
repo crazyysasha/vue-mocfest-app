@@ -36,14 +36,21 @@
                         leading-1
                     "
                 >
-                    мыкосмос
+                {{ event.title }}
                 </h1>
             </div>
 
             <div class="mb-5">
                 <p class="font-montserrat tracking-normal">
-                    открытие: <span class="font-bold">19 марта, 18:00</span>
+                    открытие: <span class="font-bold">{{event.date[0].day}}</span>
                 </p>
+                <p 
+                    class="font-montserrat tracking-normal" 
+                    v-for="d in event.date" 
+                    :key="d">
+                        Число: {{ d.day }}<br/>                    
+                        Время: <span v-for="t in d.times" :key="t"> в: {{t}} </span>
+                </p><br>
                 <p class="font-montserrat tracking-normal">
                     локация:
                     <router-link
@@ -196,12 +203,11 @@
                         transition
                         duration-200
                     "
-                    @click="toggleModalOne"
+                    @click="openModal"
                 >
                     Купить билеты
                 </button>
             </div>
-           
         </div>
         <div class="w-full lg:w-3/5 xl:w-2/3 lg:h-screen overflow-y-auto">
             <div class="columns-2 md:columns-3 lg:columns-2 xl:columns-3 gap-0">
@@ -224,38 +230,22 @@
             @hide="hideGallery"
         >
         </VueEasyLightbox>
-        <MainModal
-            @close="toggleModalOne"
-            v-model:modalActive="modalActiveOne"
-            :modalOpen="modalOpen"
-        >
-            <ModalQuantity
-                :toggleModal="toggleModalTwo"
+
+        
+        <MainModal @close="openModal" v-model:modalActive="modalActiveCheck">
+            <ModalCheckEvent
+                :toggleModalPayment="toggleModalPayment"
                 :incQuantity="incQuantity"
                 :decQuantity="decQuantity"
                 :quantity="quantityTicket"
-                :toggleSelect="toggleSelect"
-                :activeSelect="activeSelect"
-            />
-        </MainModal>
-        <MainModal @close="toggleModalTwo" v-model:modalActive="modalActiveTwo">
-            <ModalStatus
-                :toggleModal="toggleModalThree"
-                :incQuantity="incQuantity"
-                :decQuantity="decQuantity"
-                :quantity="quantityTicket"
-                :toggleSelect="toggleSelect"
-                :activeSelect="activeSelect"
+                :event="event"
             />
         </MainModal>
         <MainModal
-            @close="toggleModalThree"
-            v-model:modalActive="modalActiveThree"
+            @close="modalActivePayment"
+            v-model:modalActive="modalActivePayment"
         >
-            <ModalPayment
-                :toggleSelect="toggleSelect"
-                :activeSelect="activeSelect"
-            />
+            <ModalPayment />
         </MainModal>
     </div>
 </template>
@@ -264,19 +254,17 @@
 <script>
 import { inject, ref } from "vue";
 
-import MainModal from "@/components/MainModal.vue";
-import ModalQuantity from "@/components/ModalQuantity.vue";
-import ModalStatus from "@/components/ModalStatus.vue";
-import ModalPayment from "@/components/ModalPayment.vue";
+import MainModal from "@/components/modal/MainModal.vue";
+import ModalCheckEvent from "@/components/modal/ModalCheckEvent.vue";
+import ModalPayment from "@/components/modal/ModalPayment.vue";
 import VueEasyLightbox from "vue-easy-lightbox";
 
 export default {
     components: {
         MainModal,
-        ModalQuantity,
-        ModalStatus,
         ModalPayment,
         VueEasyLightbox,
+        ModalCheckEvent
     },
     setup() {
         const isCollapsed = inject("isCollapsed");
@@ -318,84 +306,39 @@ export default {
     data: () => ({
         modalOpen: false,
         quantityTicket: 1,
-        modalActiveOne: false,
-        modalActiveTwo: false,
-        modalActiveThree: false,
+        modalActiveCheck: false,
+        modalActivePayment: false,
     }),
     methods: {
-        toggleModalOne() {
-            this.modalActiveOne = !this.modalActiveOne;
-            this.quantityTicket = 1;
-            this.modalOpen = !this.modalOpen;
+        openModal() {
+            if(this.event.date.length > 1) {
+                this.modalActiveCheck = !this.modalActiveCheck;
+                this.quantityTicket = 1;
+            } else {
+                this.modalActiveCheck = !this.modalActiveCheck;
+                this.quantityTicket = 1;
+                // this.modalOpen = !this.modalOpen;
+            }
         },
-
-        data: () => ({
-            modalOpen: false,
-            quantityTicket: 1,
-            modalActiveOne: false,
-            modalActiveTwo: false,
-            modalActiveThree: false,
-        }),
-        methods: {
-            toggleModalOne() {
-                this.modalActiveOne = !this.modalActiveOne;
-                this.quantityTicket = 1;
-                this.modalOpen = !this.modalOpen;
-            },
-            toggleModalTwo() {
-                this.modalActiveTwo = !this.modalActiveTwo;
-                this.modalActiveOne = false;
-                this.quantityTicket = 1;
-            },
-            data: () => ({
-                modalOpen: false,
-                quantityTicket: 1,
-                modalActiveOne: false,
-                modalActiveTwo: false,
-                modalActiveThree: false,
-            }),
-            methods: {
-                toggleModalOne() {
-                    this.modalActiveOne = !this.modalActiveOne;
-                    this.quantityTicket = 1;
-                    this.modalOpen = !this.modalOpen;
-                },
-                toggleModalTwo() {
-                    this.modalActiveTwo = !this.modalActiveTwo;
-                    this.modalActiveOne = false;
-                    this.quantityTicket = 1;
-                },
-                toggleModalThree() {
-                    this.modalActiveThree = !this.modalActiveThree;
-                    this.modalActiveTwo = false;
-                    this.quantityTicket = 1;
-                },
-                incQuantity() {
-                    this.quantityTicket++;
-                },
-                decQuantity() {
-                    if (this.quantityTicket > 1) {
-                        this.quantityTicket--;
-                    }
-                },
-            },
-            components: {
-                MainModal,
-                ModalQuantity,
-                ModalStatus,
-                ModalPayment,
-            },
-            decQuantity() {
-                if (this.quantityTicket > 1) {
-                    this.quantityTicket--;
-                }
-            },
+        toggleModalPayment() {
+            this.modalActivePayment = !this.modalActivePayment;
+            this.modalActiveCheck = false;
+            this.quantityTicket = 10;
+        },
+        incQuantity() {
+            this.quantityTicket++;
         },
         decQuantity() {
             if (this.quantityTicket > 1) {
                 this.quantityTicket--;
             }
         },
+    },
+    computed: {
+        event() {
+            const event = this.$store.getters["events/all"].filter(event => event.slug === this.$route.params.slug)[0]
+            return event
+        }
     },
 };
 </script>
