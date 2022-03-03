@@ -12,7 +12,7 @@
                         ></div>
                     </div>
                 </div>
-                <div v-for="event in events" :key="event.slug">                    
+                <div v-for="event in events" :key="event.slug">
                     <router-link
                         :to="{ name: 'event', params: { slug: event.slug } }"
                         class="
@@ -69,6 +69,7 @@
                     transition
                     duration-200
                     tracking-[.2rem]
+                    font-neutralFace
                 "
             >
                 Купить билет
@@ -99,25 +100,11 @@
 </template>
 
 
-<script>
-import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
-
-export default {
-    setup() {
-        const store = useStore();
-
-        const loadEventsData = () => {
-            if (!store.getters["events/isLoaded"]) {
-                store.dispatch("events/getAll");
-            }
-        };
-        
-        onMounted(loadEventsData);        
-        return {
-            events: computed(() => store.getters["events/all"]),
-            isLoading: computed(() => store.getters["events/isLoading"]),
-        };
-    },
-};
+<script setup>
+import useEvents from "@/composables/events";
+import { onMounted } from "@vue/runtime-core";
+const { isLoading, events, error, fetchEvents, isLoaded } = useEvents();
+onMounted(() => {
+    if (!isLoaded.value) fetchEvents();
+});
 </script>

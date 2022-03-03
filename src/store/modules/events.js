@@ -1,4 +1,4 @@
-import eventsApi from "@/api/events";
+// import eventsApi from "@/api/events";
 
 export default {
     namespaced: true,
@@ -22,7 +22,7 @@ export default {
     actions: {
         async getAll({ commit }) {
             commit('setLoadingStatus', true);
-            const { data } = await eventsApi.getAll();            
+            // const { data } = await eventsApi.getAll();
             commit('setData', data);
             commit('setLoadedStatus');
             await new Promise(resolve => setTimeout(resolve, .01));

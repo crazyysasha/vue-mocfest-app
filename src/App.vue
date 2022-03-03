@@ -1,6 +1,6 @@
 <template>
     <component
-        :is="this.$route.meta.layout || WithHeaderLayout"
+        :is="route.meta.layout || WithHeaderLayout"
         class="
             tracking-[.15rem]
             font-neutralFace
@@ -12,11 +12,9 @@
         <router-view />
     </component>
 </template>
-<script>
-// import { useRoute } from "vue-router";
+<script setup>
+import { useRoute } from "vue-router";
 import WithHeaderLayout from "./layouts/WithHeaderLayout.vue";
 
-export default {
-    components: { WithHeaderLayout },
-};
+const route = useRoute();
 </script>

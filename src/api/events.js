@@ -1,45 +1,17 @@
-export default {
-    async getAll() {
-      await new Promise((resolve) => setTimeout(resolve, 2000));  
-  
-      return {
-        data: [
-          {
-            title: "Гроза",
-            slug: "groza",
-            subtitle: "12 марта",
-          },
-          {
-            title: "Stand-Up Dvizh",
-            slug: "stand-up-dvizh",
-            subtitle: "12 марта",
-          },
-          {
-            title: "МЫКОСМОС",
-            slug: "mykosmos",
-            subtitle: "19 марта (событие) <br /> 25 марта-10 апреля (выставка)",
-          },
-          {
-            title: "New Matters",
-            slug: "new-matters",
-            subtitle: "8-24 апреля",
-          },
-          {
-            title: "Cinema Love",
-            slug: "cinema-love",
-            subtitle: "15-17 апреля, 22-24 апреля",
-          },
-        ],
-      };
-    },
-}    
+import axios from "axios";
+
+export const getAll = () => {
+  return axios.get('http://mocfest.loc/api/crazy/mocfest/v1.0.1/events');
+}
 
 
-
+export const getByIdOrSlug = (idOrSlug) => {
+  return axios.get(`http://mocfest.loc/api/crazy/mocfest/v1.0.1/events/${idOrSlug}`);
+} 
 
 // import axios from "axios";
 // export const getAllEvents = async () => {
-//     const { data } = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10');    
+//     const { data } = await axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10');
 //     return data;
 // };
 
