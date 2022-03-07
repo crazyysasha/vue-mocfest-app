@@ -261,7 +261,7 @@
                     "
                 ></span>
             </button>
-            <buy-form> </buy-form>
+            <buy-form :event="event"> </buy-form>
         </c-modal>
     </div>
 </template>

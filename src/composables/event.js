@@ -1,6 +1,6 @@
 
 
-import { getByIdOrSlug } from "@/api/events";
+import { getByIdOrSlug } from "@/api/events.js";
 import { ref } from "vue";
 
 const isLoading = ref(false);
