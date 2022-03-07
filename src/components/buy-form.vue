@@ -11,84 +11,15 @@
                     ></div>
                 </div>
             </div>
-            <div
-                class="
-                    border border-white border-opacity-50
-                    flex
-                    my-2
-                    cursor-pointer
+            <c-select
+                v-model="event"
+                :items="
+                    events.map((item) => {
+                        return { label: item.title, value: item.slug };
+                    })
                 "
-            >
-                <div class="p-3 flex items-center justify-center opacity-0">
-                    <svg
-                        class="m-auto"
-                        width="24"
-                        height="14"
-                        viewBox="0 0 24 14"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path d="M24 0.5L12 12.5L0 0.5" stroke="white" />
-                    </svg>
-                </div>
-                <div class="text-center flex-1 p-2">
-                    <div class="underline underline-offset-2">Гроза</div>
-                    <div
-                        class="
-                            text-xs
-                            tracking-normal
-                            font-thin font-montserrat
-                        "
-                    >
-                        12 марта
-                    </div>
-                </div>
-                <div class="p-3 flex items-center justify-center">
-                    <svg
-                        class="m-auto"
-                        width="24"
-                        height="14"
-                        viewBox="0 0 24 14"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path d="M24 0.5L12 12.5L0 0.5" stroke="white" />
-                    </svg>
-                </div>
-            </div>
-            <div class="border border-white border-opacity-50 flex my-2">
-                <button class="p-3 flex items-center justify-center">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="1"
-                        viewBox="0 0 24 1"
-                        fill="none"
-                    >
-                        <path d="M0 0.5L12 0.5L24 0.5" stroke="white" />
-                    </svg>
-                </button>
-                <div class="text-center flex-1 p-2">
-                    <div class="">Количество</div>
-                    <div class="tracking-normal font-thin font-montserrat">
-                        3
-                    </div>
-                </div>
-                <button class="p-3 flex items-center justify-center">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="25"
-                        viewBox="0 0 24 25"
-                        fill="none"
-                    >
-                        <path
-                            d="M12 0.5L12 12.5M12 24.5L12 12.5M12 12.5L0 12.5M12 12.5L24 12.5"
-                            stroke="white"
-                        />
-                    </svg>
-                </button>
-            </div>
+            ></c-select>
+            <c-counter v-model="quantity" :min="1" :max="10"> </c-counter>
             <div class="pt-5 font-montserrat">
                 <div class="flex justify-between my-2">
                     <div class="opacity-50">Дата события</div>
@@ -141,12 +72,21 @@
 </template>
 
 <script setup>
-const { default: useEvents } = require("@/composables/events");
-const { onMounted } = require("@vue/runtime-core");
+import CSelect from "@/components/c-select.vue";
+import CCounter from "@/components/c-counter.vue";
+import useEvents from "@/composables/events";
+import { onMounted, ref, toRefs } from "vue";
+
+const props = defineProps({
+    event: Object,
+});
+const { event } = toRefs(props);
 
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
 onMounted(() => {
     if (!isLoaded.value) fetchEvents();
 });
+
+const quantity = ref(1);
 </script>
