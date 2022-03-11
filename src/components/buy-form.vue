@@ -13,12 +13,27 @@
             </div>
             <c-select
                 v-model="event"
-                :items="
-                    events.map((item) => {
-                        return { label: item.title, value: item.slug };
-                    })
-                "
-            ></c-select>
+                :items="events"
+                :disabled="true"
+                class="text-white"
+            >
+                <template #default="{ title, subtitle }">
+                    <div class="underline underline-offset-2">
+                        {{ title }}
+                    </div>
+                    <div
+                        class="
+                            text-xs
+                            tracking-normal
+                            font-thin font-montserrat
+                        "
+                        v-html="subtitle"
+                    ></div>
+                </template>
+                <template #options="{ select, title }">
+                    <div @click="select({ title: 'huy' })">{{ title }}</div>
+                </template>
+            </c-select>
             <c-counter v-model="quantity" :min="1" :max="10"> </c-counter>
             <div class="pt-5 font-montserrat">
                 <div class="flex justify-between my-2">
@@ -75,13 +90,14 @@
 import CSelect from "@/components/c-select.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
-import { onMounted, ref, toRefs } from "vue";
+import { onMounted, reactive, ref, toRefs, watch } from "vue";
 
 const props = defineProps({
     event: Object,
 });
-const { event } = toRefs(props);
 
+const { event } = toRefs(reactive({ ...props }));
+watch(event, console.log);
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
 onMounted(() => {
