@@ -16,15 +16,12 @@
             </svg>
         </div>
         <div class="text-center flex-1 p-2">
-            <slot :="modelValue">
-                <div class="underline underline-offset-2">
-                    {{ modelValue.title }}
-                </div>
-                <div
-                    class="text-xs tracking-normal font-thin font-montserrat"
-                    v-html="modelValue.subtitle"
-                ></div>
-            </slot>
+            <div class="underline underline-offset-2">
+                дата    
+            </div>
+            <div class="text-xs tracking-normal font-thin font-montserrat">
+                {{modelValue.title}} (осталось {{lengthTickets}} мест)          
+            </div>            
         </div>
         <div class="p-3 flex items-center justify-center">
             <svg
@@ -52,17 +49,14 @@
                     bg-zinc-800
                 "                
                 v-if="isOpen"
-                style="left: -2px; right: -2px"
-            >
+                style="left: -2px; right: -2px"                
+            >            
                 <div
-                    class="hover:bg-white hover:text-black"
-                    v-for="item in items"
-                    :key="item.value"
-                    @click.stop="select(item)"
+                    class="flex justify-between hover:bg-white hover:text-black px-4 py-1"
+                    v-for="date, key in modelValue.tickets"
+                    :key="date.id"                    
                 >
-                    <slot name="options" :select="select" :="item">
-                        {{ item.title }}
-                    </slot>
+                  <strong>{{key + 1}}:</strong>  <span>{{ date.valid_at }}</span>
                 </div>
             </div>
         </transition>
@@ -71,20 +65,14 @@
 
 
 <script setup>
-import { toRefs, ref, onMounted, onUnmounted } from "vue";
+import { reactive, toRefs, ref, onMounted, onUnmounted } from "vue";
 
 const props = defineProps({
-    modelValue: Object,
-    items: {
-        type: Array,
-        default() {
-            return [{ label: "Нет данных", value: null }];
-        },
-    },
+    modelValue: Object,  
+    lengthTickets: Number  
 });
-const { modelValue, items } = toRefs(props);
-
-const emit = defineEmits(["update:modelValue"]);
+// const emit = defineEmits(["update:modelValue"]);
+const { modelValue } = toRefs(props);
 
 const isOpen = ref(false);
 
@@ -99,15 +87,12 @@ const toggle = () => {
     isOpen.value = !isOpen.value;
 };
 const select = (item) => {
-    emit("update:modelValue", item);
-    emit("quantityTickets", item.tickets.length);
-    emit("firstDateEvent", item.tickets.length ? item.tickets[0].valid_at : null);
-    hide();
+    // emit("update:modelValue", item);
+    // hide();
 };
 
 const hideHandler = (event) => {
     if (event?.keyCode == 27 || event.type == "click") {
-        console.log("asd");
         hide();
     }
 };

@@ -7,14 +7,12 @@
             <div class="p-2 flex flex-col">
                 <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
                     <div class="h-10 w-10 animate-pulse rounded-full bg-white">
-                        <div
-                            class="animate-ping h-10 w-10 rounded-full bg-white"
-                        ></div>
+                        <div class="animate-ping h-10 w-10 rounded-full bg-white"></div>
                     </div>
                 </div>
                 <div v-for="event in events" :key="event.slug">
                     <router-link
-                        :to="{ name: 'event', params: { slug: event.id } }"
+                        :to="{ name: 'event', params: { slug: event.slug } }"
                         class="
                             flex flex-col
                             w-full
@@ -51,7 +49,7 @@
                                         tracking-normal
                                         font-thin font-montserrat
                                     "
-                                    v-html="event.date[0].day"
+                                    v-html="event.subtitle"
                                 ></div>
                             </div>
                         </transition>
@@ -98,7 +96,6 @@
         </div>
     </div>
 </template>
-
 
 <script setup>
 import useEvents from "@/composables/events";

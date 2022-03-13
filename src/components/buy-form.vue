@@ -12,10 +12,12 @@
                 </div>
             </div>
             <c-select
+                class="text-white"
                 v-model="event"
                 :items="events"
+                @quantityTickets="quantityTickets"
+                @firstDateEvent="firstDateEvent"
                 :disabled="true"
-                class="text-white"
             >
                 <template #default="{ title, subtitle }">
                     <div class="underline underline-offset-2">
@@ -34,15 +36,25 @@
                     <div @click="select({ title: 'huy' })">{{ title }}</div>
                 </template>
             </c-select>
+
+
+            <c-select-date
+                class="text-white"
+                v-model="event"  
+                :lengthTickets="lengthTickets"                                              
+                :disabled="true"
+            >                                
+            </c-select-date>
+            
             <c-counter v-model="quantity" :min="1" :max="10"> </c-counter>
-            <div class="pt-5 font-montserrat">
+            <div 
+                class="pt-5 font-montserrat">
                 <div class="flex justify-between my-2">
                     <div class="opacity-50">Дата события</div>
-                    <div>9 апр.</div>
                 </div>
                 <div class="flex justify-between my-2">
                     <div class="opacity-50">Начало</div>
-                    <div>18:00</div>
+                    <div>{{eventDate}}</div>
                 </div>
             </div>
         </div>
@@ -88,16 +100,26 @@
 
 <script setup>
 import CSelect from "@/components/c-select.vue";
+import CSelectDate from "@/components/c-select-date.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
-import { onMounted, reactive, ref, toRefs, watch } from "vue";
+import { onMounted, onComputed, reactive, ref, toRefs } from "vue";
 
 const props = defineProps({
     event: Object,
 });
 
 const { event } = toRefs(reactive({ ...props }));
-watch(event, console.log);
+const lengthTickets = ref(event.value.tickets.length);
+const eventDate = ref(lengthTickets.value ? event.value.tickets[0].valid_at : '');
+
+const quantityTickets = (val) => {
+    lengthTickets.value = val
+};
+const firstDateEvent = (val) => {
+    eventDate.value = val    
+};
+
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
 onMounted(() => {

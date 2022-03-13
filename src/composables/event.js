@@ -1,5 +1,3 @@
-
-
 import { getByIdOrSlug } from "@/api/events.js";
 import { ref } from "vue";
 
