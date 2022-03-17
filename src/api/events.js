@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const getAll = () => {
-  return axios.get('http://oc-mocfest-app/api/crazy/mocfest/v1.0.1/events');
+  return axios.get(`${process.env.VUE_APP_API_URL}/events`);
 }
 
 
 export const getByIdOrSlug = (idOrSlug) => {
-  return axios.get(`http://oc-mocfest-app/api/crazy/mocfest/v1.0.1/events/${idOrSlug}`);
+  return axios.get(`${process.env.VUE_APP_API_URL}/events/${idOrSlug}`);
 }
 
 // import axios from "axios";

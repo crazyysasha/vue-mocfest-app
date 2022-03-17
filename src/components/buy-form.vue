@@ -103,7 +103,7 @@ import CSelect from "@/components/c-select.vue";
 import CSelectDate from "@/components/c-select-date.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
-import { onMounted, onComputed, reactive, ref, toRefs } from "vue";
+import { onMounted, reactive, ref, toRefs } from "vue";
 
 const props = defineProps({
     event: Object,
