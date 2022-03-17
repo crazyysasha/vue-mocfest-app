@@ -21,7 +21,7 @@
                     {{ modelValue.title }}
                 </div>
                 <div
-                    class="text-xs tracking-normal font-thin font-montserrat"
+                    class="text-md tracking-normal font-thin font-montserrat"
                     v-html="modelValue.subtitle"
                 ></div>
             </slot>
@@ -100,7 +100,7 @@ const toggle = () => {
 };
 const select = (item) => {
     emit("update:modelValue", item);
-    emit("quantityTickets", item.tickets.length);
+    emit("quantityTickets", item.tickets.length);    
     emit("firstDateEvent", item.tickets.length ? item.tickets[0].valid_at : null);
     hide();
 };

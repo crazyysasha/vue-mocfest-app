@@ -25,7 +25,7 @@
                     </div>
                     <div
                         class="
-                            text-xs
+                            text-md
                             tracking-normal
                             font-thin font-montserrat
                         "
@@ -110,7 +110,7 @@ const props = defineProps({
 });
 
 const { event } = toRefs(reactive({ ...props }));
-const lengthTickets = ref(event.value.tickets.length);
+const lengthTickets = ref(1);
 const eventDate = ref(lengthTickets.value ? event.value.tickets[0].valid_at : '');
 
 const quantityTickets = (val) => {
