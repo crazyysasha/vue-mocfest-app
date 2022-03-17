@@ -19,8 +19,8 @@
             <div class="underline underline-offset-2">
                 дата    
             </div>
-            <div class="text-xs tracking-normal font-thin font-montserrat">
-                {{modelValue.title}} (осталось {{lengthTickets}} мест)          
+            <div class="text-md tracking-normal font-thin font-montserrat">
+                {{subtitleDate}} (осталось {{quantityTicket.length}} мест)          
             </div>            
         </div>
         <div class="p-3 flex items-center justify-center">
@@ -53,10 +53,11 @@
             >            
                 <div
                     class="flex justify-between hover:bg-white hover:text-black px-4 py-1"
-                    v-for="date, key in modelValue.tickets"
-                    :key="date.id"                    
+                    v-for="date, key in ticketsDate"
+                    :key="date"
+                    @click.stop="select(date)"                    
                 >
-                  <strong>{{key + 1}}:</strong>  <span>{{ date.valid_at }}</span>
+                  <strong>{{key + 1}}:</strong>  <span>{{ date }}</span>
                 </div>
             </div>
         </transition>
@@ -65,30 +66,42 @@
 
 
 <script setup>
-import { reactive, toRefs, ref, onMounted, onUnmounted } from "vue";
+import { reactive, toRefs, ref, onMounted, onUnmounted, onComputed } from "vue";
 
 const props = defineProps({
     modelValue: Object,  
     lengthTickets: Number  
 });
-// const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 const { modelValue } = toRefs(props);
 
-const isOpen = ref(false);
 
+const groupByTicket = modelValue.value.tickets.reduce((group, product) => {
+  const { valid_at } = product;
+  group[valid_at] = group[valid_at] ?? [];
+  group[valid_at].push(product);
+  return group;
+}, {});
+
+const ticketsDate = Object.keys(groupByTicket);
+const subtitleDate = ref();
+const quantityTicket = ref(modelValue.value.tickets.filter(t => t.valid_at === subtitleDate.value));
+
+const isOpen = ref(false);
 const show = () => {
     isOpen.value = true;
 };
 const hide = () => {
     isOpen.value = false;
 };
-
 const toggle = () => {
     isOpen.value = !isOpen.value;
 };
-const select = (item) => {
-    // emit("update:modelValue", item);
-    // hide();
+
+const select = (date) => {
+    subtitleDate.value = date;
+    quantityTicket.value = modelValue.value.tickets.filter(t => t.valid_at === date);
+    hide();
 };
 
 const hideHandler = (event) => {

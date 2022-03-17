@@ -1,8 +1,8 @@
 <template>
-    <div class="container mx-auto mt-auto">
+    <div class="container mx-auto mt-10">
         <div class="grid lg:grid-cols-5 grid-cols-3 p-5">
             <div v-for="partner in partners" :key="partner.id">
-                <a :href="partner.link" class="flex h-full p-3">
+                <a :href="'https://' + partner.link" class="flex h-full p-3">
                     <img :src="partner.image.path" alt="" class="m-auto" />
                 </a>
             </div>

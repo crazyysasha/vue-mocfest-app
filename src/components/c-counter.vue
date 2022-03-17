@@ -71,8 +71,12 @@ const props = defineProps({
         type: Number,
         required: true,
     },
+    lengthTicket: {
+        type: Number,
+        default: 1
+    }
 });
-const { modelValue, min, max } = toRefs(props);
+const { modelValue, min, max, lengthTicket } = toRefs(props);
 const emit = defineEmits(["update:modelValue"]);
 
 const updateValue = (val) => {
