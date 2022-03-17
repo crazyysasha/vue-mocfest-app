@@ -14,10 +14,9 @@
             <c-select
                 class="text-white"
                 v-model="event"
-                :items="events"
-                @quantityTickets="quantityTickets"
-                @firstDateEvent="firstDateEvent"
+                :options="events"
                 :disabled="true"
+                option-key="id"
             >
                 <template #default="{ title, subtitle }">
                     <div class="underline underline-offset-2">
@@ -32,31 +31,46 @@
                         v-html="subtitle"
                     ></div>
                 </template>
-                <template #options="{ select, title }">
-                    <div @click="select({ title: 'huy' })">{{ title }}</div>
+                <template #option="{ option }">
+                    <div>{{ option.title }}</div>
                 </template>
             </c-select>
 
-
-            <c-select-date
+            <!-- <c-select
                 class="text-white"
-                v-model="event"  
-                :lengthTickets="lengthTickets"                                              
+                v-model="date"
+                :options="dates"
                 :disabled="true"
-            >                                
-            </c-select-date>
-            
-            <c-counter v-model="quantity" :min="1" :max="10"> </c-counter>
-            <div 
-                class="pt-5 font-montserrat">
+                option-key="id"
+            >
+                <template #default="{ title, subtitle }">
+                    <div class="underline underline-offset-2">
+                        {{ title }}
+                    </div>
+                    <div
+                        class="
+                            text-md
+                            tracking-normal
+                            font-thin font-montserrat
+                        "
+                        v-html="subtitle"
+                    ></div>
+                </template>
+                <template #option="{ option }">
+                    <div>{{ option.title }}</div>
+                </template>
+            </c-select> -->
+
+            <!-- <c-counter v-model="quantity" :min="1" :max="10"> </c-counter> -->
+            <!-- <div class="pt-5 font-montserrat">
                 <div class="flex justify-between my-2">
                     <div class="opacity-50">Дата события</div>
                 </div>
                 <div class="flex justify-between my-2">
                     <div class="opacity-50">Начало</div>
-                    <div>{{eventDate}}</div>
+                    <div>{{ eventDate }}</div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <button
             class="
@@ -100,31 +114,77 @@
 
 <script setup>
 import CSelect from "@/components/c-select.vue";
-import CSelectDate from "@/components/c-select-date.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
-import { onMounted, reactive, ref, toRefs } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const props = defineProps({
     event: Object,
 });
 
-const { event } = toRefs(reactive({ ...props }));
-const lengthTickets = ref(1);
-const eventDate = ref(lengthTickets.value ? event.value.tickets[0].valid_at : '');
+const event = ref(props.event);
 
-const quantityTickets = (val) => {
-    lengthTickets.value = val
-};
-const firstDateEvent = (val) => {
-    eventDate.value = val    
-};
+const dates = ref(
+    Array.from(props.event.tickets).reduce((group, ticket) => {
+        const [validAtDate, validAtTime] = [
+            new Date(ticket.valid_at).toLocaleDateString(),
+            new Date(ticket.valid_at).toLocaleTimeString(),
+        ];
+        console.log("date: ", validAtDate, "time: ", validAtTime);
+        group[validAtDate] = group[validAtDate] || {};
+        group[validAtDate][validAtTime] = group[validAtDate][validAtTime] || [];
+        group[validAtDate][validAtTime].push(ticket);
+        return group;
+    }, {})
+);
+
+// const data = {
+//     "12.3.2022": {
+//         "15:00": [
+//             //...tickets
+//         ],
+//     },
+// };
+
+// const data = [
+//     {
+//         title: "12.3.2022",
+//         times: [
+//             {
+//                 title: "15:00",
+//                 tickets: [
+//                     //...tickets
+//                 ],
+//             },
+//         ],
+//     },
+// ];
+// const date = ref(dates.value[0]);
+
+// console.log(date);
+watch(event, (newEvent) => {
+    console.log(
+        Array.from(newEvent.tickets).reduce((group, ticket) => {
+            const [validAtDate, validAtTime] = [
+                new Date(ticket.valid_at).toLocaleDateString(),
+                new Date(ticket.valid_at).toLocaleTimeString(),
+            ];
+            console.log("date: ", validAtDate, "time: ", validAtTime);
+            group[validAtDate] = group[validAtDate] || {};
+            group[validAtDate][validAtTime] =
+                group[validAtDate][validAtTime] || [];
+            group[validAtDate][validAtTime].push(ticket);
+            return group;
+        }, {})
+    );
+});
 
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
 onMounted(() => {
     if (!isLoaded.value) fetchEvents();
 });
-
-const quantity = ref(1);
+const log = (ctx) => {
+    console.log(ctx);
+};
 </script>

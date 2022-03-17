@@ -1,6 +1,12 @@
 <template>
     <div
-        class="border border-white border-opacity-50 flex my-2 cursor-pointer relative"
+        class="
+            border border-white border-opacity-50
+            flex
+            my-2
+            cursor-pointer
+            relative
+        "
         @click.prevent.stop="toggle"
     >
         <div class="p-3 flex items-center justify-center opacity-0">
@@ -39,7 +45,7 @@
                 <path d="M24 0.5L12 12.5L0 0.5" stroke="white" />
             </svg>
         </div>
-        <transition>            
+        <transition>
             <div
                 class="
                     select
@@ -50,17 +56,17 @@
                     top-full
                     z-10
                     bg-zinc-800
-                "                
+                "
                 v-if="isOpen"
                 style="left: -2px; right: -2px"
             >
                 <div
                     class="hover:bg-white hover:text-black"
-                    v-for="item in items"
-                    :key="item.value"
-                    @click.stop="select(item)"
+                    v-for="option in options"
+                    :key="option[optionKey]"
+                    @click.stop="onSelect(option)"
                 >
-                    <slot name="options" :select="select" :="item">
+                    <slot name="option" :onSelect="onSelect" :option="option">
                         {{ item.title }}
                     </slot>
                 </div>
@@ -75,14 +81,19 @@ import { toRefs, ref, onMounted, onUnmounted } from "vue";
 
 const props = defineProps({
     modelValue: Object,
-    items: {
+    options: {
         type: Array,
         default() {
             return [{ label: "Нет данных", value: null }];
         },
     },
+    optionKey: {
+        type: String,
+        default() {
+            return "key";
+        },
+    },
 });
-const { modelValue, items } = toRefs(props);
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -98,10 +109,8 @@ const hide = () => {
 const toggle = () => {
     isOpen.value = !isOpen.value;
 };
-const select = (item) => {
+const onSelect = (item) => {
     emit("update:modelValue", item);
-    emit("quantityTickets", item.tickets.length);    
-    emit("firstDateEvent", item.tickets.length ? item.tickets[0].valid_at : null);
     hide();
 };
 
