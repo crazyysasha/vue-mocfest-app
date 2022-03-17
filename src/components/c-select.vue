@@ -67,7 +67,7 @@
                     @click.stop="onSelect(option)"
                 >
                     <slot name="option" :onSelect="onSelect" :option="option">
-                        {{ item.title }}
+                        {{ option.title }}
                     </slot>
                 </div>
             </div>
@@ -116,7 +116,6 @@ const onSelect = (item) => {
 
 const hideHandler = (event) => {
     if (event?.keyCode == 27 || event.type == "click") {
-        console.log("asd");
         hide();
     }
 };

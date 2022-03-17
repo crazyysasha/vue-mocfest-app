@@ -29,7 +29,6 @@
                     text-center
                     focus:outline-none
                 "
-                placeholder="Количество билетов"
                 :min="min"
                 :max="max"
             />
@@ -82,18 +81,22 @@ const emit = defineEmits(["update:modelValue"]);
 const updateValue = (val) => {
     emit("update:modelValue", parseInt(val));
 };
-const input = (event) => {
-    let value = parseInt(event.target.value);
-    if (value > max.value) {
-        value = max.value;
-    }
-    if (value < min.value) {
-        value = min;
-    }
+const input = (event) => {    
+    // console.log(event);
+    // let value = parseInt(event.data);
+    // if (value > max.value) {
+    //     value = max.value;
+    // }
+    // if (value < min.value) {
+    //     value = min;
+    // }
+    const value = event.data
     updateValue(value);
-    return value;
+    // console.log(value);
+    // return value;
 };
 
+console.log(modelValue.value);
 const increment = () => {
     updateValue(modelValue.value + 1);
 };
@@ -102,6 +105,8 @@ const decrement = () => {
 };
 </script>
 <style scoped>
+
+
 input::-webkit-inner-spin-button {
     display: none;
 }

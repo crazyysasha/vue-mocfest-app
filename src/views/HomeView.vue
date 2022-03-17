@@ -69,9 +69,10 @@
                     tracking-[.2rem]
                     font-neutralFace
                 "
+                @click="modalIsOpen = true"
             >
                 Купить билет
-            </button>
+            </button>            
         </div>
         <div class="font-montserrat text-center text-sm my-auto">
             <div class="">
@@ -94,14 +95,58 @@
                 </div>
             </div>
         </div>
+        <c-modal v-model="modalIsOpen" v-slot="{ close }">
+            <button @click="close" class="absolute -right-8">
+                <span
+                    class="
+                        w-6
+                        scale-110
+                        h-px
+                        block
+                        bg-white
+                        my-2
+                        transform
+                        transition
+                        duration-200
+                        ease
+                        rotate-45
+                        translate-y-[4.5px]
+                    "
+                ></span>
+                <span
+                    class="
+                        w-6
+                        scale-110
+                        h-px
+                        block
+                        bg-white
+                        my-2
+                        transform
+                        transition
+                        duration-200
+                        ease
+                        -rotate-45
+                        -translate-y-[4.5px]
+                    "
+                ></span>
+            </button>
+            <buy-form :event="events[0]"> </buy-form>
+        </c-modal>
     </div>
 </template>
 
 <script setup>
-import useEvents from "@/composables/events";
+import { ref } from 'vue'
+
 import { onMounted } from "@vue/runtime-core";
+import useEvents from "@/composables/events";
+import CModal from "@/components/c-modal.vue";
+import BuyForm from "@/components/buy-form.vue";
+
 const { isLoading, events, error, fetchEvents, isLoaded } = useEvents();
 onMounted(() => {
     if (!isLoaded.value) fetchEvents();
 });
+
+const modalIsOpen = ref(false);
 </script>

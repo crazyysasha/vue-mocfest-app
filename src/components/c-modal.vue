@@ -20,7 +20,7 @@
                         items-center
                         overflow-y-auto
                     "
-                >
+                > 
                     <transition
                         enter-from-class="scale-50 "
                         enter-active-class="transition-all ease-out duration-200 transform transform-gpu"
