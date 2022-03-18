@@ -111,6 +111,7 @@
             <div v-else>
                 <div
                     class="border-2 border-neutral-700 px-4 py-1 mb-4 relative"
+                    ref="borderEmail"
                 >
                     <input
                         type="text"
@@ -129,6 +130,7 @@
                 </div>
                 <div
                     class="border-2 border-neutral-700 px-4 py-1 mb-4 relative"
+                    ref="borderphone"
                 >
                     <input
                         type="text"
@@ -207,7 +209,15 @@
                 tracking-[.2rem]
                 font-neutralFace
             "
-            @click="isPayment = true"
+            @click.prevent="!quantity ? '' : onCreate(
+                {
+                    event: event.id, 
+                    date: date.title, 
+                    time: time.title, 
+                    quantity, 
+                    email,
+                    phone: phoneNumber
+                }); !quantity ? '' : isPayment = true"
             v-if="!isPayment"
         >
             Продолжить
@@ -225,8 +235,8 @@
                 tracking-[.2rem]
                 font-neutralFace
             "
-            v-if="isPayment"
-            @click="addOrder(ticketOrder)"
+            v-if="isPayment"            
+            @click="isNotEmptyInput"
         >
             Купить билеты
         </button>
@@ -285,9 +295,7 @@ const grouper = (tickets) => {
     });
 };
 
-const props = defineProps({
-    event: Object,
-});
+const props = defineProps({event: Object});
 
 const event = ref(props.event);
 
@@ -295,12 +303,15 @@ const dates = ref(grouper(event.value.tickets));
 const date = ref(dates.value[0]);
 
 const times = ref(date.value.times);
-
 const time = ref(times.value[0]);
 
 const tickets = ref(time.value.tickets || []);
 
 const quantity = ref(1);
+
+const email = ref("");
+
+const phoneNumber = ref("");
 
 // BAD: тут цена берется от всех билетов и суммируется
 // const totalPrice = ref(
@@ -317,10 +328,19 @@ const totalPrice = computed(() => {
     }, 0);
 });
 
-const email = ref("");
+const borderEmail = ref();
+const borderphone = ref();
+const isNotEmptyInput = () => {
+    if (email.value == '' || phoneNumber.value == '') {
+        borderEmail.value.className += ' border-rose-900';
+        borderphone.value.className += ' border-rose-900'
+    } else {
+        borderEmail.value.className += ' border-white';
+        borderphone.value.className += ' border-white'
+    }
+}
 
-const phoneNumber = ref("");
-
+//========================================
 watch(event, (newEvent) => {
     dates.value = grouper(newEvent.tickets);
     date.value = dates.value[0];
@@ -338,27 +358,21 @@ watch(tickets, (newTickets) => {
     quantity.value =
         quantity.value < newTickets.length ? quantity.value : newTickets.length;
 });
+
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
-const payments = [
-    { id: 1, title: "Payme" },
-    { id: 2, title: "Click" },
-];
-const payment = ref(payments[0]);
 
 onMounted(() => {
     if (!isLoaded.value) fetchEvents();
 });
 
+const payments = [
+    { id: 1, title: "Payme" },
+    { id: 2, title: "Click" },
+];
+
+const payment = ref(payments[0]);
+
 const isPayment = ref(false);
 
-const ticketOrder = {
-    email: email.value,
-    phone: phoneNumber.value,
-    name: event.value.title,
-    quantity: quantity.value,
-    price: totalPrice.value,
-    payment: payment.value.title,
-};
-
-const { addOrder } = useOrder();
+const { onCreate, onUpdate } = useOrder();
 </script>

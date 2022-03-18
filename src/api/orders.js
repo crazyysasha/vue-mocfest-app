@@ -8,18 +8,19 @@ import axios from "axios";
 		и зададим дефолтное значение для того что бы не допустить выброс искючение на уровне javascript
 */
 
-export const create = ({ tickets = [] }) => {
-
-	return axios.post(`${process.env.VUE_APP_API_URL}/order`, { tickets })
+export const create = (tickets) => {
+	return axios.post(`${process.env.VUE_APP_API_URL}/orders`, tickets)
 		.then(response => console.log(response))
 		.catch(error => console.log(error));
 };
 
 // метод изменения заказа, нужен для того что бы задать номер телефона к заказу и почту 
 export const update = ({
-	phone, email,
+	id, phone, email
 }) => {
-	// TODO: описать полностью
+	return axios.post(`${process.env.VUE_APP_API_URL}/order/${id}`, {email, phone})
+		.then(response => console.log(response))
+		.catch(error => console.log(error));
 }
 
 /// метод оплаты заказа

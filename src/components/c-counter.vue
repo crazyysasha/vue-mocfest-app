@@ -1,5 +1,7 @@
 <template>
-    <div class="border border-white border-opacity-50 flex my-2">
+    <div 
+        class="border border-white border-opacity-50 flex my-2"
+        :class="!modelValue ? 'border-rose-900' : ''">
         <button
             class="p-3 flex items-center justify-center disabled:opacity-50"
             @click="decrement"
@@ -16,11 +18,12 @@
             </svg>
         </button>
         <div class="text-center flex-1 p-2">
-            <div class="">Количество</div>
+            <div :class="!modelValue ? 'text-rose-900' : ''">Количество</div>
             <input
                 type="number"
                 :value="modelValue"
                 @input="input"
+                @keydown="updateValue"
                 class="
                     tracking-normal
                     font-thin font-montserrat
@@ -29,6 +32,7 @@
                     text-center
                     focus:outline-none
                 "
+                placeholder="0"
                 :min="min"
                 :max="max"
             />
@@ -81,22 +85,18 @@ const emit = defineEmits(["update:modelValue"]);
 const updateValue = (val) => {
     emit("update:modelValue", parseInt(val));
 };
-const input = (event) => {    
-    // console.log(event);
-    // let value = parseInt(event.data);
-    // if (value > max.value) {
-    //     value = max.value;
-    // }
-    // if (value < min.value) {
-    //     value = min;
-    // }
-    const value = event.data
+const input = (event) => {
+    let value = parseInt(event.data);
+    if (value > max.value) {
+        value = max.value;
+    }
+    if (value < min.value) {
+        value = min;
+    }    
     updateValue(value);
-    // console.log(value);
-    // return value;
+    return value;
 };
 
-console.log(modelValue.value);
 const increment = () => {
     updateValue(modelValue.value + 1);
 };
