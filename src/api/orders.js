@@ -10,8 +10,8 @@ import axios from "axios";
 
 export const create = (tickets) => {
 	return axios.post(`${process.env.VUE_APP_API_URL}/orders`, tickets)
-		.then(response => console.log(response))
-		.catch(error => console.log(error));
+		.then(response => response.data.data.id)
+		.catch(error => error);
 };
 
 // метод изменения заказа, нужен для того что бы задать номер телефона к заказу и почту 
@@ -19,8 +19,8 @@ export const update = ({
 	id, phone, email
 }) => {
 	return axios.post(`${process.env.VUE_APP_API_URL}/order/${id}`, {email, phone})
-		.then(response => console.log(response))
-		.catch(error => console.log(error));
+		.then(response => response)
+		.catch(error => error);
 }
 
 /// метод оплаты заказа

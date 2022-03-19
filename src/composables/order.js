@@ -7,26 +7,26 @@ const orders = useStorage();
 // доработать до конца
 
 export default function useOrder() {
-	const isLoading = ref(false);
+	const isLoading = ref(true);
 	const error = ref(); 
 	const data = ref();
 	const onCreate = async (tickets) => {
-		const response = await create(tickets);
+		await create(tickets).then((res) => {
+			data.value = res
+		});
 	};
 	const onUpdate = async (data) => {
-		const response = await update(data);
-	}
-	const onBuy = () => {
-
+		await update(data).then((res) => {
+			data.value = res
+		}).catch((e) => error.value = e);
 	}
 
 	return {
 		onCreate,
 		onUpdate,
-		onBuy,
 		orders: readonly(orders),
 		isLoading: readonly(isLoading),
-		error: readonly(error),
+		orderError: readonly(error),
 		data: readonly(data),
 	};
 }

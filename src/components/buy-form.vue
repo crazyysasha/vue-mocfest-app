@@ -111,7 +111,7 @@
             <div v-else>
                 <div
                     class="border-2 border-neutral-700 px-4 py-1 mb-4 relative"
-                    ref="borderEmail"
+                    ref="inputEmail"
                 >
                     <input
                         type="text"
@@ -126,11 +126,12 @@
                             text-lg
                         "
                         v-model="email"
+                        @input="isNotEmptyInput"
                     />
                 </div>
                 <div
                     class="border-2 border-neutral-700 px-4 py-1 mb-4 relative"
-                    ref="borderphone"
+                    ref="inputPhone"
                 >
                     <input
                         type="text"
@@ -145,6 +146,7 @@
                             text-lg
                         "
                         v-model="phoneNumber"
+                        @input="isNotEmptyInput"
                     />
                 </div>
 
@@ -235,8 +237,8 @@
                 tracking-[.2rem]
                 font-neutralFace
             "
-            v-if="isPayment"            
-            @click="isNotEmptyInput"
+            v-if="isPayment" 
+            @click="isNotEmptyInput"           
         >
             Купить билеты
         </button>
@@ -269,7 +271,7 @@ import CSelect from "@/components/c-select.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
 import useOrder from "@/composables/order";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, toRefs, watch } from "vue";
 
 const grouper = (tickets) => {
     return Object.entries(
@@ -328,18 +330,26 @@ const totalPrice = computed(() => {
     }, 0);
 });
 
-const borderEmail = ref();
-const borderphone = ref();
-const isNotEmptyInput = () => {
-    if (email.value == '' || phoneNumber.value == '') {
-        borderEmail.value.className += ' border-rose-900';
-        borderphone.value.className += ' border-rose-900'
+const inputEmail = ref();
+const inputPhone = ref();
+
+const isNotEmptyInput = (e) => {    
+    const parentClassList = e.target.parentNode.classList;
+    const classBorder = 'border-rose-900';
+    
+    if(email.value == '' && phoneNumber.value == '') {
+        inputEmail.value.classList.add(classBorder);
+        inputPhone.value.classList.add(classBorder);        
+        return true
+    } else if (e.target.localName == 'input' && e.target.value == '') {
+        parentClassList.add(classBorder);         
+    } else if(e.target.localName == 'input' && e.target.value != '') {
+        parentClassList.remove(classBorder);                
+        return false
     } else {
-        borderEmail.value.className += ' border-white';
-        borderphone.value.className += ' border-white'
+        return onUpdate({id: data.value, email: email.value, phone: phoneNumber.value});
     }
 }
-
 //========================================
 watch(event, (newEvent) => {
     dates.value = grouper(newEvent.tickets);
@@ -367,12 +377,11 @@ onMounted(() => {
 
 const payments = [
     { id: 1, title: "Payme" },
-    { id: 2, title: "Click" },
 ];
 
 const payment = ref(payments[0]);
 
 const isPayment = ref(false);
 
-const { onCreate, onUpdate } = useOrder();
+const {data, orderError, onCreate, onUpdate } = useOrder();
 </script>
