@@ -20,7 +20,7 @@ const routes = [
     meta: { layout: WithHeaderLayout },
   },
   {
-    path: '/events/:slug*',
+    path: '/events/:slug?',
     name: 'events',
     component: () => import(/* webpackChunkName: "event" */ '../views/EventsView.vue'),
     meta: { layout: WithHeaderLayout },

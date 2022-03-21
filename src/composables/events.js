@@ -9,9 +9,9 @@ const error = ref(null);
 
 export default function useEvents() {
 
-    const fetchEvents = () => {
+    const fetchEvents = async () => {
         isLoading.value = true;
-        getAll().then((res) => {
+        await getAll().then((res) => {
             events.value = res.data;
             isLoading.value = false;
             isLoaded.value = true;
