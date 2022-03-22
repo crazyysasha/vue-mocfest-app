@@ -1,5 +1,5 @@
 import { getAll } from "@/api/events";
-import { ref } from "vue";
+import { readonly, ref } from "vue";
 
 const isLoading = ref(false);
 const isLoaded = ref(false);
@@ -18,6 +18,12 @@ export default function useEvents() {
         }).catch((reason) => error.value = reason);
     };
 
-    return { isLoading, events, error, fetchEvents, isLoaded };
+    return {
+        fetchEvents,
+        events: readonly(events),
+        isLoading: readonly(isLoading),
+        isLoaded: readonly(isLoaded),
+        error: readonly(error),
+    };
 
 }
