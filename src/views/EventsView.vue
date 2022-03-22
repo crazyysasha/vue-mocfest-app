@@ -48,7 +48,17 @@ const moveCamera = (slug) => {
             checkZoomRange: true,
             timingFunction: "ease",
         });
-    else
+    else if (events.value.length == 1)
+        yMap.value.setCenter(
+            events.value.map((event) => [event.latitude, event.longitude])[0],
+            15,
+            {
+                duration: 2000,
+                checkZoomRange: true,
+                timingFunction: "ease",
+            }
+        );
+    else if (events.value.length > 1)
         yMap.value.setBounds(
             events.value.map((event) => [event.latitude, event.longitude]),
             {
