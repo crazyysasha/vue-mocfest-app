@@ -1,9 +1,9 @@
 <template>
     <div class="border border-white shadow-2xl bg-black text-white">
-        <div class="p-8 pb-4">
+        <div class="p-2 sm:p-4 pb-4">
             <img src="@/assets/logo.png" alt="" class="mx-auto" />
         </div>
-        <div class="flex flex-col font-neutralFace p-6">
+        <div class="flex flex-col font-neutralFace p-4 sm:p-6">
             <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
                 <div class="h-10 w-10 animate-pulse rounded-full bg-white">
                     <div

@@ -2,7 +2,7 @@
     <div 
         class="border border-white border-opacity-50 flex my-2"
         :class="!modelValue ? 'border-rose-900' : ''">
-        <button
+        <button 
             class="p-3 flex items-center justify-center disabled:opacity-50"
             @click="decrement"
             :disabled="modelValue <= min"
@@ -17,7 +17,7 @@
                 <path d="M0 0.5L12 0.5L24 0.5" stroke="white" />
             </svg>
         </button>
-        <div class="text-center flex-1 p-2">
+        <div class="text-center flex-1 p-1">
             <div :class="!modelValue ? 'text-rose-900' : ''">Количество</div>
             <input
                 type="number"

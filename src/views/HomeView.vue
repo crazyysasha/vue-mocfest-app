@@ -10,7 +10,7 @@
                         <div class="animate-ping h-10 w-10 rounded-full bg-white"></div>
                     </div>
                 </div>
-                <div v-for="event in events" :key="event.slug">
+                <div v-for="event in events" :key="event.slug" class="max-h-16">
                     <router-link
                         :to="{ name: 'event', params: { slug: event.slug } }"
                         class="
@@ -150,3 +150,22 @@ onMounted(() => {
 
 const modalIsOpen = ref(false);
 </script>
+
+<style lang="scss" scoped>
+div.border.border-white {
+    div.p-2.flex.flex-col {
+        min-height: 235px;
+        // div {
+        //     max-height: 55px;
+        // }
+    }
+}
+@media (max-width: 640px) {
+    div.absolute {
+        button.absolute.-right-8 {
+            top: -35px;
+            right: 0;
+        }
+    }
+}
+</style>

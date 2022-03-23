@@ -315,3 +315,14 @@ const openGallery = (imageIndex) => {
 
 const modalIsOpen = ref(false);
 </script>
+
+<style lang="scss" scoped>
+@media (max-width: 640px) {
+    div.absolute {
+        button.absolute.-right-8 {
+            top: -35px;
+            right: 0;
+        }
+    }
+}
+</style>

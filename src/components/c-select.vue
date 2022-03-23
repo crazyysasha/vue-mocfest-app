@@ -6,6 +6,7 @@
             my-2
             cursor-pointer
             relative
+            h-14
         "
         @click.prevent.stop="toggle"
     >
@@ -21,7 +22,7 @@
                 <path d="M24 0.5L12 12.5L0 0.5" stroke="white" />
             </svg>
         </div>
-        <div class="text-center flex-1 p-2">
+        <div class="flex justify-center flex-col items-center flex-1 p-1">
             <slot :="modelValue">
                 <div class="underline underline-offset-2">
                     {{ modelValue.title }}
@@ -54,14 +55,14 @@
                     left-0
                     right-0
                     top-full
-                    z-10
                     bg-zinc-800
+                    z-10
                 "
                 v-if="isOpen"
                 style="left: -2px; right: -2px"
             >
                 <div
-                    class="hover:bg-white hover:text-black"
+                    class="hover:bg-white hover:text-black px-3 py-2 text-center"
                     v-for="option in options"
                     :key="option[optionKey]"
                     @click.stop="onSelect(option)"
@@ -130,3 +131,7 @@ onUnmounted(() => {
     document.removeEventListener("keyup", hideHandler);
 });
 </script>
+
+<style lang="scss" scoped>
+
+</style>
