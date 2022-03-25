@@ -103,14 +103,13 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const isOpen = ref(false);
-
+    
 const show = () => {
     isOpen.value = true;
 };
 const hide = () => {
     isOpen.value = false;
 };
-
 const toggle = () => {
     isOpen.value = !isOpen.value;
 };

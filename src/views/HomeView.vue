@@ -150,22 +150,3 @@ onMounted(() => {
 
 const modalIsOpen = ref(false);
 </script>
-
-<style lang="scss" scoped>
-div.border.border-white {
-    div.p-2.flex.flex-col {
-        min-height: 235px;
-        // div {
-        //     max-height: 55px;
-        // }
-    }
-}
-@media (max-width: 640px) {
-    div.absolute {
-        button.absolute.-right-8 {
-            top: -35px;
-            right: 0;
-        }
-    }
-}
-</style>

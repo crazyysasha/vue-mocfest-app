@@ -212,7 +212,6 @@
                 font-neutralFace
             "
             @click.prevent="onCreate"
-            v-if="!isPayment"
         >
             Продолжить
         </button>
@@ -348,4 +347,3 @@ const onCreate = async () => {
     console.log(createValidation.value.$errors);
 };
 </script>
-
