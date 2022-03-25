@@ -229,7 +229,7 @@
         >
         </VueEasyLightbox>
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
-            <button @click="close" class="absolute -right-8">
+            <button @click="close" class="absolute -top-8 md:top-0 right-0 md:-right-8">
                 <span
                     class="
                         w-6

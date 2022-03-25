@@ -8,7 +8,7 @@
             relative
             h-14
         "
-        @click.prevent.stop="toggle"
+        @click.stop="toggle"
     >
         <div class="p-3 flex items-center justify-center opacity-0">
             <svg
@@ -41,7 +41,7 @@
                 viewBox="0 0 24 14"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                :class="{ 'rotate-180': !isOpen }"
+                :class="{ 'rotate-180': isOpen }"
             >
                 <path d="M24 0.5L12 12.5L0 0.5" stroke="white" />
             </svg>
@@ -52,17 +52,21 @@
                     select
                     border-2 border-neutral-700
                     absolute
-                    left-0
-                    right-0
                     top-full
                     bg-zinc-800
                     z-10
+                    -left-0.5
+                    -right-0.5
                 "
-                style="left: -2px; right: -2px"
                 v-if="isOpen"
             >
                 <div
-                    class="hover:bg-white hover:text-black px-3 py-2 text-center"
+                    class="
+                        hover:bg-white hover:text-black
+                        px-3
+                        py-2
+                        text-center
+                    "
                     v-for="option in options"
                     :key="option[optionKey]"
                     @click.stop="onSelect(option)"
@@ -78,7 +82,7 @@
 
 
 <script setup>
-import { toRefs, ref, onMounted, onUnmounted } from "vue";
+import { toRefs, ref, onMounted, onUnmounted, effect } from "vue";
 
 const props = defineProps({
     modelValue: Object,
@@ -132,5 +136,4 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-    
 </style>
