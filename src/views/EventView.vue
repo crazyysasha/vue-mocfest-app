@@ -8,6 +8,7 @@
         </div>
         <div
             class="
+                w-full
                 lg:w-2/5
                 xl:w-1/3
                 overflow-y-auto
@@ -227,7 +228,10 @@
         >
         </VueEasyLightbox>
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
-            <button @click="close" class="absolute -top-8 md:top-0 right-0 md:-right-8">
+            <button
+                @click="close"
+                class="absolute -top-8 md:top-0 right-0 md:-right-8"
+            >
                 <span
                     class="
                         w-6
@@ -308,10 +312,12 @@ onMounted(() => {
 const hideGallery = () => {
     boxIsOpen.value = false;
 };
+
 const openGallery = (imageIndex) => {
     index.value = imageIndex;
     boxIsOpen.value = true;
 };
 
 const modalIsOpen = ref(false);
+
 </script>
