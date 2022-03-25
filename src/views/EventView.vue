@@ -13,6 +13,8 @@
                 overflow-y-auto
                 lg:h-screen
                 px-4
+                pt-12
+                sm:pt-0
                 md:px-10
                 text-sm
                 flex flex-col
@@ -25,7 +27,7 @@
             >
                 <div class="h-14"></div>
             </div>
-            <div class="mb-5 mt-10">
+            <div class="mb-5 mt-2 lg:mt-10">
                 <h1
                     class="
                         text-4xl
@@ -153,7 +155,7 @@
                 </p>
             </div>
             <div
-                class="font-montserrat tracking-normal"
+                class="font-montserrat tracking-normal mb-8"
                 v-if="!isLoading"
                 v-html="event?.description"
             ></div>
@@ -315,14 +317,3 @@ const openGallery = (imageIndex) => {
 
 const modalIsOpen = ref(false);
 </script>
-
-<style lang="scss" scoped>
-@media (max-width: 640px) {
-    div.absolute {
-        button.absolute.-right-8 {
-            top: -35px;
-            right: 0;
-        }
-    }
-}
-</style>

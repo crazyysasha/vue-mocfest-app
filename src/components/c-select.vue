@@ -58,8 +58,8 @@
                     bg-zinc-800
                     z-10
                 "
-                v-if="isOpen"
                 style="left: -2px; right: -2px"
+                v-if="isOpen"
             >
                 <div
                     class="hover:bg-white hover:text-black px-3 py-2 text-center"
@@ -99,14 +99,13 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const isOpen = ref(false);
-
+    
 const show = () => {
     isOpen.value = true;
 };
 const hide = () => {
     isOpen.value = false;
 };
-
 const toggle = () => {
     isOpen.value = !isOpen.value;
 };
@@ -133,5 +132,5 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
+    
 </style>
