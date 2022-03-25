@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getAll = () => {
-  return axios.get('http://oc-mocfest-app/api/crazy/mocfest/v1.0.1/partners');
+  return axios.get(`${process.env.VUE_APP_API_URL}/partners`);
 }
 
 

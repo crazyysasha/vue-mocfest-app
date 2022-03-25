@@ -1,32 +1,132 @@
-import { create, update } from "@/api/orders.js";
+import { create, getById, pay, update } from "@/api/orders.js";
 import { useStorage } from "@vueuse/core";
 import { readonly, ref } from "vue";
 
-const orders = useStorage();
+const orders = useStorage('orders');
 
 // доработать до конца
 
 export default function useOrder() {
-	const isLoading = ref(true);
-	const error = ref(); 
-	const data = ref();
-	const onCreate = async (tickets) => {
-		await create(tickets).then((res) => {
-			data.value = res
-		});
+	const onCreate = () => {
+
+		const data = ref();
+
+		const isLoading = ref(false);
+
+		const error = ref();
+
+		const exec = async (credentials = { event, date, time, quantity }) => {
+			isLoading.value = true;
+			return await create(credentials).then((res) => {
+				return res.data;
+			}).then(orderData => {
+				isLoading.value = false;
+				data.value = orderData;
+				return orderData;
+			}).catch(orderError => {
+				isLoading.value = false;
+				error.value = orderError.response?.data?.error;
+			});
+		}
+
+		return {
+			isLoading: readonly(isLoading),
+			error: readonly(error),
+			data: readonly(data),
+			exec,
+		};
 	};
-	const onUpdate = async (data) => {
-		await update(data).then((res) => {
-			data.value = res
-		}).catch((e) => error.value = e);
+	const onUpdate = () => {
+
+		const data = ref();
+
+		const isLoading = ref(false);
+
+		const error = ref();
+
+		const exec = async (orderId, credentials = { phone, email }) => {
+			isLoading.value = true;
+			return await update(orderId, credentials).then((res) => {
+				return res.data;
+			}).then(orderData => {
+				isLoading.value = false;
+				data.value = orderData;
+				return orderData;
+			}).catch(orderError => {
+				isLoading.value = false;
+				error.value = orderError.response?.data?.error;
+			});
+		}
+
+		return {
+			isLoading: readonly(isLoading),
+			error: readonly(error),
+			data: readonly(data),
+			exec,
+		};
 	}
 
+	const onPay = () => {
+		const data = ref();
+
+		const isLoading = ref(false);
+
+		const error = ref();
+
+		const exec = async (orderId) => {
+			isLoading.value = true;
+			return await pay(orderId).then((res) => {
+				return res.data;
+			}).then(orderData => {
+				isLoading.value = false;
+				data.value = orderData;
+				return orderData;
+			}).catch(orderError => {
+				isLoading.value = false;
+				error.value = orderError.response?.data?.error;
+			});
+		}
+
+		return {
+			isLoading: readonly(isLoading),
+			error: readonly(error),
+			data: readonly(data),
+			exec,
+		};
+	};
+	const onGet = () => {
+		const data = ref();
+
+		const isLoading = ref(false);
+
+		const error = ref();
+
+		const exec = async (orderId) => {
+			isLoading.value = true;
+			return await getById(orderId).then((res) => {
+				return res.data;
+			}).then(orderData => {
+				isLoading.value = false;
+				data.value = orderData;
+				return orderData;
+			}).catch(orderError => {
+				isLoading.value = false;
+				error.value = orderError.response?.data?.error;
+			});
+		}
+
+		return {
+			isLoading: readonly(isLoading),
+			error: readonly(error),
+			data: readonly(data),
+			exec,
+		};
+	};
 	return {
 		onCreate,
 		onUpdate,
+		onPay,
+		onGet,
 		orders: readonly(orders),
-		isLoading: readonly(isLoading),
-		orderError: readonly(error),
-		data: readonly(data),
 	};
 }

@@ -41,6 +41,14 @@ const routes = [
     meta: { layout: WithHeaderLayout },
   },
   {
+    path: '/orders/:id/status',
+    name: 'order',
+    meta: {
+      layout: WithoutHeaderLayout
+    },
+    component: () => import(/* webpackChunkName: "order" */ '../views/OrderStatusView.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: '404',
     meta: {

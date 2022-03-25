@@ -177,7 +177,7 @@
                         'bg-white animate-pulse text-white': isLoading,
                     }"
                     @click="modalIsOpen = true"
-                    :disabled="isLoading"
+                    :disabled="isLoading "
                 >
                     Купить билеты
                 </button>
