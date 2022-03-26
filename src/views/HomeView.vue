@@ -74,27 +74,9 @@
                 Купить билет
             </button>            
         </div>
-        <div class="font-montserrat text-center text-sm my-auto">
-            <div class="">
-                <div class="my-2">
-                    <a href="" class="hover:opacity-50">Facebook </a>
-                    /
-                    <a href="" class="hover:opacity-50">Instagram </a>
-                    /
-                    <a href="" class="hover:opacity-50">Email </a>
-                </div>
-                <div class="my-2">
-                    <a href="" class="hover:opacity-50">Telegram </a>
-                    /
-                    <a href="" class="hover:opacity-50">Telegram Bot</a>
-                </div>
-                <div class="my-2">
-                    <a href="tel:+998946036085" class="hover:opacity-50">
-                        +998 94 603 60 85
-                    </a>
-                </div>
-            </div>
-        </div>
+
+        <settings-socials></settings-socials>
+
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
             <button @click="close" class="absolute -top-8 md:top-0 right-0 md:-right-8">
                 <span
@@ -142,6 +124,7 @@ import { onMounted } from "@vue/runtime-core";
 import useEvents from "@/composables/events";
 import CModal from "@/components/c-modal.vue";
 import BuyForm from "@/components/buy-form.vue";
+import SettingsSocials from "@/components/settings-socials.vue";
 
 const { isLoading, events, error, fetchEvents, isLoaded } = useEvents();
 onMounted(() => {
