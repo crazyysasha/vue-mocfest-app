@@ -180,7 +180,7 @@
                         Билетов не осталось
                     </div>
                 </div>
-                <div v-else-if="updateState.order">
+                <div v-else-if="updateState.order"> 
                     <div class="mb-2">
                         <input
                             type="text"
@@ -397,7 +397,7 @@ const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
 onMounted(() => {
     if (!isLoaded.value) fetchEvents();
-});
+}); 
 
 const globalError = ref(null);
 

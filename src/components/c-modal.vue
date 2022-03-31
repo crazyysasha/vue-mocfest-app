@@ -19,7 +19,7 @@
                         justify-center
                         items-center
                         overflow-y-auto
-                    "
+                    " 
                 > 
                     <transition
                         enter-from-class="scale-50 "
@@ -30,7 +30,7 @@
                         leave-to-class="scale-50 "
                         @before-leave="closeWrapper()"
                     >
-                        <div v-if="isShownModal" class="absolute">
+                        <div v-if="isShownModal" class="absolute top-[10%]">
                             <slot :close="closeModal"></slot>
                         </div>
                     </transition>

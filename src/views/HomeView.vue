@@ -1,6 +1,9 @@
 <template>
     <div class="mx-auto flex flex-col p-1 w-[25rem] tracking-[.2rem] py-5">
-        <div class="border border-white mt-auto mx-2">
+        <div class="border border-white mt-auto mx-2 relative">
+            
+            <LangList class="absolute top-0 -right-20 p-0 hidden sm:block"></LangList>
+            
             <div class="p-3 px-4">
                 <img src="@/assets/logo.png" alt="" class="mx-auto" />
             </div>
@@ -82,7 +85,7 @@
                 <span
                     class="
                         w-6
-                        scale-110
+                        scale-110 
                         h-px
                         block
                         bg-white
@@ -125,6 +128,7 @@ import useEvents from "@/composables/events";
 import CModal from "@/components/c-modal.vue";
 import BuyForm from "@/components/buy-form.vue";
 import SettingsSocials from "@/components/settings-socials.vue";
+import LangList from '@/components/lang-list.vue'
 
 const { isLoading, events, error, fetchEvents, isLoaded } = useEvents();
 onMounted(() => {

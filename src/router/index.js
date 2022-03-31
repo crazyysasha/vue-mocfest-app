@@ -26,6 +26,12 @@ const routes = [
     meta: { layout: WithHeaderLayout },
   },
   {
+    path: '/gallery',
+    name: 'gallery',
+    component: () => import(/* webpackChunkName: "event" */ '../views/GalleryView.vue'),
+    meta: { layout: WithHeaderLayout },
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting
@@ -38,6 +44,18 @@ const routes = [
     path: '/partners',
     name: 'partners',
     component: () => import(/* webpackChunkName: "about" */ '../views/PartnersView.vue'),
+    meta: { layout: WithHeaderLayout },
+  },
+  {
+    path: '/manifesto',
+    name: 'manifest',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ManifestView.vue'),
+    meta: { layout: WithHeaderLayout },
+  },
+  {
+    path: '/manifestos/:slug?',
+    name: 'manifest-order',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ManifestOrder.vue'),
     meta: { layout: WithHeaderLayout },
   },
   {

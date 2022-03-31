@@ -4,7 +4,7 @@
             class="bg-gradient-to-b from-black"
             :class="{ 'order-2': !isCollapsed, 'fixed top-0 w-full z-50': isCollapsed }"
         ></DefaultHeader>
-        <main
+        <main 
             class="flex-1 flex bg-black"
             :class="{ 'overflow-y-auto': !isCollapsed }"
         >
@@ -31,7 +31,7 @@ export default {
         const { height, width } = useWindowSize();
 
         const isCollapsed = computed(() => {
-            if (width.value < 600) {
+            if (width.value < 640) {
                 return true;
             }
             if (menu.value == null) {
@@ -48,7 +48,7 @@ export default {
             });
             return height.value < menuHeight + 20;
         });
-
+        
         provide("isCollapsed", isCollapsed);
 
         return { isCollapsed };

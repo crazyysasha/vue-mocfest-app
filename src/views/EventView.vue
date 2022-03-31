@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap w-full">
+    <div class="flex flex-wrap w-full container mx-auto">
         <div
             class="bg-black sticky top-0 w-full"
             :class="{ 'block lg:hidden': !isCollapsed, hidden: isCollapsed }"
@@ -228,7 +228,7 @@
             :imgs="event?.images.map((ob) => ob.path)"
             @hide="hideGallery"
         >
-        </VueEasyLightbox>
+        </VueEasyLightbox> 
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
             <button
                 @click="close"
