@@ -26,9 +26,7 @@ const settings = useStorage(
 
 const error = ref(null);
 const isLoading = ref(false);
-const isLoaded = ref(settings.value.socials.length > 0);
-const imagesGallery = ref([]);
-
+const isLoaded = ref(settings.value?.socials.length > 0);
 export default function useSettings() {
 
     const exec = async () => {
