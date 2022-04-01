@@ -27,7 +27,7 @@ const settings = useStorage(
 const error = ref(null);
 const isLoading = ref(false);
 const isLoaded = ref(settings.value?.socials.length > 0);
-const imagesGallery = ref([]);
+
 export default function useSettings() {
 
     const exec = async () => {
@@ -41,24 +41,13 @@ export default function useSettings() {
         });
     }
 
-    const getImagesFromSettings = async () => {
-        isLoading.value = true;
-        await getImagesGallery().then(response => response.data).then(data => {
-            imagesGallery.value = data;
-            isLoading.value = false;
-            isLoaded.value = true;
-        }).catch(errorObj => {
-            error.value = errorObj?.response?.data;
-        });
-    }
+    
 
     return {
-        imagesGallery: readonly(imagesGallery),
         settings: readonly(settings),
         isLoaded: readonly(isLoaded),
         isLoading: readonly(isLoading),
         error: readonly(error),
-        getImagesFromSettings,
         exec,
     };
 }
