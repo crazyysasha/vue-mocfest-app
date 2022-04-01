@@ -2,7 +2,11 @@
     <div class="mx-auto flex flex-col p-1 w-[25rem] tracking-[.2rem] py-5">
         <div class="border border-white mt-auto mx-2 relative">
             
-            <LangList class="absolute top-0 -right-20 p-0 hidden sm:block"></LangList>
+            <LangList 
+                class="absolute top-0 -right-20 p-0"
+                :class="{hidden: isCollapsed}"
+            >
+            </LangList>
             
             <div class="p-3 px-4">
                 <img src="@/assets/logo.png" alt="" class="mx-auto" />
@@ -121,7 +125,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 
 import { onMounted } from "@vue/runtime-core";
 import useEvents from "@/composables/events";
@@ -132,8 +136,9 @@ import LangList from '@/components/lang-list.vue'
 
 const { isLoading, events, error, fetchEvents, isLoaded } = useEvents();
 onMounted(() => {
-    if (!isLoaded.value) fetchEvents();
+    if (!isLoaded.value) fetchEvents(); 
 });
 
+const isCollapsed = inject("isCollapsed");
 const modalIsOpen = ref(false);
 </script>

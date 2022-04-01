@@ -141,25 +141,9 @@
 				class="font-montserrat text-center text-sm mt-auto mb-20"
 				:class="{ hidden: !isCollapsed }"
 			>
-				<div class="">
-					<div class="my-2">
-						<a href="" class="hover:opacity-50">Facebook </a>
-						/
-						<a href="" class="hover:opacity-50">Instagram </a>
-						/
-						<a href="" class="hover:opacity-50">Email </a>
-					</div>
-					<div class="my-2">
-						<a href="" class="hover:opacity-50">Telegram </a>
-						/
-						<a href="" class="hover:opacity-50">Telegram Bot</a>
-					</div>
-					<div class="my-2">
-						<a href="tel:+998946036085" class="hover:opacity-50">
-							+998 94 603 60 85
-						</a>
-					</div>
-				</div>
+			
+			<SettingsSocials/>
+				
 			</div>
 		</div>
 	</header>
@@ -168,11 +152,13 @@
 
 <script>
 import { inject, ref, onMounted, onUnmounted, computed } from "vue";
-import LangList from '@/components/lang-list.vue'
+import LangList from '@/components/lang-list.vue';
+import SettingsSocials from "@/components/settings-socials.vue";
 
 export default {
 	components: {
 		LangList,
+		SettingsSocials
 	},
 	data: () => ({
 		links: [

@@ -97,3 +97,18 @@
 		</div>
 	</div>
 </template>
+ 
+ <script setup>
+import { ref } from "vue";
+import { onMounted } from "@vue/runtime-core";
+
+import useSettings from "@/composables/settings";
+
+const { exec, settings, isLoading, isLoaded, error } = useSettings();
+
+onMounted(async () => {
+    if (!isLoaded.value) await exec();
+});
+console.log(settings.value);
+
+</script>

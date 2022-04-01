@@ -358,29 +358,12 @@
         </div>
     </div>
     <div class="font-montserrat text-center text-sm text-white">
-        <div class="py-2">
-            <div class="my-2">
-                <a href="" class="hover:opacity-50">Facebook </a>
-                /
-                <a href="" class="hover:opacity-50">Instagram </a>
-                /
-                <a href="" class="hover:opacity-50">Email </a>
-            </div>
-            <div class="my-2">
-                <a href="" class="hover:opacity-50">Telegram </a>
-                /
-                <a href="" class="hover:opacity-50">Telegram Bot</a>
-            </div>
-            <div class="my-2">
-                <a href="tel:+998946036085" class="hover:opacity-50">
-                    +998 94 603 60 85
-                </a>
-            </div>
-        </div>
+        <SettingsSocials/>
     </div>
 </template>
 
 <script setup>
+import SettingsSocials from "@/components/settings-socials.vue";
 import CSelect from "@/components/c-select.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
