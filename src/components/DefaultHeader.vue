@@ -176,10 +176,10 @@ export default {
 	},
 	data: () => ({
 		links: [
-			{ title: "Команда", url: "/comand" },
+			{ title: "магаз", url: "/monifesto" },
 			{ title: "Галерея", url: "/gallery" },
 			{ title: "Карта", url: "/events" },
-			{ title: "Манифест", url: "/manifesto", exact: true },
+			{ title: "О нас", url: "/about", exact: true },
 			{ title: "Партнеры", url: "/partners" },
 		],
 	}),
