@@ -17,4 +17,5 @@ const { isLoading, partners, error, fetchPartners, isLoaded } = usePartners();
 onMounted(() => {
     if (!isLoaded.value) fetchPartners();
 });
+
 </script>

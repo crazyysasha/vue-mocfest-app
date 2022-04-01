@@ -19,17 +19,10 @@
 			<span @click.stop="onClickLanguage" class="px-2">
 				{{ lanTitle }}
 			</span>
-			<transition
-				enter-from-class="scale-50 "
-				enter-active-class="transition-all ease-out duration-200 transform transform-gpu"
-				enter-to-class="scale-100 "
-				leave-from-class="scale-100 "
-				leave-active-class="transition-all ease-in duration-200 transform transform-gpu"
-				leave-to-class="scale-50 "
-			>
+			<transition>
 				<div
-					class="drop-shadow absolute left-0 right-0"
-					:class="{ hidden: !isActiveLan }"
+					class="drop-shadow absolute left-0 right-0 mt-1"
+					v-if="isActiveLan "
 				>
 					<div
 						@click.stop="onSelectLan"
