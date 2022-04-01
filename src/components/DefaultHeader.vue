@@ -176,7 +176,7 @@ export default {
 	},
 	data: () => ({
 		links: [
-			{ title: "магаз", url: "/monifesto" },
+			{ title: "магаз", url: "/manifesto" },
 			{ title: "Галерея", url: "/gallery" },
 			{ title: "Карта", url: "/events" },
 			{ title: "О нас", url: "/about", exact: true },
