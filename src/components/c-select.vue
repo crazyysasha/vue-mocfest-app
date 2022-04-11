@@ -5,8 +5,8 @@
             flex
             my-2
             cursor-pointer
-            relative
-            h-14
+            relative 
+            min-h-[60px]
         "
         @click.stop="toggle"
     >
@@ -23,15 +23,7 @@
             </svg>
         </div>
         <div class="flex justify-center flex-col items-center flex-1 p-1">
-            <slot :="modelValue">
-                <div class="underline underline-offset-2">
-                    {{ modelValue.title }}
-                </div>
-                <div
-                    class="text-md tracking-normal font-thin font-montserrat"
-                    v-html="modelValue.subtitle"
-                ></div>
-            </slot>
+            <slot :="modelValue"></slot>
         </div>
         <div class="p-3 flex items-center justify-center">
             <svg

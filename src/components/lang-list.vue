@@ -26,15 +26,15 @@
 				>
 					<div
 						@click.stop="onSelectLan"
-						class="py-0.5 hover:text-black hover:bg-zinc-200"
-						:class="{ 'bg-zinc-200 text-black': lanTitle == 'ENG' }"
+						class="py-0.5 hover:text-black hover:bg-zinc-300"
+						:class="{ 'bg-zinc-300 text-black': lanTitle == 'ENG' }"
 					>
 						ENG
 					</div>
 					<div
 						@click.stop="onSelectLan"
-						class="py-0.5 hover:text-black hover:bg-zinc-200"
-						:class="{ 'bg-zinc-200 text-black': lanTitle == 'RU' }"
+						class="py-0.5 hover:text-black hover:bg-zinc-300"
+						:class="{ 'bg-zinc-300 text-black': lanTitle == 'RU' }"
 					>
 						RU
 					</div>

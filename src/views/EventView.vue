@@ -183,6 +183,7 @@
                 </button>
             </div>
         </div>
+        
         <div class="w-full lg:w-3/5 xl:w-2/3 lg:h-screen overflow-y-auto">
             <div
                 class="columns-2 md:columns-3 lg:columns-2 xl:columns-3 gap-0"
@@ -220,7 +221,6 @@
                 </svg>
             </div>
         </div>
-
         <VueEasyLightbox
             class="backdrop-blur"
             :visible="boxIsOpen"

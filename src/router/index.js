@@ -26,6 +26,12 @@ const routes = [
     meta: { layout: WithHeaderLayout },
   },
   {
+    path: '/download',
+    name: 'download',
+    component: () => import(/* webpackChunkName: "event" */ '../views/OrderDownloadPdf.vue'),
+    meta: { layout: WithHeaderLayout },
+  },
+  {
     path: '/gallery',
     name: 'gallery',
     component: () => import(/* webpackChunkName: "event" */ '../views/GalleryView.vue'),
