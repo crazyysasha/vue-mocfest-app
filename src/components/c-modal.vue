@@ -19,8 +19,8 @@
                         justify-center
                         items-center
                         overflow-y-auto
-                    " 
-                > 
+                    "
+                >
                     <transition
                         enter-from-class="scale-50 "
                         enter-active-class="transition-all ease-out duration-200 transform transform-gpu"
@@ -30,7 +30,7 @@
                         leave-to-class="scale-50 "
                         @before-leave="closeWrapper()"
                     >
-                        <div v-if="isShownModal" class="absolute top-[10%]">
+                        <div v-if="isShownModal" class="absolute">
                             <slot :close="closeModal"></slot>
                         </div>
                     </transition>

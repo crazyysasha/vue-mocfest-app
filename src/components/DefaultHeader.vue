@@ -13,7 +13,7 @@
                     v-if="$route.path != '/'"
                     to="/"
                     @click="hideMenu"
-                    class="flex items-center p-4 left-2.5 top-[1.05rem] z-20"
+                    class="flex items-center p-4 left-2.5 z-20"
                     :class="{
                         absolute: !isCollapsed,
                         'mr-auto': $route.path != '/',

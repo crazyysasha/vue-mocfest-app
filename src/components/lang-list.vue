@@ -6,7 +6,6 @@
 			text-sm
 			p-4
 			right-10
-			top-[1.05rem]
 			z-20
 			cursor-pointer
 			text-center

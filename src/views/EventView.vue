@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-wrap w-full container mx-auto">
+    <div class="flex flex-wrap w-full mx-auto">
         <div
-            class="bg-black sticky top-0 w-full"
+            class="bg-[#000000cc] sticky top-0 w-full"
             :class="{ 'block lg:hidden': !isCollapsed, hidden: isCollapsed }"
         >
             <div class="h-14"></div>
@@ -23,7 +23,7 @@
             ref="sidebarContainer"
         >
             <div
-                class="bg-black sticky top-0 w-full"
+                class="bg-[#000000cc] sticky top-0 w-full"
                 :class="{ hidden: isCollapsed }"
             >
                 <div class="h-14"></div>
@@ -177,13 +177,13 @@
                         'bg-white animate-pulse text-white': isLoading,
                     }"
                     @click="modalIsOpen = true"
-                    :disabled="isLoading "
+                    :disabled="isLoading"
                 >
                     Купить билеты
                 </button>
             </div>
         </div>
-        
+
         <div class="w-full lg:w-3/5 xl:w-2/3 lg:h-screen overflow-y-auto">
             <div
                 class="columns-2 md:columns-3 lg:columns-2 xl:columns-3 gap-0"
@@ -228,7 +228,7 @@
             :imgs="event?.images.map((ob) => ob.path)"
             @hide="hideGallery"
         >
-        </VueEasyLightbox> 
+        </VueEasyLightbox>
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
             <button
                 @click="close"
@@ -321,5 +321,4 @@ const openGallery = (imageIndex) => {
 };
 
 const modalIsOpen = ref(false);
-
 </script>

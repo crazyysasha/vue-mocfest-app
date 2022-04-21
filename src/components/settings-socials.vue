@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isLoading" class="my-auto flex flex-col-reverse">
+    <div v-if="isLoading" class="flex flex-col-reverse">
         <div
             class="my-1 flex justify-center"
             v-for="socials in 3"
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div
-        class="font-montserrat text-center text-sm my-auto"
+        class="font-montserrat text-center text-sm mt-8"
         v-else-if="isLoaded"
     >
         <div class="my-1" v-for="socials in settings.socials" :key="socials">

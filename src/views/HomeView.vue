@@ -1,23 +1,24 @@
 <template>
     <div class="mx-auto flex flex-col p-1 w-[25rem] tracking-[.2rem] py-5">
-        <div class="border border-white mt-auto mx-2 relative">
-            
-            <LangList 
+        <div class="border border-white mx-2 relative mt-auto">
+            <LangList
                 class="absolute top-0 -right-20 p-0"
-                :class="{hidden: isCollapsed}"
+                :class="{ hidden: isCollapsed }"
             >
             </LangList>
-            
+
             <div class="p-3 px-4">
                 <img src="@/assets/logo.png" alt="" class="mx-auto" />
             </div>
-            <div class="p-2 flex flex-col">
+            <div class="flex flex-col">
                 <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
                     <div class="h-10 w-10 animate-pulse rounded-full bg-white">
-                        <div class="animate-ping h-10 w-10 rounded-full bg-white"></div>
+                        <div
+                            class="animate-ping h-10 w-10 rounded-full bg-white"
+                        ></div>
                     </div>
                 </div>
-                <div v-for="event in events" :key="event.slug" class="max-h-16">
+                <div v-for="event in events" :key="event.slug">
                     <router-link
                         :to="{ name: 'event', params: { slug: event.slug } }"
                         class="
@@ -29,7 +30,7 @@
                             transition
                             duration-200
                         "
-                        :class="{ 'p-2': !isLoading }"
+                        :class="{ 'p-4': !isLoading }"
                     >
                         <transition
                             enter-active-class="transform transition duration-200"
@@ -79,17 +80,20 @@
                 @click="modalIsOpen = true"
             >
                 Купить билет
-            </button>            
+            </button>
         </div>
 
-        <settings-socials></settings-socials>
+        <settings-socials class="mb-auto"></settings-socials>
 
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
-            <button @click="close" class="absolute -top-8 md:top-0 right-0 md:-right-8">
+            <button
+                @click="close"
+                class="absolute -top-8 md:top-0 right-0 md:-right-8"
+            >
                 <span
                     class="
                         w-6
-                        scale-110 
+                        scale-110
                         h-px
                         block
                         bg-white
@@ -125,18 +129,18 @@
 </template>
 
 <script setup>
-import { ref, inject } from 'vue'
+import { ref, inject } from "vue";
 
 import { onMounted } from "@vue/runtime-core";
 import useEvents from "@/composables/events";
 import CModal from "@/components/c-modal.vue";
 import BuyForm from "@/components/buy-form.vue";
 import SettingsSocials from "@/components/settings-socials.vue";
-import LangList from '@/components/lang-list.vue'
+import LangList from "@/components/lang-list.vue";
 
 const { isLoading, events, error, fetchEvents, isLoaded } = useEvents();
 onMounted(() => {
-    if (!isLoaded.value) fetchEvents(); 
+    if (!isLoaded.value) fetchEvents();
 });
 
 const isCollapsed = inject("isCollapsed");
