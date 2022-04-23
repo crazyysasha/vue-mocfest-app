@@ -5,7 +5,7 @@
             :class="{ 'order-2': !isCollapsed, 'fixed top-0 w-full z-50': isCollapsed }"
         ></DefaultHeader>
         <main 
-            class="flex-1 flex bg-black"
+            class="flex-1 flex bg-black main-blog"
             :class="{ 'overflow-y-auto': !isCollapsed }"
         >
             <slot></slot>
@@ -55,3 +55,14 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" scope>
+    .main-blog::-webkit-scrollbar { /* WebKit */
+        width: 0;
+        height: 0;
+    }
+    .main-blog {
+        scrollbar-width: none;
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+</style>

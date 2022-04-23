@@ -4,7 +4,7 @@
 			flex
 			items-center
 			text-sm
-			p-4
+			p-3
 			right-10
 			z-20
 			cursor-pointer
@@ -20,20 +20,18 @@
 			</span>
 			<transition>
 				<div
-					class="drop-shadow absolute left-0 right-0 mt-1"
+					class="drop-shadow absolute left-0 right-0"
 					v-if="isActiveLan "
 				>
 					<div
 						@click.stop="onSelectLan"
-						class="py-0.5 hover:text-black hover:bg-zinc-300"
-						:class="{ 'bg-zinc-300 text-black': lanTitle == 'ENG' }"
+						class="py-0.5 hover:text-black hover:bg-zinc-300 bg-[#000000cc]"
 					>
 						ENG
 					</div>
 					<div
 						@click.stop="onSelectLan"
-						class="py-0.5 hover:text-black hover:bg-zinc-300"
-						:class="{ 'bg-zinc-300 text-black': lanTitle == 'RU' }"
+						class="py-0.5 hover:text-black hover:bg-zinc-300 bg-[#000000cc]"
 					>
 						RU
 					</div>

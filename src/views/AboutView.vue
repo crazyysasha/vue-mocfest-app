@@ -96,7 +96,7 @@
 			</div>
 		</div>
 		<div class="our-team pt-16 pb-10">
-			<div class="title text-2xl mb-10">наша команда</div>
+			<div class="title text-5xl mb-10 tracking-normal font-montserrat">наша команда</div>
 			<div
 				v-if="settings.team.length === 0"
 				class="flex items-center justify-center h-full relative"
@@ -125,7 +125,7 @@
 			<div v-else class="row grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
 				<div class="col" v-for="people in settings?.team" :key="people.name">
 					<img v-if="people.avatar" :src="people.avatar" alt="img" class="w-full" />
-					<div class="title my-3 sm:my-5 text-[12px] sm:text-[14px]">
+					<div class="title my-3 sm:my-5 text-[14px] sm:text-[21px] font-montserrat tracking-normal">
 						{{ people.name }}
 					</div>
 					<div
@@ -181,15 +181,17 @@ const play = () => {
 }
 
 .about-title p {
-	@apply text-lg sm:text-2xl;
+	@apply text-lg sm:text-3xl tracking-normal max-w-[75%];
+	line-height: 110%;
 }
 .first-element p {
-	@apply text-xl sm:text-3xl;
+	@apply text-xl sm:text-5xl tracking-normal max-w-[100%];
+	line-height: 150%;
 }
 .about-team-description p {
-	@apply text-[12px];
+	@apply text-[17px];
 }
 .about-description p {
-	@apply text-[12px];
+	@apply text-[17px];
 }
 </style>

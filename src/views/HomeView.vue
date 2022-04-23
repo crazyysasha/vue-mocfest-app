@@ -30,7 +30,7 @@
                             transition
                             duration-200
                         "
-                        :class="{ 'p-4': !isLoading }"
+                        :class="{ 'p-3': !isLoading }"
                     >
                         <transition
                             enter-active-class="transform transition duration-200"
@@ -43,19 +43,24 @@
                             <div>
                                 <div
                                     class="
-                                        text-lg
+                                        text-2xl
+                                        sm:text-5xl 
+                                        tracking-normal
                                         group-hover:underline
                                         underline-offset-2
-                                        leading-6
+                                        leading-6 
+                                        font-montserrat
                                     "
                                 >
                                     {{ event.title }}
                                 </div>
                                 <div
                                     class="
-                                        text-xs
+                                        text-md 
+                                        sm:text-lg
                                         tracking-normal
-                                        font-thin font-montserrat
+                                        font-thin 
+                                        font-montserrat
                                     "
                                     v-html="event.subtitle"
                                 ></div>

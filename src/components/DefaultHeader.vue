@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="flex justify-between">
+        <div class="flex justify-between absolute top-0 left-0 right-0 h-[45px] bg-[#000000cc]">
             <transition
                 enter-active-class="transform transition duration-200"
                 enter-from-class="scale-0"
@@ -13,7 +13,7 @@
                     v-if="$route.path != '/'"
                     to="/"
                     @click="hideMenu"
-                    class="flex items-center p-4 left-2.5 z-20"
+                    class="flex items-center p-3 left-2.5 z-20"
                     :class="{
                         absolute: !isCollapsed,
                         'mr-auto': $route.path != '/',
