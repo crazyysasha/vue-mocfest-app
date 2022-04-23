@@ -44,7 +44,7 @@
                                 <div
                                     class="
                                         text-2xl
-                                        sm:text-5xl 
+                                        sm:text-3xl 
                                         tracking-normal
                                         group-hover:underline
                                         underline-offset-2
