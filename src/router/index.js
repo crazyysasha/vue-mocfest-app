@@ -6,6 +6,14 @@ import WithoutHeaderLayout from "@/layouts/WithoutHeaderLayout.vue";
 
 const routes = [
   {
+    path: "/test",
+    name: "test",
+    component: () =>
+      import(/* webpackChunkName: "event" */ "../views/TestView.vue"),
+    // layout ni shetta bervorsa ham bo`ladi, berilmagan taqdirda [WithHeaderLayout]ni default kabi olib ketadi, [app.vue] da belgilangan
+    meta: { layout: WithHeaderLayout },
+  },
+  {
     path: "/",
     name: "home",
     component: HomeView,

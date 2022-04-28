@@ -31,7 +31,7 @@
             <div class="mb-5 mt-2 lg:mt-10">
                 <h1
                     class="
-                        text-4xl
+                        text-5xl
                         tracking-[.4rem]
                         underline
                         decoration-2
@@ -56,7 +56,7 @@
             </div>
             <div class="mb-5" v-if="isLoading">
                 <p
-                    class="font-montserrat tracking-normal mb-1"
+                    class="text-[17px] font-montserrat tracking-normal mb-1"
                     v-for="param in parseInt(2 + Math.random() * 3)"
                     :key="param"
                     :class="{
@@ -78,7 +78,7 @@
             </div>
             <div class="mb-5" v-if="!isLoading">
                 <p
-                    class="font-montserrat tracking-normal"
+                    class="text-[17px] font-montserrat tracking-normal"
                     v-for="param in event?.params"
                     :key="param"
                 >
@@ -88,7 +88,7 @@
                         {{ param.value }}</span
                     >
                     <span
-                        class="font-bold"
+                        class="text-[17px] font-bold"
                         v-else-if="param._group == 'address'"
                     >
                         <router-link
@@ -97,6 +97,7 @@
                                 params: { slug: event.slug },
                             }"
                             class="
+                                text-[17px]
                                 underline
                                 transition-opacity
                                 duration-200
@@ -109,13 +110,18 @@
                     </span>
 
                     <span class="font-bold" v-else-if="param._group == 'links'">
-                        <span v-for="(link, index) in param.items" :key="link">
+                        <span 
+                            class="text-[17px]"
+                            v-for="(link, index) in param.items" 
+                            :key="link"
+                        >
                             <a
                                 :href="link.url"
                                 :target="
                                     link.is_new_blank == '1' ? '_blank' : false
                                 "
                                 class="
+                                    text-[17px]
                                     underline
                                     transition-opacity
                                     duration-200
@@ -156,7 +162,7 @@
                 </p>
             </div>
             <div
-                class="font-montserrat tracking-normal mb-8"
+                class="event-description font-montserrat tracking-normal mb-8"
                 v-if="!isLoading"
                 v-html="event?.description"
             ></div>
@@ -322,3 +328,12 @@ const openGallery = (imageIndex) => {
 
 const modalIsOpen = ref(false);
 </script>
+
+
+<style lang="scss" scope>
+    .event-description {
+        p{
+            font-size: 17px;
+        }
+    }
+</style>

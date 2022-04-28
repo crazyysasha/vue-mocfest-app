@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		<div v-else class="video relative border border-white border-opacity-10">
-			<video
+			<!-- <video
 				v-if="settings?.video"
 				class="w-full"
 				autoplay="true"
@@ -51,8 +51,19 @@
 				:src="settings.video"
 				ref="player"
 				@click="player.pause()"
-			></video>
-			<div class="absolute inset-0 flex items-center justify-center" v-if="paused">
+			></video> -->	
+			<iframe
+				class="w-full"
+				width="560"
+				height="560"
+				title="YouTube video player"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen
+				ref="player"
+				:src="settings.video"
+			></iframe>		
+			<!-- <div class="absolute inset-0 flex items-center justify-center" v-if="paused">
 				<svg
 					@click.stop.prevent="play"
 					class="cursor-pointer"
@@ -68,9 +79,9 @@
 						fill-opacity="0.5"
 					/>
 				</svg>
-			</div>
+			</div> -->
 		</div>
-		<div class="content mt-8 font-montserrat">
+		<div class="content mt-8 font-montserrat">			
 			<div
 				v-for="(content, i) in settings?.content"
 				:key="content"
@@ -84,7 +95,7 @@
 				></div>
 				<div
 					v-else-if="content._group == 'columns'"
-					class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-7"
+					class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-7"
 				>
 					<div
 						v-for="content in content.content"
@@ -96,7 +107,7 @@
 			</div>
 		</div>
 		<div class="our-team pt-16 pb-10">
-			<div class="title text-5xl mb-10 tracking-normal font-montserrat">наша команда</div>
+			<div class="title text-5xl mb-16 tracking-normal font-montserrat">наша команда</div>
 			<div
 				v-if="settings.team.length === 0"
 				class="flex items-center justify-center h-full relative"
@@ -139,59 +150,59 @@
 </template>
 
 <script setup>
+import { computed, onMounted, ref, watch } from "vue";
 import useSettings from "@/composables/settings";
-import { onMounted, ref, watch } from "vue";
 
 const { settings, isLoading, isLoaded, exec } = useSettings();
 onMounted(async () => {
 	if (!isLoaded.value) await exec();
 });
 
-const player = ref(null);
-const paused = ref(true);
-onMounted(() => {
-	if (settings.value.video) {
-		player.value.onpause = () => {
-			paused.value = true;
-		};
-		player.value.onplay = () => {
-			paused.value = false;
-		};
-	}
-});
-const play = () => {
-	player.value.play();
-};
+// const player = ref(null);
+// const paused = ref(true);
+// onMounted(() => {
+// 	if (settings.value.video) {
+// 		player.value.onpause = () => {
+// 			paused.value = true;
+// 		};
+// 		player.value.onplay = () => {
+// 			paused.value = false;
+// 		};
+// 	}
+// });
+// const play = () => {
+// 	player.value.play();
+// };
 </script>
 <style>
 .about p {
 	@apply text-base;
 }
 .about h1 {
-	@apply text-3xl;
+	@apply text-2xl sm:text-5xl tracking-normal;
 }
 .about h2 {
 	@apply text-2xl;
 }
 .about h3 {
-	@apply text-xl;
+	@apply text-xl sm:text-[28px] tracking-normal;
 }
 .about h4 {
 	@apply text-lg;
 }
 
 .about-title p {
-	@apply text-lg sm:text-3xl tracking-normal max-w-[75%];
+	@apply text-xl sm:text-[28px] tracking-normal max-w-[75%];
 	line-height: 110%;
 }
 .first-element p {
-	@apply text-xl sm:text-5xl tracking-normal max-w-[100%];
+	@apply text-2xl sm:text-5xl tracking-normal max-w-[100%];
 	line-height: 150%;
 }
 .about-team-description p {
-	@apply text-[17px];
+	@apply text-[17px] tracking-normal;
 }
 .about-description p {
-	@apply text-[17px];
+	@apply text-[17px] tracking-normal;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>	
 	<div class="container mx-auto pt-24 px-4">
-		<div class="header mb-5">
-			<h1 class="text-xl sm:text-3xl leading-8">галерея</h1>
-			<p class="text-sm leading-5 sm:leading-10">фотоотчёт наших мероприятий</p>
+		<div class="header mb-6">
+			<h1 class="text-xl sm:text-5xl leading-8 font-montserrat">галерея</h1>
+			<p class="text-[17px] leading-5 sm:leading-8 font-montserrat">фотоотчёт наших мероприятий</p>
 		</div>
 		<div class="gallery">
 			<div v-if="!settings.gallery" class="border border-blue-300 border-opacity-30 shadow rounded-md p-4 w-full mx-auto">

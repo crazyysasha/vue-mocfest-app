@@ -10,7 +10,7 @@
             <div class="p-3 px-4">
                 <img src="@/assets/logo.png" alt="" class="mx-auto" />
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col p-4">
                 <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
                     <div class="h-10 w-10 animate-pulse rounded-full bg-white">
                         <div
@@ -43,8 +43,8 @@
                             <div>
                                 <div
                                     class="
-                                        text-2xl
-                                        sm:text-3xl 
+                                        text-xl
+                                        sm:text-2xl 
                                         tracking-normal
                                         group-hover:underline
                                         underline-offset-2
