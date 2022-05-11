@@ -200,7 +200,13 @@
                         </div>
                         <div
                             class="text-rose-900 text-center"
-                            v-if="createState.event.tickets.length == 0"
+                            v-if="createState.event.is_disabled_for_sales"
+                        >
+                            Продажа билетов не началась
+                        </div>
+                        <div
+                            class="text-rose-900 text-center"
+                            v-else-if="createState.event.tickets.length == 0"
                         >
                             Билетов не осталось
                         </div>

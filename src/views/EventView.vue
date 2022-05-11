@@ -36,6 +36,8 @@
                         underline
                         decoration-2
                         leading-1
+                        font-neutralFace
+                        font-normal
                     "
                     :class="{
                         'animate-pulse bg-white overflow-hidden': isLoading,
@@ -110,9 +112,9 @@
                     </span>
 
                     <span class="font-bold" v-else-if="param._group == 'links'">
-                        <span 
+                        <span
                             class="text-[17px]"
-                            v-for="(link, index) in param.items" 
+                            v-for="(link, index) in param.items"
                             :key="link"
                         >
                             <a
@@ -174,16 +176,19 @@
                         border border-white
                         p-4
                         tracking-[.2rem]
-                        text-lg
+                        text-lg text-white
                         transition-all
                         duration-200
                     "
                     :class="{
-                        'bg-black hover:bg-white hover:text-black': !isLoading,
-                        'bg-white animate-pulse text-white': isLoading,
+                        'hover:bg-white hover:text-black':
+                            !isLoading && !event?.is_disabled_for_sales,
+                        'bg-black': !isLoading,
+                        'bg-white animate-pulse': isLoading,
+                        'cursor-not-allowed': event?.is_disabled_for_sales,
                     }"
                     @click="modalIsOpen = true"
-                    :disabled="isLoading"
+                    :disabled="isLoading || event?.is_disabled_for_sales"
                 >
                     Купить билеты
                 </button>
@@ -297,7 +302,7 @@ const index = ref(0);
 const route = useRoute();
 const { slug } = route.params;
 const router = useRouter();
-const { isLoading, event, isLoaded, fetchEvent, error } = useEvent(slug);
+const { isLoading, event, isLoaded, fetchEvent, error } = useEvent();
 const sidebarContainer = ref(null);
 
 watch(error, async () => {
@@ -314,7 +319,7 @@ watch(error, async () => {
 });
 
 onMounted(() => {
-    fetchEvent();
+    fetchEvent(slug);
 });
 
 const hideGallery = () => {
@@ -331,9 +336,9 @@ const modalIsOpen = ref(false);
 
 
 <style lang="scss" scope>
-    .event-description {
-        p{
-            font-size: 17px;
-        }
+.event-description {
+    p {
+        font-size: 17px;
     }
+}
 </style>

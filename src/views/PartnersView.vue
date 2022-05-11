@@ -2,22 +2,14 @@
     <div class="container mx-auto mt-10">
         <div
             v-if="isLoading"
-            class="
-                border border-blue-300 border-opacity-10
-                shadow
-                rounded-md
-                p-4
-                w-full
-                mx-auto
-                mt-10
-            "
+            class="shadow rounded-md p-4 w-full mx-auto mt-10"
         >
             <div class="animate-pulse grid grid-cols-3 sm:grid-cols-5 gap-4">
                 <div
-                    v-for="i in 20"
+                    v-for="i in parseInt(Math.random() * 20)"
                     :key="i"
                     class="
-                        bg-slate-700
+                        bg-gray-300/25
                         h-20
                         sm:h-36
                         flex
@@ -57,7 +49,7 @@
         <div class="grid lg:grid-cols-5 grid-cols-3 p-5">
             <div v-for="partner in partners" :key="partner.id">
                 <a :href="partner.link" class="flex h-full p-[20%]">
-                    <img :src="partner.image.path" alt="" class="m-auto" />
+                    <img :src="partner?.image?.path" alt="" class="m-auto" />
                 </a>
             </div>
         </div>

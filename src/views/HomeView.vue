@@ -18,7 +18,7 @@
                         ></div>
                     </div>
                 </div>
-                <div v-for="event in events" :key="event.slug">
+                <div v-else v-for="event in events" :key="event.slug">
                     <router-link
                         :to="{ name: 'event', params: { slug: event.slug } }"
                         class="
@@ -44,23 +44,22 @@
                                 <div
                                     class="
                                         text-xl
-                                        sm:text-2xl 
-                                        tracking-normal
+                                        sm:text-2xl
+                                        tracking-[20%]
                                         group-hover:underline
                                         underline-offset-2
-                                        leading-6 
-                                        font-montserrat
+                                        leading-6
+                                        font-normal
+                                        mb-1
                                     "
                                 >
                                     {{ event.title }}
                                 </div>
                                 <div
                                     class="
-                                        text-md 
-                                        sm:text-lg
+                                        text-md
                                         tracking-normal
-                                        font-thin 
-                                        font-montserrat
+                                        font-thin font-montserrat
                                     "
                                     v-html="event.subtitle"
                                 ></div>
@@ -88,7 +87,13 @@
             </button>
         </div>
 
-        <settings-socials class="mb-auto"></settings-socials>
+        <settings-socials></settings-socials>
+
+        <div class="mb-auto text-center mt-2">
+            <router-link to="/terms" class="hover:opacity-50">
+                Публичная оферта
+            </router-link>
+        </div>
 
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
             <button

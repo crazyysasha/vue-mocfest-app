@@ -8,6 +8,9 @@
         }"
         :controls="[]"
         :coords="initialCoords"
+        :options="{
+            maxAnimationZoomDifference: Infinity,
+        }"
         class="w-full filter grayscale invert"
         @map-was-initialized="onMapLoaded"
     >
@@ -60,9 +63,9 @@ const moveCamera = (slug) => {
         );
     else if (events.value.length > 1)
         yMap.value.setBounds(
-            events.value.map((event) => [event.latitude, event.longitude]),
+            window.ymaps.util.bounds.fromPoints(events.value.map((event) => [event.latitude, event.longitude])),
             {
-                duration: 1500,
+                duration: 3000,
                 checkZoomRange: true,
                 timingFunction: "ease",
             }

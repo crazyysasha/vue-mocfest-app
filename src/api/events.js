@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from "@/utils/axios";
 
 export const getAll = () => {
-  return axios.get(`${process.env.VUE_APP_API_URL}/events`);
+  return axios.get(`events`);
 }
 
 
 export const getByIdOrSlug = (idOrSlug) => {
-  return axios.get(`${process.env.VUE_APP_API_URL}/events/${idOrSlug}`);
+  return axios.get(`events/${idOrSlug}`);
 }
 
 // import axios from "axios";

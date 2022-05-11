@@ -1,6 +1,17 @@
 <template>
     <header>
-        <div class="flex justify-between absolute top-0 left-0 right-0 h-[45px] bg-[#000000cc]">
+        <div
+            class="
+                flex
+                justify-between
+                absolute
+                top-0
+                left-0
+                right-0
+                h-[45px]
+                bg-[#000000cc]
+            "
+        >
             <transition
                 enter-active-class="transform transition duration-200"
                 enter-from-class="scale-0"
@@ -27,7 +38,7 @@
                     >
                         <path d="M13 24L1 12L13 0" stroke="white" />
                     </svg>
-                    <span v-if="!isCollapsed"> На главную </span>
+                    <span v-if="!isCollapsed"> {{ $t("home") }} </span>
                 </router-link>
             </transition>
 
@@ -44,7 +55,8 @@
                     class="
                         focus:outline-none
                         block
-                        p-4
+                        py-2
+                        px-3
                         transition
                         duration-200
                         z-20
@@ -175,8 +187,12 @@ export default {
     },
     data: () => ({
         links: [
-            { title: "магаз", url: "https://google.com", withoutRouter: true },
-
+            // {
+            //     title: "магаз",
+            //     url: "https://mocfest.avlo.site/",
+            //     withoutRouter: true,
+            // },
+            { title: "FAQ", url: "/faq" },
             { title: "Галерея", url: "/gallery" },
             { title: "Карта", url: "/events" },
             { title: "О нас", url: "/about", exact: true },

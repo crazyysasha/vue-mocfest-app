@@ -1,9 +1,10 @@
 import { get, getImagesGallery } from "@/api/settings";
 import { useStorage } from "@vueuse/core";
-import { reactive, readonly, ref } from "vue";
+import { readonly, ref } from "vue";
+import { afterChange } from "./locale";
 
 const settings = useStorage(
-    'settings', 
+    'settings',
     undefined,
     undefined,
     {
@@ -28,21 +29,20 @@ const error = ref(null);
 const isLoading = ref(false);
 const isLoaded = ref(settings.value?.socials.length > 0);
 
+afterChange(() => {
+    if (isLoaded.value) exec();
+})
+const exec = async () => {
+    isLoading.value = true;
+    await get().then(response => response.data).then(data => {
+        settings.value = data;
+        isLoading.value = false;
+        isLoaded.value = true;
+    }).catch(errorObj => {
+        error.value = errorObj?.response?.data;
+    });
+}
 export default function useSettings() {
-
-    const exec = async () => {
-        isLoading.value = true;
-        await get().then(response => response.data).then(data => {
-            settings.value = data;
-            isLoading.value = false;
-            isLoaded.value = true;
-        }).catch(errorObj => {
-            error.value = errorObj?.response?.data;
-        });
-    }
-
-    
-
     return {
         settings: readonly(settings),
         isLoaded: readonly(isLoaded),
