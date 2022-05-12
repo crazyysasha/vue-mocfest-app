@@ -44,7 +44,7 @@ export default function useOrder() {
 
 		const error = ref();
 
-		const exec = async (orderId, credentials = { phone, email }) => {
+		const exec = async (orderId, credentials = { phone, email, payment_type }) => {
 			isLoading.value = true;
 			return await update(orderId, credentials).then((res) => {
 				return res.data;

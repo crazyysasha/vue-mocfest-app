@@ -1,6 +1,6 @@
 <template>
     <div 
-        class="border border-white border-opacity-50 flex my-2"
+        class="border border-white border-opacity-50 flex"
         :class="!modelValue ? 'border-rose-900' : ''">
         <button 
             class="p-3 flex items-center justify-center disabled:opacity-50"
@@ -18,7 +18,7 @@
             </svg>
         </button>
         <div class="text-center flex-1 p-1">
-            <div :class="!modelValue ? 'text-rose-900' : ''">Количество</div>
+            <div :class="!modelValue ? 'text-rose-900' : ''">{{$t('buyForm.quantity')}}</div>
             <input
                 type="number"
                 :value="modelValue"

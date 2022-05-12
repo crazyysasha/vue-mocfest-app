@@ -190,7 +190,7 @@
                     @click="modalIsOpen = true"
                     :disabled="isLoading || event?.is_disabled_for_sales"
                 >
-                    Купить билеты
+                    {{$t("buttons.buyTicket")}}
                 </button>
             </div>
         </div>
@@ -318,8 +318,8 @@ watch(error, async () => {
     }
 });
 
-onMounted(() => {
-    fetchEvent(slug);
+onMounted(async () => {
+    await fetchEvent(slug);
 });
 
 const hideGallery = () => {

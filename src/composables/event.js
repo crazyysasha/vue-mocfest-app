@@ -11,7 +11,7 @@ const error = ref(null);
 
 const fetchEvent = async (idOrSlug) => {
     isLoading.value = true;
-    getByIdOrSlug(idOrSlug).then((res) => {
+    await getByIdOrSlug(idOrSlug).then((res) => {
         event.value = res.data;
         isLoading.value = false;
         isLoaded.value = true;

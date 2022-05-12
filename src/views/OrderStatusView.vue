@@ -5,11 +5,15 @@
                 <div class="animate-ping h-10 w-10 rounded-full bg-white"></div>
             </div>
         </div>
-        <div v-if="data" class="max-w-md">
-            <h2 class="text-center text-2xl mb-5">Спасибо за покупку</h2>
-            <p class="font-montserrat text-center mb-5">
+        <div v-if="data" class="max-w-md px-5 md:px-0">
+            <h2 class="text-center text-2xl mb-5 tracking-[.22em]">
+                Спасибо за покупку!
+            </h2>
+            <p class="font-montserrat text-center mb-5 tracking-normal">
                 Билеты и дополнительная информация отправлены вам на
-                {{ data.email }}
+                <span class="font-bold">
+                    {{ data.email }}
+                </span>
             </p>
             <button
                 class="
@@ -17,7 +21,7 @@
                     w-full
                     border border-white
                     p-4
-                    tracking-[.2rem]
+                    tracking-[.22em]
                     text-lg
                     transition-all
                     duration-200

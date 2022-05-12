@@ -134,7 +134,7 @@
             >
                 <li class="my-auto"></li>
                 <li
-                    v-for="link in links"
+                    v-for="link in computedLinks"
                     :key="link.url"
                     :class="{ 'my-auto': !isCollapsed, 'my-2': isCollapsed }"
                 >
@@ -158,7 +158,7 @@
                         :class="{ 'writing-vertical': !isCollapsed }"
                     >
                         <div class="p-1 inline-block">
-                            {{ link.title }}
+                            {{ link.title() }}
                         </div>
                     </router-link>
                 </li>
@@ -176,29 +176,25 @@
 
 
 <script>
-import { inject, ref, onMounted, onUnmounted, computed } from "vue";
+import {
+    inject,
+    ref,
+    onMounted,
+    onUnmounted,
+    computed,
+    shallowRef,
+    reactive,
+} from "vue";
 import LangList from "@/components/lang-list.vue";
 import SettingsSocials from "@/components/settings-socials.vue";
+import { useI18n } from "vue-i18n";
 
 export default {
     components: {
         LangList,
         SettingsSocials,
     },
-    data: () => ({
-        links: [
-            // {
-            //     title: "магаз",
-            //     url: "https://mocfest.avlo.site/",
-            //     withoutRouter: true,
-            // },
-            { title: "FAQ", url: "/faq" },
-            { title: "Галерея", url: "/gallery" },
-            { title: "Карта", url: "/events" },
-            { title: "О нас", url: "/about", exact: true },
-            { title: "Партнеры", url: "/partners" },
-        ],
-    }),
+    data: () => ({}),
     setup() {
         const menu = inject("menu");
 
@@ -213,12 +209,34 @@ export default {
             isOpen.value = false;
         };
 
+        const { t } = useI18n();
+
+        const links = reactive([
+            // {
+            //     title: "магаз",
+            //     url: "https://mocfest.avlo.site/",
+            //     withoutRouter: true,
+            // },
+            // { title: "FAQ", url: "/faq" },
+            { title: () => t("header.links.gallery"), url: "/gallery" },
+            { title: () => t("header.links.map"), url: "/events" },
+            {
+                title: () => t("header.links.about"),
+                url: "/about",
+                exact: true,
+            },
+            { title: () => t("header.links.partners"), url: "/partners" },
+        ]);
+
+        const computedLinks = computed(() => links, { deep: true });
         return {
             menu,
             isCollapsed,
             isOpen,
             toggleMenu,
             hideMenu,
+            links,
+            computedLinks,
         };
     },
 };

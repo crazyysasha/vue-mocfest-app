@@ -1,8 +1,8 @@
 <template>	
 	<div class="container mx-auto pt-24 px-4">
 		<div class="header mb-6 tracking-wide">
-			<h1 class="text-xl sm:text-5xl leading-8 font-montserrat">галерея</h1>
-			<p class="text-[17px] leading-5 sm:leading-8 font-montserrat">фотоотчёт наших мероприятий</p>
+			<h1 class="text-xl sm:text-5xl leading-8 font-montserrat">{{$t("gallery.title")}}</h1>
+			<p class="text-[17px] leading-5 sm:leading-8 font-montserrat">{{$t("gallery.description")}}</p>
 		</div>
 		<div class="gallery">
 			<div v-if="!settings.gallery" class="border border-blue-300 border-opacity-30 shadow rounded-md p-4 w-full mx-auto">

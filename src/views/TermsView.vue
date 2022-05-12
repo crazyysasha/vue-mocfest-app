@@ -12,7 +12,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="mt-16 p-7 terms w-full md:w-4/5">
+    <div class="mt-16 p-7 terms w-full md:w-4/5 tracking-normal">
         <div v-if="isLoading">
             <div class="h-12 w-96 mb-6 bg-white animate-pulse"></div>
             <div class="h-7 w-full mb-2 bg-white animate-pulse"></div>
@@ -42,10 +42,7 @@ onMounted(async () => {
                 "
                 v-html="data?.description"
             ></div>
-            <div
-                class="mt-16 font-montserrat tracking-wider"
-                v-html="data?.content"
-            ></div>
+            <div class="mt-16 font-montserrat" v-html="data?.content"></div>
             <div class="hidden">
                 <h6></h6>
                 <h5></h5>

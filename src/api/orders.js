@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/utils/axios";
 
 /** нет необходимости писать название сущности, т.к. название файла определяет саму сущность
 	  BAD: в место create(order) {
@@ -9,19 +9,19 @@ import axios from "axios";
 */
 
 export const create = (credentials = { event, date, time, quantity, }) => {
-	return axios.post(`${process.env.VUE_APP_API_URL}/orders`, credentials);
+	return axios.post(`orders`, credentials);
 };
 
 // метод изменения заказа, нужен для того что бы задать номер телефона к заказу и почту 
-export const update = (id, credentials = { email, phone }) => {
-	return axios.post(`${process.env.VUE_APP_API_URL}/orders/${id}`, credentials)
+export const update = (id, credentials = { email, phone, payment_type, }) => {
+	return axios.post(`orders/${id}`, credentials)
 }
 
 /// метод оплаты заказа
 export const pay = (id) => {
-	return axios.post(`${process.env.VUE_APP_API_URL}/orders/${id}/pay`)
+	return axios.post(`orders/${id}/pay`)
 };
 /// метод получения заказа
 export const getById = (id) => {
-	return axios.get(`${process.env.VUE_APP_API_URL}/orders/${id}`)
+	return axios.get(`orders/${id}`)
 };

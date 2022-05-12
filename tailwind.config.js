@@ -375,12 +375,12 @@ module.exports = {
         'monospace',
       ],
       neutralFace: [
-        'NeutralFace',
+        'NeutralFace', 'sans-serif',
       ],
       montserrat: [
-        'Montserrat',
+        'Montserrat', 'sans-serif',
       ],
-      
+
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],

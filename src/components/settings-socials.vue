@@ -20,13 +20,17 @@
             </div>
         </div>
     </div>
-    <div
-        class="font-montserrat text-center text-sm mt-8"
-        v-else-if="isLoaded"
-    >
+    <div class="font-montserrat text-center text-sm mt-8" v-else-if="isLoaded">
         <div class="my-1" v-for="socials in settings.socials" :key="socials">
             <span v-for="(social, index) in socials" :key="social">
-                <a class="hover:opacity-50" :href="social.url">
+                <router-link
+                    v-if="social.is_internal"
+                    class="hover:opacity-50"
+                    :to="social.url"
+                >
+                    {{ social.label }}
+                </router-link>
+                <a class="hover:opacity-50" :href="social.url" v-else>
                     {{ social.label }}
                 </a>
                 {{ index < socials.length - 1 ? "/ " : "" }}

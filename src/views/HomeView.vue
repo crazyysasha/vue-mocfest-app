@@ -83,17 +83,12 @@
                 "
                 @click="modalIsOpen = true"
             >
-                Купить билет
+                {{$t('buttons.buyTicket')}}
             </button>
         </div>
 
-        <settings-socials></settings-socials>
+        <settings-socials class="mb-auto"></settings-socials>
 
-        <div class="mb-auto text-center mt-2">
-            <router-link to="/terms" class="hover:opacity-50">
-                Публичная оферта
-            </router-link>
-        </div>
 
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
             <button

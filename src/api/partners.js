@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from "@/utils/axios";
 
 export const getAll = () => {
-  return axios.get(`${process.env.VUE_APP_API_URL}/partners`);
+  return axios.get(`partners`);
 }
 

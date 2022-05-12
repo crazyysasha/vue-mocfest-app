@@ -37,146 +37,179 @@
                         </div>
                     </div>
                     <div v-if="!updateState.order">
-                        <c-select
-                            class="text-white"
-                            :class="{}"
-                            v-model="createState.event"
-                            :options="events"
-                            :disabled="true"
-                            option-key="id"
-                        >
-                            <template #default="{ title, subtitle }">
-                                <div class="underline underline-offset-2">
-                                    {{ title }}
-                                </div>
-                                <div
-                                    class="
-                                        text-[13px]
-                                        leading-5
-                                        tracking-normal
-                                        font-thin font-montserrat
-                                        text-center
-                                    "
-                                    v-html="subtitle"
-                                ></div>
-                            </template>
-                            <template #option="{ option }">
-                                <div>{{ option.title }}</div>
-                            </template>
-                        </c-select>
-                        <div
-                            class="text-rose-900"
-                            v-for="error in createValidation.event.$errors"
-                            :key="error.$uid"
-                        >
-                            {{ error.$message }}
-                        </div>
-                        <c-select
-                            class="text-white"
-                            v-model="createState.date"
-                            :options="dates"
-                            :disabled="true"
-                            option-key="id"
-                            v-if="
-                                dates.length > 1 &&
-                                createState.event.tickets.length > 0
-                            "
-                        >
-                            <template #default="{ title }">
-                                <div class="underline underline-offset-2">
-                                    Дата
-                                </div>
-                                <div
-                                    class="
-                                        text-[13px]
-                                        tracking-normal
-                                        font-thin font-montserrat
-                                    "
-                                >
-                                    {{ title }}
-                                </div>
-                            </template>
-                            <template #option="{ option }">
-                                <div>{{ option.title }}</div>
-                            </template>
-                        </c-select>
-                        <div
-                            v-if="
-                                dates.length > 1 &&
-                                createState.event.tickets.length > 0
-                            "
-                            class="flex flex-col"
-                        >
+                        <div class="py-1">
+                            <c-select
+                                class="text-white"
+                                :class="{}"
+                                v-model="createState.event"
+                                :options="events"
+                                :disabled="true"
+                                option-key="id"
+                            >
+                                <template #default="{ title, subtitle }">
+                                    <div class="underline underline-offset-2">
+                                        {{ title }}
+                                    </div>
+                                    <div
+                                        class="
+                                            text-[13px]
+                                            leading-5
+                                            tracking-normal
+                                            font-thin font-montserrat
+                                            text-center
+                                        "
+                                        v-html="subtitle"
+                                    ></div>
+                                </template>
+                                <template #option="{ option }">
+                                    <div>{{ option.title }}</div>
+                                </template>
+                            </c-select>
                             <div
-                                class="text-rose-900 w-full"
-                                v-for="error in createValidation.date.$errors"
+                                class="text-red-600 my-1"
+                                v-for="error in createValidation.event.$errors"
                                 :key="error.$uid"
                             >
                                 {{ error.$message }}
                             </div>
                         </div>
-                        <c-select
-                            class="text-white"
-                            v-model="createState.time"
-                            :options="times"
-                            :disabled="true"
-                            option-key="id"
-                            v-if="
-                                times.length > 1 &&
-                                createState.event.tickets.length > 0
-                            "
-                        >
-                            <template #default="{ title }">
-                                <div class="underline underline-offset-2">
-                                    Начало события
-                                </div>
+                        <div class="py-1">
+                            <c-select
+                                class="text-white"
+                                v-model="createState.date"
+                                :options="dates"
+                                :disabled="true"
+                                option-key="id"
+                                v-if="
+                                    dates.length > 1 &&
+                                    createState.event.tickets.length > 0
+                                "
+                            >
+                                <template #default="{ title }">
+                                    <div class="underline underline-offset-2">
+                                        {{ $t("buyForm.date") }}
+                                    </div>
+                                    <div
+                                        class="
+                                            text-[13px]
+                                            tracking-normal
+                                            font-thin font-montserrat
+                                        "
+                                    >
+                                        {{ title }}
+                                    </div>
+                                </template>
+                                <template #option="{ option }">
+                                    <div>{{ option.title }}</div>
+                                </template>
+                            </c-select>
+                            <div
+                                v-if="
+                                    dates.length > 1 &&
+                                    createState.event.tickets.length > 0
+                                "
+                                class="flex flex-col"
+                            >
                                 <div
                                     class="
-                                        text-[13px]
-                                        tracking-normal
-                                        font-thin font-montserrat
+                                        text-red-600
+                                        font-montserrat font-medium
+                                        text-xs
+                                        w-full
+                                        my-1
                                     "
+                                    v-for="error in createValidation.date
+                                        .$errors"
+                                    :key="error.$uid"
                                 >
-                                    {{ title }}
+                                    {{ error.$message }}
                                 </div>
-                            </template>
-                            <template #option="{ option }">
-                                <div>{{ option.title }}</div>
-                            </template>
-                        </c-select>
+                            </div>
+                        </div>
                         <div
+                            class="py-1"
                             v-if="
                                 times.length > 1 &&
                                 createState.event.tickets.length > 0
                             "
-                            class="flex flex-col"
                         >
-                            <div
-                                class="text-rose-900 w-full"
-                                v-for="error in createValidation.time.$errors"
-                                :key="error.$uid"
+                            <c-select
+                                class="text-white"
+                                v-model="createState.time"
+                                :options="times"
+                                :disabled="true"
+                                option-key="id"
+                                v-if="
+                                    times.length > 1 &&
+                                    createState.event.tickets.length > 0
+                                "
                             >
-                                {{ error.$message }}
+                                <template #default="{ title }">
+                                    <div class="underline underline-offset-2">
+                                        {{ $t("buyForm.selectTime") }}
+                                    </div>
+                                    <div
+                                        class="
+                                            text-[13px]
+                                            tracking-normal
+                                            font-thin font-montserrat
+                                        "
+                                    >
+                                        {{ title }}
+                                    </div>
+                                </template>
+                                <template #option="{ option }">
+                                    <div>{{ option.title }}</div>
+                                </template>
+                            </c-select>
+                            <div
+                                v-if="
+                                    times.length > 1 &&
+                                    createState.event.tickets.length > 0
+                                "
+                                class="flex flex-col mb-2"
+                            >
+                                <div
+                                    class="
+                                        text-red-600
+                                        font-montserrat font-medium
+                                        text-xs
+                                        w-full
+                                    "
+                                    v-for="error in createValidation.time
+                                        .$errors"
+                                    :key="error.$uid"
+                                >
+                                    {{ error.$message }}
+                                </div>
                             </div>
                         </div>
-                        <c-counter
-                            v-model="createState.quantity"
-                            :min="1"
-                            :max="tickets.length"
-                            v-if="createState.event.tickets.length > 0"
-                        >
-                        </c-counter>
-                        <div
-                            class="flex flex-col"
-                            v-if="createState.event.tickets.length > 0"
-                        >
-                            <div
-                                class="text-rose-900 w-full"
-                                v-for="error in createValidation.quantity
-                                    .$errors"
-                                :key="error.$uid"
+                        <div class="py-1">
+                            <c-counter
+                                v-model="createState.quantity"
+                                :min="1"
+                                :max="tickets.length"
+                                v-if="createState.event.tickets.length > 0"
                             >
-                                {{ error.$message }}
+                            </c-counter>
+                            <div
+                                class="flex flex-col"
+                                v-if="createState.event.tickets.length > 0"
+                            >
+                                <div
+                                    class="
+                                        text-red-600
+                                        font-montserrat font-medium
+                                        text-xs
+                                        w-full
+                                        my-1
+                                    "
+                                    v-for="error in createValidation.quantity
+                                        .$errors"
+                                    :key="error.$uid"
+                                >
+                                    {{ error.$message }}
+                                </div>
                             </div>
                         </div>
                         <div
@@ -187,35 +220,47 @@
                                 class="flex justify-between my-2"
                                 v-if="dates.length <= 1"
                             >
-                                <div class="opacity-50">Дата события</div>
+                                <div class="opacity-50">
+                                    {{ $t("buyForm.eventDate") }}
+                                </div>
                                 <div>{{ createState.date.title }}</div>
                             </div>
                             <div
                                 class="flex justify-between my-2"
                                 v-if="times.length <= 1"
                             >
-                                <div class="opacity-50">Начало</div>
+                                <div class="opacity-50">
+                                    {{ $t("buyForm.time") }}
+                                </div>
                                 <div>{{ createState.time.title }}</div>
                             </div>
                         </div>
                         <div
-                            class="text-rose-900 text-center"
+                            class="
+                                text-red-600
+                                font-montserrat font-medium
+                                text-xs text-center
+                            "
                             v-if="createState.event.is_disabled_for_sales"
                         >
-                            Продажа билетов не началась
+                            {{ $t("buyForm.purchaseDisabled") }}
                         </div>
                         <div
-                            class="text-rose-900 text-center"
+                            class="
+                                text-red-600
+                                font-montserrat font-medium
+                                text-xs text-center
+                            "
                             v-else-if="createState.event.tickets.length == 0"
                         >
-                            Билетов не осталось
+                            {{ $t("buyForm.ticketsNotFound") }}
                         </div>
                     </div>
                     <div v-else-if="updateState.order">
-                        <div class="mb-2">
+                        <div class="mb-1">
                             <input
                                 type="text"
-                                placeholder="Email"
+                                placeholder="email"
                                 class="
                                     w-full
                                     bg-transparent
@@ -230,19 +275,24 @@
                                 v-model="updateState.email"
                             />
                         </div>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col mb-2">
                             <div
-                                class="text-rose-900 w-full"
+                                class="
+                                    text-red-600
+                                    font-montserrat font-medium
+                                    text-xs
+                                    w-full
+                                "
                                 v-for="error in updateValidation.email.$errors"
                                 :key="error.$uid"
                             >
                                 {{ error.$message }}
                             </div>
                         </div>
-                        <div class="mb-2">
+                        <div class="mb-1">
                             <input
                                 type="text"
-                                placeholder="Номер телефона"
+                                :placeholder="$t('buyForm.phone')"
                                 class="
                                     w-full
                                     bg-transparent
@@ -258,9 +308,14 @@
                             />
                         </div>
 
-                        <div class="flex flex-col">
+                        <div class="flex flex-col mb-2">
                             <div
-                                class="text-rose-900 w-full"
+                                class="
+                                    text-red-600
+                                    font-montserrat font-medium
+                                    text-xs
+                                    w-full
+                                "
                                 v-for="error in updateValidation.phone.$errors"
                                 :key="error.$uid"
                             >
@@ -270,13 +325,16 @@
                         <c-select
                             class="text-white"
                             v-model="updateState.paymentType"
-                            :options="[{ title: 'Payme' }]"
+                            :options="[
+                                { title: 'Payme', value: 'payme' },
+                                { title: 'PayBox', value: 'paybox' },
+                            ]"
                             :disabled="true"
                             option-key="id"
                         >
                             <template #default="{ title }">
                                 <div class="underline underline-offset-2">
-                                    Способ оплаты
+                                    {{ $t("buyForm.paymentType") }}
                                 </div>
                                 <div
                                     class="
@@ -300,7 +358,7 @@
                                         text-lg text-neutral-500
                                         font-montserrat
                                     "
-                                    >Событие</span
+                                    >{{ $t("buyForm.event") }}</span
                                 >
                                 <span class="text-sm">{{
                                     updateState.order.event.title
@@ -312,10 +370,11 @@
                                         text-lg text-neutral-500
                                         font-montserrat
                                     "
-                                    >Кол-во</span
+                                    >{{ $t("buyForm.quan") }}</span
                                 >
                                 <span class="text-sm"
-                                    >{{ updateState.order.quantity }} шт.</span
+                                    >{{ updateState.order.quantity }}
+                                    {{ $t("buyForm.counts") }}.</span
                                 >
                             </div>
                             <div class="flex justify-between">
@@ -324,11 +383,12 @@
                                         text-lg text-neutral-500
                                         font-montserrat
                                     "
-                                    >Итого</span
+                                    >{{ $t("buyForm.total") }}</span
                                 >
-                                <span class="text-sm"
-                                    >{{ updateState.order.price }} сум.</span
-                                >
+                                <span class="text-sm">
+                                    {{ updateState.order.price }}
+                                    {{ $t("buyForm.currency") }}.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -336,7 +396,6 @@
                 <button
                     class="
                         text-center
-                        block
                         w-full
                         p-4
                         border-t-2 border-dashed border-white
@@ -353,7 +412,7 @@
                         'bg-white animate-pulse text-white': createIsLoading,
                     }"
                 >
-                    Продолжить
+                    {{ $t("buyForm.next") }}
                 </button>
                 <button
                     class="
@@ -374,7 +433,7 @@
                         'bg-white animate-pulse text-white': updateIsLoading,
                     }"
                 >
-                    Купить билеты
+                    {{ $t("buttons.buyTicket") }}
                 </button>
             </div>
             <div
@@ -424,12 +483,15 @@ import { required, email, helpers, numeric } from "@vuelidate/validators";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 import { pay } from "@/api/orders";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
 onMounted(() => {
     if (!isLoaded.value) fetchEvents();
 });
+
+const { t } = useI18n();
 
 const globalError = ref(null);
 
@@ -493,12 +555,21 @@ watch(
     }
 );
 const createRules = {
-    event: { required },
-    date: { required },
-    time: { required },
+    event: {
+        required: helpers.withMessage(t("buyForm.requiredError"), required),
+    },
+    date: {
+        required: helpers.withMessage(t("buyForm.requiredError"), required),
+    },
+    time: {
+        required: helpers.withMessage(t("buyForm.requiredError"), required),
+    },
     quantity: {
         // numeric,
-        min: helpers.withMessage("Количество не верно", (value) => value >= 1),
+        min: helpers.withMessage(
+            t("buyForm.countError"),
+            (value) => value >= 1
+        ),
         // max: helpers.withMessage(
         // 	"Количество не верно",
         // 	(value) => value <= times.value[0].tickets.length
@@ -566,8 +637,13 @@ watch(
 );
 
 const updateRules = {
-    email: { required, email },
-    phone: { required },
+    email: {
+        required: helpers.withMessage(t("buyForm.requiredError"), required),
+        email: helpers.withMessage("buyForm.emailError", email),
+    },
+    phone: {
+        required: helpers.withMessage(t("buyForm.requiredError"), required),
+    },
 };
 
 const updateExternalResults = reactive({});
@@ -587,6 +663,7 @@ const onUpdate = async () => {
     await updateExec(updateState.order.id, {
         email: updateState.email,
         phone: updateState.phone,
+        payment_type: updateState.paymentType?.value || "payme",
     });
 
     if (updateError.value?.type == "validation") {

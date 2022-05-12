@@ -17,17 +17,17 @@
             <div class="animate-ping h-10 w-10 rounded-full bg-white"></div>
         </div>
     </div>
-    <div class="container mx-auto pt-16 px-5 about" v-else-if="isLoaded">
+    <div class="container mx-auto pt-16 about" v-else-if="isLoaded">
         <div
             class="
                 video
                 border border-white border-opacity-10
-                min-h-[calc(100vh-11rem)]
+                w-full
                 mb-8
             "
             ref="videoContainer"
         ></div>
-        <div class="content font-montserrat tracking-normal">
+        <div class="content font-montserrat tracking-normal px-5 md:px-0">
             <div
                 v-for="content in settings?.content"
                 :key="content"
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="our-team pt-16 pb-10" v-if="settings?.team?.length > 0">
+        <div class="our-team pt-16 pb-10 px-5 md:px-0" v-if="settings?.team?.length > 0">
             <div class="text-5xl mb-16 tracking-normal font-montserrat">
                 наша команда
             </div>
@@ -211,7 +211,7 @@ onMounted(async () => {
         videoContainer.value.innerHTML = `
 		<iframe 
 			width="${videoContainer.value.clientWidth}" 
-			height="${videoContainer.value.clientHeight}"
+			height="${videoContainer.value.clientWidth / 16 * 9}"
 			src="https://www.youtube.com/embed/${settings.value.video}"
 			title="YouTube video player"
 			frameborder="0"

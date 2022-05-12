@@ -12,13 +12,19 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
+<style>
 .content p {
     @apply mb-6;
 }
+.content a {
+    @apply underline underline-offset-2 transition duration-200;
+}
+.content a:hover {
+    @apply opacity-50;
+}
 </style>
 <template>
-    <div class="mt-16 p-7 w-full md:w-4/5">
+    <div class="mt-20  p-7 w-full md:w-4/5 tracking-normal content">
         <div v-if="isLoading">
             <div class="h-12 w-96 mb-6 bg-white animate-pulse"></div>
             <div class="h-7 w-full mb-2 bg-white animate-pulse"></div>
@@ -47,7 +53,7 @@ onMounted(async () => {
                 <AccordionItem
                     :open="openItem"
                     @trigger="onChange"
-                    class="content font-montserrat font-normal text-[17px]"
+                    class=" font-montserrat font-normal text-[17px]"
                     v-for="(item, index) in data?.items || []"
                     :id="index"
                     :key="index"
@@ -61,6 +67,10 @@ onMounted(async () => {
                 </AccordionItem>
             </AccordionContainer>
         </div>
+    </div>
+    <div class="content hidden">
+        <a href=""></a>
+        <p></p>
     </div>
 </template>
 

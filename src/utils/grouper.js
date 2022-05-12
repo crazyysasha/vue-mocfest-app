@@ -3,9 +3,8 @@ export default function grouper(tickets) {
         Array.from(tickets).reduce((group, ticket) => {
             const [validAtDate, validAtTime] = [
                 new Date(ticket.valid_at).toLocaleDateString(),
-                new Date(ticket.valid_at).toLocaleTimeString(),
+                new Date(ticket.valid_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             ];
-
             group[validAtDate] = group[validAtDate] || {};
             group[validAtDate][validAtTime] =
                 group[validAtDate][validAtTime] || [];

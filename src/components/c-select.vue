@@ -3,7 +3,6 @@
         class="
             border border-white border-opacity-50
             flex
-            my-2
             cursor-pointer
             relative 
             min-h-[60px]
