@@ -10,21 +10,17 @@
             flex
             items-center
             justify-center
+            pb-16
         "
-        v-if="isLoading"
+        v-show="isLoading && !isLoaded"
     >
         <div class="h-10 w-10 animate-pulse rounded-full bg-white">
             <div class="animate-ping h-10 w-10 rounded-full bg-white"></div>
         </div>
     </div>
-    <div class="container mx-auto pt-16 about" v-else-if="isLoaded">
+    <div class="container mx-auto pt-16 about" v-show="isLoaded">
         <div
-            class="
-                video
-                border border-white border-opacity-10
-                w-full
-                mb-8
-            "
+            class="video border border-white border-opacity-10 w-full mb-8"
             ref="videoContainer"
         ></div>
         <div class="content font-montserrat tracking-normal px-5 md:px-0">
@@ -52,7 +48,10 @@
                 </div>
             </div>
         </div>
-        <div class="our-team pt-16 pb-10 px-5 md:px-0" v-if="settings?.team?.length > 0">
+        <div
+            class="our-team pt-16 pb-10 px-5 md:px-0"
+            v-if="settings?.team?.length > 0"
+        >
             <div class="text-5xl mb-16 tracking-normal font-montserrat">
                 наша команда
             </div>
@@ -119,9 +118,11 @@
                 </div>
             </div>
         </div>
+        <div class="p-4"></div>
     </div>
     <div
         class="
+            hidden
             grid-cols-1
             grid-cols-2
             grid-cols-3
@@ -207,30 +208,18 @@ const { settings, isLoading, isLoaded, exec } = useSettings();
 
 onMounted(async () => {
     if (!isLoaded.value) await exec();
+
     if (settings.value.video) {
         videoContainer.value.innerHTML = `
 		<iframe 
 			width="${videoContainer.value.clientWidth}" 
-			height="${videoContainer.value.clientWidth / 16 * 9}"
+			height="${(videoContainer.value.clientWidth / 16) * 9}"
 			src="https://www.youtube.com/embed/${settings.value.video}"
 			title="YouTube video player"
 			frameborder="0"
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
 		></iframe>`;
     }
-    afterChange(() => {
-        if (settings.value.video) {
-            videoContainer.value.innerHTML = `
-		<iframe 
-			width="${videoContainer.value.clientWidth}" 
-			height="${videoContainer.value.clientHeight}"
-			src="https://www.youtube.com/embed/${settings.value.video}"
-			title="YouTube video player"
-			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-		></iframe>`;
-        }
-    });
 });
 
 const videoContainer = ref();

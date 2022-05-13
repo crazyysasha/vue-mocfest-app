@@ -12,7 +12,7 @@
                 v-if="!globalError"
             >
                 <div class="p-2 sm:p-4 pb-4">
-                    <img src="@/assets/logo.png" alt="" class="mx-auto" />
+                    <img src="@/assets/logo.svg" alt="" class="mx-auto" />
                 </div>
                 <div class="flex flex-col font-neutralFace p-4 sm:p-6">
                     <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
@@ -272,7 +272,7 @@
                                     px-4
                                     py-2
                                 "
-                                v-model="updateState.email"
+                                v-model.trim="updateState.email"
                             />
                         </div>
                         <div class="flex flex-col mb-2">
@@ -327,7 +327,7 @@
                             v-model="updateState.paymentType"
                             :options="[
                                 { title: 'Payme', value: 'payme' },
-                                { title: 'PayBox', value: 'paybox' },
+                                { title: 'Visa/MasterCard', value: 'paybox' },
                             ]"
                             :disabled="true"
                             option-key="id"
@@ -447,11 +447,11 @@
                 v-else-if="globalError"
             >
                 <div class="p-2 sm:p-4 pb-4">
-                    <img src="@/assets/logo.png" alt="" class="mx-auto" />
+                    <img src="@/assets/logo.svg" alt="" class="mx-auto" />
                 </div>
                 <div class="p-4 text-rose-900">
                     {{ globalError }}
-                    <p class="mt-2">Обновите страницу и по пробуйте снова</p>
+                    <p class="mt-2">{{ $t("buyForm.reload") }}</p>
                 </div>
             </div>
         </div>
@@ -463,9 +463,6 @@
                     ></div>
                 </div>
             </div>
-        </div>
-        <div class="font-montserrat text-center text-sm text-white">
-            <SettingsSocials />
         </div>
     </div>
 </template>
@@ -639,7 +636,7 @@ watch(
 const updateRules = {
     email: {
         required: helpers.withMessage(t("buyForm.requiredError"), required),
-        email: helpers.withMessage("buyForm.emailError", email),
+        email: helpers.withMessage(t("buyForm.emailError"), email),
     },
     phone: {
         required: helpers.withMessage(t("buyForm.requiredError"), required),

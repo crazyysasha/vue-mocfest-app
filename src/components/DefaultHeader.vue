@@ -218,6 +218,7 @@ export default {
             //     withoutRouter: true,
             // },
             // { title: "FAQ", url: "/faq" },
+            { title: () => t("header.links.partners"), url: "/partners" },
             { title: () => t("header.links.gallery"), url: "/gallery" },
             { title: () => t("header.links.map"), url: "/events" },
             {
@@ -225,7 +226,6 @@ export default {
                 url: "/about",
                 exact: true,
             },
-            { title: () => t("header.links.partners"), url: "/partners" },
         ]);
 
         const computedLinks = computed(() => links, { deep: true });

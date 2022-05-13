@@ -169,7 +169,11 @@
                 v-html="event?.description"
             ></div>
             <div class="mt-auto mb-4">
+                <div v-if="!isLoading && event?.is_disabled_for_sales" class="text-xl pb-10">
+                    {{$t("buyForm.purchaseDisabled")}}
+                </div>
                 <button
+                    v-else
                     class="
                         block
                         w-full
@@ -182,13 +186,12 @@
                     "
                     :class="{
                         'hover:bg-white hover:text-black':
-                            !isLoading && !event?.is_disabled_for_sales,
+                            !isLoading,
                         'bg-black': !isLoading,
                         'bg-white animate-pulse': isLoading,
-                        'cursor-not-allowed': event?.is_disabled_for_sales,
                     }"
                     @click="modalIsOpen = true"
-                    :disabled="isLoading || event?.is_disabled_for_sales"
+                    :disabled="isLoading"
                 >
                     {{$t("buttons.buyTicket")}}
                 </button>

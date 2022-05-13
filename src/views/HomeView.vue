@@ -8,7 +8,7 @@
             </LangList>
 
             <div class="p-3 px-4">
-                <img src="@/assets/logo.png" alt="" class="mx-auto" />
+                <img src="@/assets/logo.svg" alt="" class="mx-auto" />
             </div>
             <div class="flex flex-col p-4">
                 <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
@@ -83,12 +83,11 @@
                 "
                 @click="modalIsOpen = true"
             >
-                {{$t('buttons.buyTicket')}}
+                {{ $t("buttons.buyTicket") }}
             </button>
         </div>
 
         <settings-socials class="mb-auto"></settings-socials>
-
 
         <c-modal v-model="modalIsOpen" v-slot="{ close }">
             <button

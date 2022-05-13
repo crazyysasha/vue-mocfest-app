@@ -34,6 +34,8 @@ export default {
             next: "далее",
             selectTime: "начало события",
             phone: "номер телефона",
+            reload: "обнови страницу и попробуй снова",
+            emailError: "введен неправильный email",
         }
     },
     en: {
@@ -72,6 +74,9 @@ export default {
             next: "next",
             selectTime: "start",
             phone: "phone number",
+            reload: "refresh the page and try again",
+            emailError: "invalid email entered",
+            reload: "refresh the page and try again",
         }
     },
     uz: {
@@ -110,7 +115,8 @@ export default {
             next: "keyingisi",
             selectTime: "voqea boshlanishi",
             phone: "telefon raqam",
-        
+            emailError: "noto'g'ri pochta kiritildi",
+            reload: "sahifani yangila va qaytadan urin",
         }
     },
 };
