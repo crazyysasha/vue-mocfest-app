@@ -7,13 +7,9 @@
         </div>
         <div v-if="data" class="max-w-md px-5 md:px-0">
             <h2 class="text-center text-2xl mb-5 tracking-[.22em]">
-                Спасибо за покупку!
+                {{$t("orderStatus.thank")}}
             </h2>
-            <p class="font-montserrat text-center mb-5 tracking-normal">
-                Билеты и дополнительная информация отправлены вам на
-                <span class="font-bold">
-                    {{ data.email }}
-                </span>
+            <p class="font-montserrat text-center mb-5 tracking-normal" v-html="$t('orderStatus.text', {email: data.email})">
             </p>
             <button
                 class="
@@ -28,7 +24,7 @@
                 "
                 @click="router.push('/')"
             >
-                На главную
+               {{$t("home")}}
             </button>
         </div>
     </div>

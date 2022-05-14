@@ -1,13 +1,15 @@
 <template>
     <div
         class="
+            select
             border border-white border-opacity-50
             flex
             cursor-pointer
-            relative 
+            relative
             min-h-[60px]
         "
-        @click.stop="toggle"
+        @click="toggle"
+        ref="select"
     >
         <div class="p-3 flex items-center justify-center opacity-0">
             <svg
@@ -94,22 +96,27 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const isOpen = ref(false);
-    
+
 const show = () => {
     isOpen.value = true;
 };
 const hide = () => {
     isOpen.value = false;
 };
-const toggle = () => {
+const toggle = (event) => {
+    event.stopPropagation();
     isOpen.value = !isOpen.value;
 };
+const select = ref();
 const onSelect = (item) => {
     emit("update:modelValue", item);
     hide();
 };
 
 const hideHandler = (event) => {
+    if (select.value.contains(event.target) || select.value == event.target) {
+        event.stopPropagation();
+    }
     if (event?.keyCode == 27 || event.type == "click") {
         hide();
     }
@@ -125,6 +132,3 @@ onUnmounted(() => {
     document.removeEventListener("keyup", hideHandler);
 });
 </script>
-
-<style lang="scss" scoped>
-</style>

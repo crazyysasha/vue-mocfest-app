@@ -82,7 +82,7 @@
                                 option-key="id"
                                 v-if="
                                     dates.length > 1 &&
-                                    createState.event.tickets.length > 0
+                                    createState.event.groupedTickets.length > 0
                                 "
                             >
                                 <template #default="{ title }">
@@ -106,7 +106,7 @@
                             <div
                                 v-if="
                                     dates.length > 1 &&
-                                    createState.event.tickets.length > 0
+                                    createState.event.groupedTickets.length > 0
                                 "
                                 class="flex flex-col"
                             >
@@ -130,7 +130,7 @@
                             class="py-1"
                             v-if="
                                 times.length > 1 &&
-                                createState.event.tickets.length > 0
+                                createState.event.groupedTickets.length > 0
                             "
                         >
                             <c-select
@@ -141,7 +141,7 @@
                                 option-key="id"
                                 v-if="
                                     times.length > 1 &&
-                                    createState.event.tickets.length > 0
+                                    createState.event.groupedTickets.length > 0
                                 "
                             >
                                 <template #default="{ title }">
@@ -165,9 +165,9 @@
                             <div
                                 v-if="
                                     times.length > 1 &&
-                                    createState.event.tickets.length > 0
+                                    createState.event.groupedTickets.length > 0
                                 "
-                                class="flex flex-col mb-2"
+                                class="flex flex-col"
                             >
                                 <div
                                     class="
@@ -175,6 +175,7 @@
                                         font-montserrat font-medium
                                         text-xs
                                         w-full
+                                        my-1
                                     "
                                     v-for="error in createValidation.time
                                         .$errors"
@@ -188,13 +189,13 @@
                             <c-counter
                                 v-model="createState.quantity"
                                 :min="1"
-                                :max="tickets.length"
-                                v-if="createState.event.tickets.length > 0"
+                                :max="count"
+                                v-if="createState.event.groupedTickets.length > 0"
                             >
                             </c-counter>
                             <div
                                 class="flex flex-col"
-                                v-if="createState.event.tickets.length > 0"
+                                v-if="createState.event.groupedTickets.length > 0"
                             >
                                 <div
                                     class="
@@ -214,7 +215,7 @@
                         </div>
                         <div
                             class="pt-5 font-montserrat"
-                            v-if="createState.event.tickets.length > 0"
+                            v-if="createState.event.groupedTickets.length > 0"
                         >
                             <div
                                 class="flex justify-between my-2"
@@ -251,7 +252,7 @@
                                 font-montserrat font-medium
                                 text-xs text-center
                             "
-                            v-else-if="createState.event.tickets.length == 0"
+                            v-else-if="createState.event.groupedTickets.length == 0"
                         >
                             {{ $t("buyForm.ticketsNotFound") }}
                         </div>
@@ -265,7 +266,7 @@
                                     w-full
                                     bg-transparent
                                     outline-0
-                                    text-neutral-500
+                                    text-white
                                     font-montserrat
                                     text-lg
                                     border-2 border-neutral-700
@@ -297,7 +298,7 @@
                                     w-full
                                     bg-transparent
                                     outline-0
-                                    text-neutral-500
+                                    text-white
                                     font-montserrat
                                     text-lg
                                     border-2 border-neutral-700
@@ -405,7 +406,7 @@
                         tracking-[.2rem]
                         font-neutralFace
                     "
-                    :disabled="createState.event.tickets.length == 0"
+                    :disabled="createState.event.groupedTickets.length == 0"
                     @click.prevent="onCreate"
                     v-if="!updateState.order"
                     :class="{
@@ -493,17 +494,13 @@ const { t } = useI18n();
 const globalError = ref(null);
 
 const props = defineProps({ event: Object });
-const dates = ref(grouper(props.event.tickets));
+
+const dates = ref(grouper(props.event.groupedTickets));
 
 const times = ref(dates.value[0]?.times || []);
 
-const tickets = ref(times.value[0]?.tickets || []);
+const count = ref(times.value[0]?.count || []);
 
-const totalPrice = computed(() => {
-    return tickets.value.slice(0, quantity.value).reduce((sum, ticket) => {
-        return sum + ticket.price;
-    }, 0);
-});
 
 const createState = reactive({
     event: { ...props.event },
@@ -515,7 +512,7 @@ const createState = reactive({
 watch(
     () => createState.event,
     (newEvent) => {
-        dates.value = grouper(newEvent.tickets);
+        dates.value = grouper(newEvent.groupedTickets);
         createState.date = dates.value[0];
         createExternalResults.event = [];
     }
@@ -533,16 +530,16 @@ watch(
 watch(
     () => createState.time,
     (newTime) => {
-        tickets.value = newTime?.tickets || [];
+        count.value = newTime?.count || [];
 
         createExternalResults.time = [];
     }
 );
-watch(tickets, (newTickets) => {
+watch(count, (newCount) => {
     createState.quantity =
-        createState.quantity < newTickets.length
+        createState.quantity < newCount
             ? createState.quantity
-            : newTickets.length;
+            : newCount;
 });
 
 watch(

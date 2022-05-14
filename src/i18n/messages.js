@@ -36,7 +36,11 @@ export default {
             phone: "номер телефона",
             reload: "обнови страницу и попробуй снова",
             emailError: "введен неправильный email",
-        }
+        },
+        orderStatus: {
+            text: "билеты и дополнительная информация отправлены на <span class=\"font-bold\">{email}</span>",
+            thank: "спасибо за покупку!",
+        },
     },
     en: {
         home: 'Home',
@@ -77,7 +81,11 @@ export default {
             reload: "refresh the page and try again",
             emailError: "invalid email entered",
             reload: "refresh the page and try again",
-        }
+        },
+        orderStatus: {
+            text: "tickets and additional information were sent to <span class=\"font-bold\">{email}</span>",
+            thank: "thank you for purchase!",
+        },
     },
     uz: {
         home: 'Bosh sahifa',
@@ -117,6 +125,11 @@ export default {
             phone: "telefon raqam",
             emailError: "noto'g'ri pochta kiritildi",
             reload: "sahifani yangila va qaytadan urin",
-        }
+        },
+        
+        orderStatus: {
+            text: "chiptalar va qo'shimcha ma'lumotlar <span class=\"font-bold\">{email}</span>ga yuborildi",
+            thank: "sotib olganing uchun rahmat",
+        },
     },
 };
