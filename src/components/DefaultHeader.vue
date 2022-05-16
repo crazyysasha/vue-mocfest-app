@@ -109,12 +109,13 @@
                 flex flex-col
                 overflow-hidden
                 h-screen
-                -z-10
+                z-10
             "
             :class="{
                 'top-0 bg-opacity-0 h-0': !isOpen && isCollapsed,
                 'bg-opacity-100 h-screen': isOpen && isCollapsed,
-                'absolute backdrop-blur w-full top-0': isCollapsed,
+                'absolute backdrop-blur-sm bg-black/75 w-full top-0 overflow-y-auto':
+                    isCollapsed,
             }"
         >
             <ul
@@ -136,7 +137,10 @@
                 <li
                     v-for="link in computedLinks"
                     :key="link.url"
-                    :class="{ 'my-auto': !isCollapsed, 'my-2': isCollapsed }"
+                    :class="{
+                        'my-auto': !isCollapsed,
+                        'my-2': isCollapsed,
+                    }"
                 >
                     <a
                         v-if="link.withoutRouter"
