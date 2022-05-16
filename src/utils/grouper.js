@@ -1,9 +1,21 @@
+function formatDate(date) {
+    var d = new Date(date);
+    var month = '' + (d.getMonth() + 1);
+    var day = '' + d.getDate();
+    var year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [ day, month, year].join('-');
+}
+
 export default function grouper(data) {
 
     return Object.entries(Array.from(data).reduce((group, item) => {
         const [unformatted, count] = item;
         const [date, time] = [
-            new Date(unformatted).toLocaleDateString(),
+            formatDate(unformatted),
             new Date(unformatted).toLocaleTimeString([], { hour: "2-digit", minute: '2-digit' }),
         ];
         group[date] = group[date] || {};
