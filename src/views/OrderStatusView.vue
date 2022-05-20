@@ -21,7 +21,7 @@
                 </template>
             </h2>
 
-            <p v-if="order?.status !== 'paid'" class="font-montserrat text-center mb-5 tracking-normal" v-html="$t('orderStatus.text', {email: data.email})">
+            <p v-if="order?.status === 'paid'" class="font-montserrat text-center mb-5 tracking-normal" v-html="$t('orderStatus.text', {email: data.email})">
             </p>
             <button
                 class="
