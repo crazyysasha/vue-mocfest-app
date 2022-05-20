@@ -40,6 +40,7 @@ export default {
         orderStatus: {
             text: "билеты и дополнительная информация отправлены на <span class=\"font-bold\">{email}</span>",
             thank: "спасибо за покупку!",
+            notPaid: "Ошибка! Недостаточно билетов, Попробуйте купить на другое время",
         },
     },
     en: {
@@ -80,11 +81,11 @@ export default {
             phone: "phone number",
             reload: "refresh the page and try again",
             emailError: "invalid email entered",
-            reload: "refresh the page and try again",
         },
         orderStatus: {
             text: "tickets and additional information were sent to <span class=\"font-bold\">{email}</span>",
             thank: "thank you for purchase!",
+            notPaid: "Mistake! Not enough tickets, Try to book another time",
         },
     },
     uz: {
@@ -130,6 +131,7 @@ export default {
         orderStatus: {
             text: "chiptalar va qo'shimcha ma'lumotlar <span class=\"font-bold\">{email}</span>ga yuborildi",
             thank: "sotib olganing uchun rahmat",
+            notPaid: "Xato! Chiptalar yetarli emas, boshqa safar sotib olishga harakat qiling",
         },
     },
 };

@@ -6,8 +6,13 @@
             </div>
         </div>
         <div v-if="data" class="max-w-md px-5 md:px-0">
-            <h2 class="text-center text-2xl mb-5 tracking-[.22em]">
-                {{$t("orderStatus.thank")}}
+            <h2 class="text-center text-[1.2rem] mb-5 tracking-[.22em]">
+                <template v-if="order?.status === 'cancelled'">
+                  {{$t("orderStatus.notPaid")}}
+                </template>
+                <template v-else>
+                  {{$t("orderStatus.thank")}}
+                </template>
             </h2>
             <p class="font-montserrat text-center mb-5 tracking-normal" v-html="$t('orderStatus.text', {email: data.email})">
             </p>
@@ -34,14 +39,21 @@
 import useOrder from "@/composables/order";
 import { onMounted } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
+import axios from "axios";
 
 const route = useRoute();
 const router = useRouter();
 const { onGet } = useOrder();
 const { exec, error, isLoading, data } = onGet();
+const order = ref({});
 
 onMounted(async () => {
-    await exec(route.params.id);
+    await exec(route.params.id)
+        .then((orderData) => {
+            order.value = orderData
+        })
+
     if (error.value?.type == "not_found") {
         router.push({
             name: "404",
