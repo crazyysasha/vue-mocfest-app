@@ -40,7 +40,8 @@ export default {
         orderStatus: {
             text: "билеты и дополнительная информация отправлены на <span class=\"font-bold\">{email}</span>",
             thank: "спасибо за покупку!",
-            notPaid: "Ошибка! Недостаточно билетов, Попробуйте купить на другое время",
+            notPaid: "Ошибка! Осталось <span class=\"font-bold\">{leftTickets}</span> билет(ов), Попробуйте купить на другое время",
+            notPaid_zero: "Ошибка! Недостаточно билетов, Попробуйте купить на другое время",
         },
     },
     en: {
@@ -85,7 +86,8 @@ export default {
         orderStatus: {
             text: "tickets and additional information were sent to <span class=\"font-bold\">{email}</span>",
             thank: "thank you for purchase!",
-            notPaid: "Mistake! Not enough tickets, Try to book another time",
+            notPaid: "Mistake! Only <span class=\"font-bold\">{leftTickets}</span> ticket(s) left, try booking another time",
+            notPaid_zero: "Mistake! Not enough tickets, Try to book another time",
         },
     },
     uz: {
@@ -131,7 +133,8 @@ export default {
         orderStatus: {
             text: "chiptalar va qo'shimcha ma'lumotlar <span class=\"font-bold\">{email}</span>ga yuborildi",
             thank: "sotib olganing uchun rahmat",
-            notPaid: "Xato! Chiptalar yetarli emas, boshqa safar sotib olishga harakat qiling",
+            notPaid: "Xatolik! Faqat <span class=\"font-bold\">{leftTickets}</span> ta chipta qoldi, boshqa safar orini koʻring",
+            notPaid_zero: "Xatolik! Chiptalar yetarli emas, boshqa safar sotib olishga harakat qiling",
         },
     },
 };
