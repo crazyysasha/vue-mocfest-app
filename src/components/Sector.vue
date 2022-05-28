@@ -7,15 +7,15 @@
       Назад
     </div>
     <div class="sector-wrap" :class="sectorClass">
-      <div class="row" v-for="(row, idx) in sector" :key="idx">
-          <div class="seat" v-for="item in row" :key="item.seat" 
-          :style="{background: item.color}" :class="{selected: item.selected, reserved: item.reserved}"
+      <div class="row" v-for="(row, idx) in seats" :key="idx">
+          <div class="seat" v-for="item in row" :key="item.number" 
+          :style="{background: item.color}" :class="{selected: item.selected, reserved: item.is_booked}"
           @click="addToBasket(item)">
             <div class="seat-tooltip">
               <div>Ряд: {{item.row}}</div>
-              <div>Место: {{item.seat}}</div>
-              <div>Цена: {{item.price}}К</div>
-              <div>Статус: {{item.reserved ? 'Забронировано' :  'Свободно'}}</div>
+              <div>Место: {{item.number}}</div>
+              <div>Цена: {{item.price}}</div>
+              <div>Статус: {{item.is_booked ? 'Забронировано' :  'Свободно'}}</div>
             </div>
           </div>
       </div>
@@ -54,14 +54,12 @@ export default {
     name: 'sector-component',
     created() {
 
+    this.$store.dispatch('loadSeats', this.id)
+    this.sectorClass = `sector-${this.id}`
 
-      import(`../seats/${this.id}.json`)
-      .then(item => {
-        this.sector = item.default
-        this.sectorClass = `sector-${this.id}`
-      })
-
-    this.$store.dispatch('getAll')
+    setTimeout(() => {
+      console.log(this.seats)
+    }, 2000)
 
 
   },
@@ -107,7 +105,7 @@ export default {
       },
 
       seats() {
-        return this.$store.getters.all
+        return this.$store.getters.getSeats.seats
       }
 
     }
