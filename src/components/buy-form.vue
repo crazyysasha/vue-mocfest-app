@@ -393,6 +393,10 @@
                             </div>
                         </div>
                     </div>
+                  
+                    <template v-if="createState.event.id === 2">
+                      <TestComponent />
+                    </template>
                 </div>
                 <button
                     class="
@@ -470,6 +474,7 @@
 
 <script setup>
 import SettingsSocials from "@/components/settings-socials.vue";
+import TestComponent from "@/components/test.vue";
 import CSelect from "@/components/c-select.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
