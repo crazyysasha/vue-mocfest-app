@@ -49,6 +49,7 @@
 
 <script>
 
+
 export default {
     name: 'sector-component',
     created() {
@@ -60,9 +61,8 @@ export default {
         this.sectorClass = `sector-${this.id}`
       })
 
+    this.$store.dispatch('getAll')
 
-            
-      console.log(this.$store)
 
   },
     props: {
@@ -105,6 +105,10 @@ export default {
           return sum += item.price
         }, 0)
       },
+
+      seats() {
+        return this.$store.getters.all
+      }
 
     }
 }

@@ -1,7 +1,6 @@
  import {getSeats} from "@/api/seats";
 
 export default {
-    namespaced: true,
     state: {
         seats: [],
     },
