@@ -1,7 +1,9 @@
 import { createStore } from 'vuex';
 import events from './modules/events.js';
+import seats from './modules/seats';
 
 export default createStore({
+
   state: {
   },
   getters: {
@@ -10,5 +12,5 @@ export default createStore({
   },
   actions: {
   },
-  modules: { events }
+  modules: { events, seats }
 })

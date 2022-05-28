@@ -1,7 +1,6 @@
 // import eventsApi from "@/api/events";
 
 export default {
-    namespaced: true,
     state: {
         data: [],
         loading: false,

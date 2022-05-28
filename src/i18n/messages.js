@@ -43,6 +43,18 @@ export default {
             notPaid: "Ошибка! Осталось <span class=\"font-bold\">{leftTickets}</span> билет(ов), Попробуйте купить на другое время",
             notPaid_zero: "Ошибка! Недостаточно билетов, Попробуйте купить на другое время",
         },
+        seats: {
+            sector: 'Сектор',
+            info: {
+                row: 'Ряд',
+                number: 'Место',
+                price: 'Цена'
+            },
+            buy: 'Купить места',
+            basket: 'Корзина',
+            total: 'Итого',
+            empty: 'Ваша корзина пуста'
+        }
     },
     en: {
         home: 'Home',
@@ -89,6 +101,18 @@ export default {
             notPaid: "Mistake! Only <span class=\"font-bold\">{leftTickets}</span> ticket(s) left, try booking another time",
             notPaid_zero: "Mistake! Not enough tickets, Try to book another time",
         },
+        seats: {
+            sector: 'Sector',
+            info: {
+                row: 'Row',
+                number: 'Number',
+                price: 'Price'
+            },
+            buy: 'Buy seats',
+            basket: 'Basket',
+            total: 'Total',
+            empty: 'Your basket is empty'
+        }
     },
     uz: {
         home: 'Bosh sahifa',
@@ -136,5 +160,19 @@ export default {
             notPaid: "Xatolik! Faqat <span class=\"font-bold\">{leftTickets}</span> ta chipta qoldi, boshqa safar orini koʻring",
             notPaid_zero: "Xatolik! Chiptalar yetarli emas, boshqa safar sotib olishga harakat qiling",
         },
+
+
+        seats: {
+            sector: 'Sektor',
+            info: {
+                row: 'Qator',
+                number: 'Joy',
+                price: 'Narxi'
+            },
+            buy: 'Joylarini sotib olish',
+            basket: 'Savat',
+            total: 'Jami',
+            empty: 'Savatingiz bo\'sh'
+        }
     },
 };
