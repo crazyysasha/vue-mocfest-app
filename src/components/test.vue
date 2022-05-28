@@ -55,6 +55,14 @@ export default {
   width: 100%;
 }
 
+.main-sector__plan svg path {
+	pointer-events: none;
+}
+
+.main-sector__plan svg path.main-sector__links {
+	pointer-events: auto;
+}
+
 .main-sector__links {
   cursor: pointer;
   transition: .4s all;
@@ -68,22 +76,78 @@ export default {
  .row {
 	 display: flex;
 	 margin-bottom: .4rem;
+	 flex-shrink: 0;
+	 width: auto;
 }
  .sector {
-	 min-height: 65vh;
+	 min-height: 500px;
 	 position: fixed;
 	 top: 50%;
 	 left: 50%;
    transform: translate(-50%, -50%);
-	 min-width: 65vh;
-   padding: 10vh;
+	 min-width: 500px;
 	 z-index: 999;
 	 background: #000;
 	 display: flex;
-	 justify-content: center;
+	 justify-content: space-between;
+	 flex-direction: column;
 	 align-items: center;
    border: 1px solid #FFFFFF; 
    overflow: hidden;
+   font-family: Montserrat, sans-serif;
+
+}
+ .sector ::-webkit-scrollbar {
+	 height: 2px;
+ }
+.sector-wrap {
+	padding: 25px 50px 20px;
+	width: 100%;
+	display: flex;
+	max-width: 80vw;
+	overflow: auto;
+	margin-bottom: 10px;
+}
+.sector__title {
+	margin-bottom: 16px;
+	text-transform: uppercase;
+	font-size: 18px;
+}
+.sector-prices {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 240px;
+	margin-bottom: 20px;
+}
+.sector-prices__item {
+	display: flex;
+	align-items: center;
+	margin-right: 14px;
+}
+.sector-prices__color {
+	width: 8px;
+	height: 8px;
+	margin-right: 8px;
+}
+.sector-prices__price {
+	text-transform: uppercase;
+	font-size: 10px;
+}
+.sector__btn {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	cursor: pointer;
+	padding: 25px;
+	border-top: 2px dashed #FFFFFF;
+	transition: .4s all;
+	text-transform: uppercase;
+	font-size: 20px;
+}
+.sector__btn:hover {
+	background: #fff;
+	color: #000;
 }
  .sector-back {
 	 position: absolute;
@@ -139,6 +203,9 @@ export default {
  .sector-basket-hide {
 	 transform: translate(100%,-50%);
 }
+.sector-basket-hide .sector-basket__slide:hover .sector-basket__tooltip{
+	display: block;
+}
  .sector-basket__empty {
 	 padding: .5rem 1rem;
 	 height: 4rem;
@@ -154,9 +221,18 @@ export default {
    top: 50%;
    transform: translateY(-50%);
 }
+
+ .sector-basket__tooltip {
+	 position: absolute;
+	 right: 0;
+	 top: -12px;
+	 font-size: 10px;
+	 display: none;
+ }
  .sector-basket__slide img {
 	 width: 100%;
 }
+
  .sector-basket .delete {
 	 width: 1rem;
 	 height: 1rem;
@@ -280,16 +356,17 @@ export default {
  .seat-tooltip {
 	 position: absolute;
 	 pointer-events: none;
-	 padding: .6rem;
+	 padding: 10px;
 	 left: 50%;
 	 transform: translateX(-50%);
 	 border-radius: .25rem;
-	 background: #222;
+	 background: #000;
 	 color: #fff;
-	 font-size: 0.8rem;
+	 font-size: 11px;
 	 display: none;
+	 width: 120px;
 	 z-index: 5;
-	 bottom: 2rem;
+	 bottom: 15px;
 	 user-select: none;
 }
  .seat-tooltip div {
@@ -306,7 +383,80 @@ export default {
 	 height: 0;
 	 border-style: solid;
 	 border-width: .4rem .4rem 0 .4rem;
-	 border-color: #222 transparent transparent transparent;
+	 border-color: #000 transparent transparent transparent;
+}
+
+.sector-loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 420px;
+	height: 100%;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
  
+@media (max-width: 500px) {
+	 .seat {
+		width: 16px;
+		height: 16px;
+		margin-right: 4px;
+	 }
+
+	 .sector {
+		 width: 100vw;
+		 height: 100vh;
+		 transform: none;
+		 left: 0;
+		 top: 0;
+		 min-width: 0;
+	 }
+
+	 .sector-wrap {
+		 padding: 20px 40px 20px 20px;
+		 height: 100%;
+		 max-width: 100%;
+		 display: flex;
+		 align-items: center;
+	 }
+
+	 .sector-basket {
+		 position: absolute;
+	 }
+}
+
 </style>

@@ -6,16 +6,18 @@ export default {
     },
     mutations: {
         SET_SEATS(state, payload) {
-            state.seats = payload
+            state.seats.push(payload)
         },
     },
     actions: {
         async loadSeats({ commit }, payload) {
             const seats = await getSeats(payload).then(response => response.data)
-            commit('SET_SEATS', seats)
+            commit('SET_SEATS', {sector: payload, seats})
         },
     },
     getters: {
-        getSeats: (state) => state.seats,
+        getSector: (state) => (id) => {
+            return state.seats.find(item => item.sector === id)
+        }
     },
 };

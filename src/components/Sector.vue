@@ -6,23 +6,47 @@
       </svg>
       Назад
     </div>
-    <div class="sector-wrap" :class="sectorClass">
-      <div class="row" v-for="(row, idx) in seats" :key="idx">
-          <div class="seat" v-for="item in row" :key="item.number" 
-          :style="{background: item.color}" :class="{selected: item.selected, reserved: item.is_booked}"
-          @click="addToBasket(item)">
-            <div class="seat-tooltip">
-              <div>Ряд: {{item.row}}</div>
-              <div>Место: {{item.number}}</div>
-              <div>Цена: {{item.price}}</div>
-              <div>Статус: {{item.is_booked ? 'Забронировано' :  'Свободно'}}</div>
+    <div class="sector-wrap" :class="sectorClass"  v-if="seats">
+        <div class="sector-wrap__scroll">
+          <div class="sector-content">
+            <div class="sector__title">
+              Сектор B1
+            </div>
+            <div class="sector-prices">
+              <div class="sector-prices__item" v-for="(item, idx) in prices" :key="idx">
+                <div class="sector-prices__color"
+                  :style="{background: item.color}"
+                ></div>
+                <div class="sector-prices__price">{{item.price}}</div>
+              </div>
             </div>
           </div>
-      </div>
+          <div class="sector-main">
+            <div class="row" v-for="(row, idx) in seats" :key="idx">
+              <div class="seat" v-for="item in row" :key="item.number" 
+              :style="{background: item.color}" :class="{selected: item.selected, reserved: item.is_booked}"
+              @click="addToBasket(item)">
+                <div class="seat-tooltip">
+                  <span>Ряд {{item.row}}</span>, 
+                  <span>Место {{item.number}}</span>, 
+                  <span>Цена: {{item.price}}</span>
+                  <div>{{item.is_booked ? 'Забронировано' :  'Свободно'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="sector-loader" v-else>
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="sector__btn" @click="hideBasket = !hideBasket">
+      Купить места
     </div>
     <div class="sector-basket" :class="{'sector-basket-hide': hideBasket}">
       <div class="sector-basket__slide" @click="hideBasket = !hideBasket">
         <img src="../assets/images/icons/menu.svg" alt="ico">
+        <div class="sector-basket__tooltip">Корзина</div>
       </div>
       <div class="sector-basket__title">
         Корзина <span class="delete" @click="removeAll">-</span>
@@ -33,7 +57,7 @@
         </div>
         <div class="sector-basket__item" v-for="(item, idx) in basket" :key="idx"
         :style="{background: item.color}">
-          Ряд:{{item.row}} Место:{{item.seat}} Цена:{{item.price}}к 
+          Ряд:{{item.row}} Место:{{item.seat}} Цена:{{item.price}}
           <span class="delete" @click="removeItem(idx)">-</span>
         </div>
       </div>
@@ -54,12 +78,11 @@ export default {
     name: 'sector-component',
     created() {
 
-    this.$store.dispatch('loadSeats', this.id)
-    this.sectorClass = `sector-${this.id}`
+    if(!this.seats) {
+      this.$store.dispatch('loadSeats', this.id)
+    }
 
-    setTimeout(() => {
-      console.log(this.seats)
-    }, 2000)
+    this.sectorClass = `sector-${this.id}`
 
 
   },
@@ -68,10 +91,18 @@ export default {
     },
     data() {
         return {
-            sector: {},
             sectorClass: '',
             basket: [],
             hideBasket: true,
+            prices: [
+              {color: '#FF0000', price: '500K'},
+              {color: '#FF8A00', price: '350K'},
+              {color: '#FFC700', price: '300K'},
+              {color: '#AFCB00', price: '250K'},
+              {color: '#5BBB10', price: '200K'},
+              {color: '#10B1BB', price: '150K'},
+              {color: '#1073BB', price: '100K'},
+            ]
         };
     },
     methods: {
@@ -86,10 +117,10 @@ export default {
         },
         removeAll() {
           this.basket = []
-          Object.values(this.sector).map(item => item.map(seat => seat['selected'] = false))
+          Object.values(this.seats).map(item => item.map(seat => seat['selected'] = false))
         },
         removeItem(i) {
-          Object.values(this.sector).map(item => item.forEach(seat => {
+          Object.values(this.seats).map(item => item.forEach(seat => {
             if(seat == this.basket[i]) {
               seat['selected'] = false
             }
@@ -105,7 +136,7 @@ export default {
       },
 
       seats() {
-        return this.$store.getters.getSeats.seats
+        return this.$store.getters.getSector(this.id)?.seats.seats
       }
 
     }
