@@ -53,7 +53,7 @@
         </div>
         <div class="sector-basket__item" v-for="(item, idx) in basket" :key="idx"
         :style="{background: item.color}">
-          {{ $t("seats.info.row") }}:{{item.row}} {{ $t("seats.info.number") }}:{{item.seat}} {{ $t("seats.info.price") }}:{{item.price}}
+          {{ $t("seats.info.row") }}:{{item.row}} {{ $t("seats.info.number") }}:{{item.seat}} {{ $t("seats.info.price") }}:{{ formatPrice(item.price) }}
           <span class="delete" @click="removeItem(idx)">-</span>
         </div>
       </div>
@@ -68,24 +68,10 @@
 </template>
 
 <script>
-
-
-
-
 export default {
     name: 'sector-component',
-    created() {
-
-
-    if(!this.seats) {
-      this.$store.dispatch('loadSeats', this.id)
-    }
-
-    this.sectorClass = `sector-${this.id}`
-
-  },
     props: {
-        id: Number,
+        id: String,
         prices: Array,
     },
     data() {
@@ -95,7 +81,19 @@ export default {
             hideBasket: true,
         };
     },
+    created() {
+      if(!this.seats) {
+        this.$store.dispatch('loadSeats', this.id)
+      }
+
+      this.sectorClass = `sector-${this.id}`
+
+      this.basket = this.basketStore
+    },
     methods: {
+        formatPrice(price) {
+          return price / 1000 + 'K'
+        },
         closeSector() {
             this.$emit("closeSector");
         },
@@ -136,13 +134,7 @@ export default {
       basketStore() {
         return this.$store.getters.getBasket
       }
-
     }
 }
 </script>
-
-
-<style>
-
-</style>
 

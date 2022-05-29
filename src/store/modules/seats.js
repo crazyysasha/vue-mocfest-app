@@ -10,7 +10,6 @@ export default {
             state.seats.push(payload)
         },
         SET_BASKET(state, payload) {
-            console.log(payload)
             state.basket = payload
         },
     },

@@ -30,7 +30,7 @@ import Sector from './Sector.vue'
 import {getSeatsPrices} from  '@/api/seats'
 
 export default {
-  name: "test-component",
+  name: "booking-seats",
   components: {
     Sector,
   },
@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       sector: false,
-      sectorId: 0,
-	  sectorPrices: [],
+      sectorId: '',
+	    sectorPrices: [],
     }
   },
   methods: {

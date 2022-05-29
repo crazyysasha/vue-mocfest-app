@@ -395,7 +395,7 @@
                     </div>
                   
                     <template v-if="createState.event.id === 2">
-                      <TestComponent @redirectFromSeats="redirectFromSeats" />
+                      <BookinSeats @redirectFromSeats="redirectFromSeats" />
                     </template>
                 </div>
                 <button
@@ -473,8 +473,7 @@
 </template>
 
 <script setup>
-import SettingsSocials from "@/components/settings-socials.vue";
-import TestComponent from "@/components/test.vue";
+import BookinSeats from "@/components/BookinSeats.vue";
 import CSelect from "@/components/c-select.vue";
 import CCounter from "@/components/c-counter.vue";
 import useEvents from "@/composables/events";
