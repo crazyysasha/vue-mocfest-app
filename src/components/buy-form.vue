@@ -396,7 +396,7 @@
             </div>
           </div>
 
-          <div v-if="createState.event.id === 2 && !updateState.order">
+          <div v-if="testParam && createState.event.id === 2 && !updateState.order">
             <BookinSeats @seat-ordered="onSeatOrdered"/>
           </div>
 
@@ -488,6 +488,7 @@ import { required, email, helpers, numeric } from "@vuelidate/validators";
 import { computed, onMounted, reactive, ref, watch } from "vue";
 import { pay } from "@/api/orders";
 import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
@@ -555,6 +556,10 @@ watch(
       createExternalResults.quantity = [];
     }
 );
+const testParam = computed(() => {
+  const route = useRoute();
+  return route.query.test
+});
 const createRules = {
   event: {
     required: helpers.withMessage(t("buyForm.requiredError"), required),
