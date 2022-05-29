@@ -165,9 +165,8 @@ export default {
  .sector-back {
 	 position: absolute;
 	 z-index: 10;
-	 top: 1rem;
-	 left: 50%;
-	 transform: translateX(-50%);
+	 top: 25px;
+	right: 20px;
 	 display: inline-flex;
 	 justify-content: center;
 	 align-items: center;
@@ -457,11 +456,13 @@ export default {
 	 }
 
 	 .sector-wrap {
-		 padding: 20px 40px 20px 20px;
+		 padding: 20vh 40px 20px 20px;
 		 height: 100%;
 		 max-width: 100%;
 		 display: flex;
-		 align-items: center;
+		 align-items: flex-start;
+		max-height: 100%;
+		
 	 }
 
 	 .sector-basket {

@@ -44,7 +44,6 @@ export default {
             notPaid_zero: "Ошибка! Недостаточно билетов, Попробуйте купить на другое время",
         },
         seats: {
-            back: 'Назад',
             sector: 'Сектор',
             info: {
                 row: 'Ряд',
@@ -103,7 +102,6 @@ export default {
             notPaid_zero: "Mistake! Not enough tickets, Try to book another time",
         },
         seats: {
-            back: 'Back',
             sector: 'Sector',
             info: {
                 row: 'Row',
@@ -165,7 +163,6 @@ export default {
 
 
         seats: {
-            back: 'Orqaga',
             sector: 'Sektor',
             info: {
                 row: 'Qator',

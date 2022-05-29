@@ -1,10 +1,7 @@
 <template>
   <div class="sector">
     <div class="sector-back" @click="closeSector">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30.1406 12.28L17.9206 24.03L30.1406 35.78" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-      {{ $t("seats.back") }}
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"><g fill="none" fill-rule="evenodd" stroke="#FFF" stroke-linecap="round" stroke-width="2.5"><path d="M0,0 L17.903818,17.903818" transform="translate(2 2)"/><path d="M2.77111667e-13,0 L17.903818,17.903818" transform="matrix(-1 0 0 1 19.904 2)"/></g></svg>
     </div>
     <div class="sector-wrap" :class="sectorClass"  v-if="seats">
         <div class="sector-wrap__scroll">
