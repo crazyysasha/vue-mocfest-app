@@ -2,13 +2,13 @@
   <div class="main-sector">
     <div class="main-sector__plan">
       <svg width="350" height="147" viewBox="0 0 350 147" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect class="main-sector__links" @click="showSector(2)" x="96.8333" y="23.4355" width="57.1667" height="37.4969" fill="#D9D9D9" fill-opacity="0.5"/>
-        <rect class="main-sector__links"  @click="showSector(3)" x="129.5" y="67.9634" width="91" height="78.5092" fill="#D9D9D9" fill-opacity="0.5"/>
-        <path class="main-sector__links" @click="showSector(7)" fill-rule="evenodd" clip-rule="evenodd" d="M227.5 67.8633H256.528H256.528H268.969V142.835H256.528V147H227.5V67.8633ZM281.41 67.8633H268.969V138.67H281.41V134.505H293.851V67.8633H281.41H281.41ZM335.32 67.8633H293.851V105.349H335.32V67.8633ZM293.851 105.349H318.732H322.879V117.844H318.732L318.732 122.01H297.998V126.174L302.145 126.174V130.339H293.851V126.174V122.01V122.009V105.349ZM339.467 67.8633H335.32V97.0189H339.467V84.5235H343.614V76.1934H339.467V67.8633Z" fill="#D9D9D9" fill-opacity="0.5"/>
-        <path class="main-sector__links" @click="showSector(5)" fill-rule="evenodd" clip-rule="evenodd" d="M34.8617 67.8633H121.947V122.009H121.947V138.67H63.8903V122.009H63.8902V134.505H51.4495V130.339H47.3026V126.174H51.4495V122.009H34.8617V117.844H26.568V109.514H30.7148V105.349H34.8617V67.8633ZM117.8 138.67H80.4779H80.4778H72.1841V142.835H80.4778V147H117.8V138.67ZM9.9802 97.0191H14.1271V97.0188H5.83333V80.3584H9.9802V76.1934H14.1271V72.0284H9.9802V67.8633H14.1271H14.1271H34.8617V105.349H14.1271V101.184H9.9802V97.0191Z" fill="#D9D9D9" fill-opacity="0.5"/>
-        <rect class="main-sector__links" @click="showSector(6)" x="189" y="23.9629" width="61.8333" height="37.4969" fill="#D9D9D9" fill-opacity="0.5"/>
-        <path class="main-sector__links" @click="showSector(4)" fill-rule="evenodd" clip-rule="evenodd" d="M307.596 23.4355H257.833V60.9214H307.596V60.9213H320.037V27.6006H307.596V23.4355ZM320.037 35.9307H324.184V40.0957H328.331L328.331 44.2607H332.478L332.478 52.5914H336.625V60.9216H332.478L332.478 60.9211L328.331 60.9211L324.184 60.9212H320.037V35.9307Z" fill="#D9D9D9" fill-opacity="0.5"/>
-        <path class="main-sector__links" @click="showSector(1)" fill-rule="evenodd" clip-rule="evenodd" d="M31.7544 23.4355H89.8113V60.9214H31.7544V60.9213H27.6076V27.6006H31.7544V23.4355ZM27.6073 31.7656H23.4604V40.0957H19.3135V48.4263H15.1667V60.9216H19.3136V60.9211H23.4604V60.9212H27.6073V31.7656Z" fill="#D9D9D9" fill-opacity="0.5"/>
+        <rect class="main-sector__links" @click="showSector('a2')" x="96.8333" y="23.4355" width="57.1667" height="37.4969" fill="#D9D9D9" fill-opacity="0.5"/>
+        <rect class="main-sector__links"  @click="showSector('b2')" x="129.5" y="67.9634" width="91" height="78.5092" fill="#D9D9D9" fill-opacity="0.5"/>
+        <path class="main-sector__links" @click="showSector('b3')" fill-rule="evenodd" clip-rule="evenodd" d="M227.5 67.8633H256.528H256.528H268.969V142.835H256.528V147H227.5V67.8633ZM281.41 67.8633H268.969V138.67H281.41V134.505H293.851V67.8633H281.41H281.41ZM335.32 67.8633H293.851V105.349H335.32V67.8633ZM293.851 105.349H318.732H322.879V117.844H318.732L318.732 122.01H297.998V126.174L302.145 126.174V130.339H293.851V126.174V122.01V122.009V105.349ZM339.467 67.8633H335.32V97.0189H339.467V84.5235H343.614V76.1934H339.467V67.8633Z" fill="#D9D9D9" fill-opacity="0.5"/>
+        <path class="main-sector__links" @click="showSector('b1')" fill-rule="evenodd" clip-rule="evenodd" d="M34.8617 67.8633H121.947V122.009H121.947V138.67H63.8903V122.009H63.8902V134.505H51.4495V130.339H47.3026V126.174H51.4495V122.009H34.8617V117.844H26.568V109.514H30.7148V105.349H34.8617V67.8633ZM117.8 138.67H80.4779H80.4778H72.1841V142.835H80.4778V147H117.8V138.67ZM9.9802 97.0191H14.1271V97.0188H5.83333V80.3584H9.9802V76.1934H14.1271V72.0284H9.9802V67.8633H14.1271H14.1271H34.8617V105.349H14.1271V101.184H9.9802V97.0191Z" fill="#D9D9D9" fill-opacity="0.5"/>
+        <rect class="main-sector__links" @click="showSector('a3')" x="189" y="23.9629" width="61.8333" height="37.4969" fill="#D9D9D9" fill-opacity="0.5"/>
+        <path class="main-sector__links" @click="showSector('a4')" fill-rule="evenodd" clip-rule="evenodd" d="M307.596 23.4355H257.833V60.9214H307.596V60.9213H320.037V27.6006H307.596V23.4355ZM320.037 35.9307H324.184V40.0957H328.331L328.331 44.2607H332.478L332.478 52.5914H336.625V60.9216H332.478L332.478 60.9211L328.331 60.9211L324.184 60.9212H320.037V35.9307Z" fill="#D9D9D9" fill-opacity="0.5"/>
+        <path class="main-sector__links" @click="showSector('a1')" fill-rule="evenodd" clip-rule="evenodd" d="M31.7544 23.4355H89.8113V60.9214H31.7544V60.9213H27.6076V27.6006H31.7544V23.4355ZM27.6073 31.7656H23.4604V40.0957H19.3135V48.4263H15.1667V60.9216H19.3136V60.9211H23.4604V60.9212H27.6073V31.7656Z" fill="#D9D9D9" fill-opacity="0.5"/>
         <path d="M45.7382 42.5325L46.5682 44.8525H47.4482L44.4182 36.7625H43.4982L40.4782 44.8525H41.3382L42.1682 42.5325H45.7382ZM43.9582 37.5225L45.4582 41.7425H42.4482L43.9582 37.5225ZM53.6208 44.8525V44.0325H51.8108V36.7625H50.9808L48.8308 38.1525L48.8208 39.0925L50.9608 37.7025V44.0425L48.6908 44.0325V44.8525H53.6208Z" fill="black"/>
         <path d="M69.3283 96.3903C70.1083 96.1203 70.3583 95.2803 70.3583 94.7603C70.3583 93.5803 69.4683 92.4803 68.0583 92.4803H64.9983V100.57H68.1683C70.0383 100.57 70.8483 99.7203 70.8483 98.4403C70.8483 97.5403 70.5283 96.5703 69.3283 96.3903ZM67.8183 93.2803C68.9683 93.2803 69.5283 93.8603 69.5283 94.6703C69.5283 95.7003 68.9283 96.0403 67.8083 96.0403C67.3183 96.0403 66.4583 96.0403 65.8083 96.0403V93.2803H67.8183ZM68.3183 99.7803H65.8083V96.8303H68.2983C69.3983 96.8303 70.0383 97.5603 70.0383 98.3803C70.0383 99.3903 69.3383 99.7803 68.3183 99.7803ZM77.347 100.57V99.7503H75.537V92.4803H74.707L72.557 93.8703L72.547 94.8103L74.687 93.4203V99.7603L72.417 99.7503V100.57H77.347Z" fill="black"/>
         <path d="M117.552 42.0052L118.382 44.3252H119.262L116.232 36.2352H115.312L112.292 44.3252H113.152L113.982 42.0052H117.552ZM115.772 36.9952L117.272 41.2152H114.262L115.772 36.9952ZM123.294 36.0652C121.644 36.0652 120.684 37.0552 120.614 38.2952H121.424C121.524 37.2352 122.534 36.8852 123.484 36.8852C124.524 36.8852 125.084 37.5952 125.084 38.3552C125.084 39.1752 124.884 39.8252 123.404 40.1552C121.574 40.5652 120.834 40.8652 120.834 43.5152C120.834 43.9752 120.844 43.9152 120.844 44.3252H126.024V43.5152H121.664C121.664 41.0652 122.304 41.2552 123.704 40.9252C125.194 40.5852 125.914 39.7852 125.914 38.5152C125.914 37.1152 125.104 36.0652 123.294 36.0652Z" fill="black"/>
@@ -19,22 +19,29 @@
         <path d="M165 36.3251V35.8251H164.5H158.781L171.5 24.1152L184.219 35.8251H178.5H178V36.3251V60.4325H165V36.3251Z" stroke="white"/>
       </svg>
     </div>
-    <Sector v-if="sector" @closeSector="closeSector" :id = "sectorId"/>
+    <Sector v-if="sector" @closeSector="closeSector" 
+	@redirectFromSeats = "redirectFromSeats"
+	:id = "sectorId" :prices = "sectorPrices"/>
   </div>
 </template>
 
 <script>
 import Sector from './Sector.vue'
+import {getSeatsPrices} from  '@/api/seats'
 
 export default {
   name: "test-component",
   components: {
     Sector,
   },
+  async created() {
+	  await getSeatsPrices().then(response => this.sectorPrices = response.data.groups.reverse())
+  },
   data() {
     return {
       sector: false,
       sectorId: 0,
+	  sectorPrices: [],
     }
   },
   methods: {
@@ -44,7 +51,10 @@ export default {
     showSector(id) {
       this.sectorId = id
       this.sector = true
-    }
+    },
+	redirectFromSeats() {
+		this.$emit('redirectFromSeats')
+	}
   }
 }
 </script>
@@ -145,6 +155,9 @@ export default {
 	text-transform: uppercase;
 	font-size: 20px;
 }
+.sector__btn.disabled {
+	pointer-events: none;
+}
 .sector__btn:hover {
 	background: #fff;
 	color: #000;
@@ -163,27 +176,27 @@ export default {
  .sector-back svg {
 	 width: 1.3rem;
 }
- .sector-1 .row {
+ .sector-a1 .row {
 	 justify-content: flex-end;
 }
- .sector-2 .row {
+ .sector-a2 .row {
 	 justify-content: center;
 }
- .sector-3 .row {
+ .sector-a3 .row {
 	 justify-content: center;
 }
- .sector-4 .row {
+ .sector-a4 .row {
 	 justify-content: flex-start;
 }
- .sector-5 .row {
+ .sector-b1 .row {
 	 margin-bottom: 0.25rem;
 	 justify-content: flex-end;
 }
- .sector-6 .row {
+ .sector-b2 .row {
 	 margin-bottom: 0.25rem;
 	 justify-content: center;
 }
- .sector-7 .row {
+ .sector-b3 .row {
 	 margin-bottom: 0.25rem;
 	 justify-content: flex-start;
 }
@@ -203,9 +216,7 @@ export default {
  .sector-basket-hide {
 	 transform: translate(100%,-50%);
 }
-.sector-basket-hide .sector-basket__slide:hover .sector-basket__tooltip{
-	display: block;
-}
+
  .sector-basket__empty {
 	 padding: .5rem 1rem;
 	 height: 4rem;
@@ -220,15 +231,11 @@ export default {
    position: absolute;
    top: 50%;
    transform: translateY(-50%);
+   border: 1px solid #fff;
+   border-radius: 5px;
+   padding: 4px;
+   background: #000;
 }
-
- .sector-basket__tooltip {
-	 position: absolute;
-	 right: 0;
-	 top: -12px;
-	 font-size: 10px;
-	 display: none;
- }
  .sector-basket__slide img {
 	 width: 100%;
 }
@@ -299,6 +306,9 @@ export default {
 }
  .sector-basket__buy:hover {
 	 background-color: #db3240;
+}
+.sector-basket__buy.disabled {
+	pointer-events: none;
 }
  .seat {
 	 width: 25px;

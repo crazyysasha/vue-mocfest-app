@@ -395,7 +395,7 @@
                     </div>
                   
                     <template v-if="createState.event.id === 2">
-                      <TestComponent />
+                      <TestComponent @redirectFromSeats="redirectFromSeats" />
                     </template>
                 </div>
                 <button
@@ -693,4 +693,5 @@ const onPay = async (order) => {
         window.location.href = payData.value.redirect;
     }
 };
+
 </script>
