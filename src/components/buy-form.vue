@@ -1,268 +1,268 @@
 <template>
-    <div>
-        <div v-if="!payIsLoading">
-            <div
-                class="
+  <div>
+    <div v-if="!payIsLoading">
+      <div
+          class="
                     border border-white
                     shadow-2xl
                     bg-black
                     text-white
                     max-w-sm
                 "
-                v-if="!globalError"
-            >
-                <div class="p-2 sm:p-4 pb-4">
-                    <img src="@/assets/logo.svg" alt="" class="mx-auto" />
-                </div>
-                <div class="flex flex-col font-neutralFace p-4 sm:p-6">
-                    <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
-                        <div
-                            class="
+          v-if="!globalError"
+      >
+        <div class="p-2 sm:p-4 pb-4">
+          <img src="@/assets/logo.svg" alt="" class="mx-auto" />
+        </div>
+        <div class="flex flex-col font-neutralFace p-4 sm:p-6">
+          <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
+            <div
+                class="
                                 h-10
                                 w-10
                                 animate-pulse
                                 rounded-full
                                 bg-white
                             "
-                        >
-                            <div
-                                class="
+            >
+              <div
+                  class="
                                     animate-ping
                                     h-10
                                     w-10
                                     rounded-full
                                     bg-white
                                 "
-                            ></div>
-                        </div>
-                    </div>
-                    <div v-if="!updateState.order">
-                        <div class="py-1">
-                            <c-select
-                                class="text-white"
-                                :class="{}"
-                                v-model="createState.event"
-                                :options="events"
-                                :disabled="true"
-                                option-key="id"
-                            >
-                                <template #default="{ title, subtitle }">
-                                    <div class="underline underline-offset-2">
-                                        {{ title }}
-                                    </div>
-                                    <div
-                                        class="
+              ></div>
+            </div>
+          </div>
+          <div v-if="!updateState.order">
+            <div class="py-1">
+              <c-select
+                  class="text-white"
+                  :class="{}"
+                  v-model="createState.event"
+                  :options="events"
+                  :disabled="true"
+                  option-key="id"
+              >
+                <template #default="{ title, subtitle }">
+                  <div class="underline underline-offset-2">
+                    {{ title }}
+                  </div>
+                  <div
+                      class="
                                             text-[13px]
                                             leading-5
                                             tracking-normal
                                             font-thin font-montserrat
                                             text-center
                                         "
-                                        v-html="subtitle"
-                                    ></div>
-                                </template>
-                                <template #option="{ option }">
-                                    <div>{{ option.title }}</div>
-                                </template>
-                            </c-select>
-                            <div
-                                class="text-red-600 my-1"
-                                v-for="error in createValidation.event.$errors"
-                                :key="error.$uid"
-                            >
-                                {{ error.$message }}
-                            </div>
-                        </div>
-                        <div class="py-1">
-                            <c-select
-                                class="text-white"
-                                v-model="createState.date"
-                                :options="dates"
-                                :disabled="true"
-                                option-key="id"
-                                v-if="
+                      v-html="subtitle"
+                  ></div>
+                </template>
+                <template #option="{ option }">
+                  <div>{{ option.title }}</div>
+                </template>
+              </c-select>
+              <div
+                  class="text-red-600 my-1"
+                  v-for="error in createValidation.event.$errors"
+                  :key="error.$uid"
+              >
+                {{ error.$message }}
+              </div>
+            </div>
+            <div class="py-1">
+              <c-select
+                  class="text-white"
+                  v-model="createState.date"
+                  :options="dates"
+                  :disabled="true"
+                  option-key="id"
+                  v-if="
                                     dates.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-                            >
-                                <template #default="{ title }">
-                                    <div class="underline underline-offset-2">
-                                        {{ $t("buyForm.date") }}
-                                    </div>
-                                    <div
-                                        class="
+              >
+                <template #default="{ title }">
+                  <div class="underline underline-offset-2">
+                    {{ $t("buyForm.date") }}
+                  </div>
+                  <div
+                      class="
                                             text-[13px]
                                             tracking-normal
                                             font-thin font-montserrat
                                         "
-                                    >
-                                        {{ title }}
-                                    </div>
-                                </template>
-                                <template #option="{ option }">
-                                    <div>{{ option.title }}</div>
-                                </template>
-                            </c-select>
-                            <div
-                                v-if="
+                  >
+                    {{ title }}
+                  </div>
+                </template>
+                <template #option="{ option }">
+                  <div>{{ option.title }}</div>
+                </template>
+              </c-select>
+              <div
+                  v-if="
                                     dates.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-                                class="flex flex-col"
-                            >
-                                <div
-                                    class="
+                  class="flex flex-col"
+              >
+                <div
+                    class="
                                         text-red-600
                                         font-montserrat font-medium
                                         text-xs
                                         w-full
                                         my-1
                                     "
-                                    v-for="error in createValidation.date
+                    v-for="error in createValidation.date
                                         .$errors"
-                                    :key="error.$uid"
-                                >
-                                    {{ error.$message }}
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="py-1"
-                            v-if="
+                    :key="error.$uid"
+                >
+                  {{ error.$message }}
+                </div>
+              </div>
+            </div>
+            <div
+                class="py-1"
+                v-if="
                                 times.length > 1 &&
                                 createState.event.groupedTickets.length > 0
                             "
-                        >
-                            <c-select
-                                class="text-white"
-                                v-model="createState.time"
-                                :options="times"
-                                :disabled="true"
-                                option-key="id"
-                                v-if="
+            >
+              <c-select
+                  class="text-white"
+                  v-model="createState.time"
+                  :options="times"
+                  :disabled="true"
+                  option-key="id"
+                  v-if="
                                     times.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-                            >
-                                <template #default="{ title }">
-                                    <div class="underline underline-offset-2">
-                                        {{ $t("buyForm.selectTime") }}
-                                    </div>
-                                    <div
-                                        class="
+              >
+                <template #default="{ title }">
+                  <div class="underline underline-offset-2">
+                    {{ $t("buyForm.selectTime") }}
+                  </div>
+                  <div
+                      class="
                                             text-[13px]
                                             tracking-normal
                                             font-thin font-montserrat
                                         "
-                                    >
-                                        {{ title }}
-                                    </div>
-                                </template>
-                                <template #option="{ option }">
-                                    <div>{{ option.title }}</div>
-                                </template>
-                            </c-select>
-                            <div
-                                v-if="
+                  >
+                    {{ title }}
+                  </div>
+                </template>
+                <template #option="{ option }">
+                  <div>{{ option.title }}</div>
+                </template>
+              </c-select>
+              <div
+                  v-if="
                                     times.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-                                class="flex flex-col"
-                            >
-                                <div
-                                    class="
+                  class="flex flex-col"
+              >
+                <div
+                    class="
                                         text-red-600
                                         font-montserrat font-medium
                                         text-xs
                                         w-full
                                         my-1
                                     "
-                                    v-for="error in createValidation.time
+                    v-for="error in createValidation.time
                                         .$errors"
-                                    :key="error.$uid"
-                                >
-                                    {{ error.$message }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="py-1">
-                            <c-counter
-                                v-model="createState.quantity"
-                                :min="1"
-                                :max="count"
-                                v-if="createState.event.groupedTickets.length > 0"
-                            >
-                            </c-counter>
-                            <div
-                                class="flex flex-col"
-                                v-if="createState.event.groupedTickets.length > 0"
-                            >
-                                <div
-                                    class="
+                    :key="error.$uid"
+                >
+                  {{ error.$message }}
+                </div>
+              </div>
+            </div>
+            <div class="py-1">
+              <c-counter
+                  v-model="createState.quantity"
+                  :min="1"
+                  :max="count"
+                  v-if="createState.event.groupedTickets.length > 0"
+              >
+              </c-counter>
+              <div
+                  class="flex flex-col"
+                  v-if="createState.event.groupedTickets.length > 0"
+              >
+                <div
+                    class="
                                         text-red-600
                                         font-montserrat font-medium
                                         text-xs
                                         w-full
                                         my-1
                                     "
-                                    v-for="error in createValidation.quantity
+                    v-for="error in createValidation.quantity
                                         .$errors"
-                                    :key="error.$uid"
-                                >
-                                    {{ error.$message }}
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="pt-5 font-montserrat"
-                            v-if="createState.event.groupedTickets.length > 0"
-                        >
-                            <div
-                                class="flex justify-between my-2"
-                                v-if="dates.length <= 1"
-                            >
-                                <div class="opacity-50">
-                                    {{ $t("buyForm.eventDate") }}
-                                </div>
-                                <div>{{ createState.date.title }}</div>
-                            </div>
-                            <div
-                                class="flex justify-between my-2"
-                                v-if="times.length <= 1"
-                            >
-                                <div class="opacity-50">
-                                    {{ $t("buyForm.time") }}
-                                </div>
-                                <div>{{ createState.time.title }}</div>
-                            </div>
-                        </div>
-                        <div
-                            class="
+                    :key="error.$uid"
+                >
+                  {{ error.$message }}
+                </div>
+              </div>
+            </div>
+            <div
+                class="pt-5 font-montserrat"
+                v-if="createState.event.groupedTickets.length > 0"
+            >
+              <div
+                  class="flex justify-between my-2"
+                  v-if="dates.length <= 1"
+              >
+                <div class="opacity-50">
+                  {{ $t("buyForm.eventDate") }}
+                </div>
+                <div>{{ createState.date.title }}</div>
+              </div>
+              <div
+                  class="flex justify-between my-2"
+                  v-if="times.length <= 1"
+              >
+                <div class="opacity-50">
+                  {{ $t("buyForm.time") }}
+                </div>
+                <div>{{ createState.time.title }}</div>
+              </div>
+            </div>
+            <div
+                class="
                                 text-red-600
                                 font-montserrat font-medium
                                 text-xs text-center
                             "
-                            v-if="createState.event.is_disabled_for_sales"
-                        >
-                            {{ $t("buyForm.purchaseDisabled") }}
-                        </div>
-                        <div
-                            class="
+                v-if="createState.event.is_disabled_for_sales"
+            >
+              {{ $t("buyForm.purchaseDisabled") }}
+            </div>
+            <div
+                class="
                                 text-red-600
                                 font-montserrat font-medium
                                 text-xs text-center
                             "
-                            v-else-if="createState.event.groupedTickets.length == 0"
-                        >
-                            {{ $t("buyForm.ticketsNotFound") }}
-                        </div>
-                    </div>
-                    <div v-else-if="updateState.order">
-                        <div class="mb-1">
-                            <input
-                                type="text"
-                                placeholder="email"
-                                class="
+                v-else-if="createState.event.groupedTickets.length == 0"
+            >
+              {{ $t("buyForm.ticketsNotFound") }}
+            </div>
+          </div>
+          <div v-else-if="updateState.order">
+            <div class="mb-1">
+              <input
+                  type="text"
+                  placeholder="email"
+                  class="
                                     w-full
                                     bg-transparent
                                     outline-0
@@ -273,28 +273,28 @@
                                     px-4
                                     py-2
                                 "
-                                v-model.trim="updateState.email"
-                            />
-                        </div>
-                        <div class="flex flex-col mb-2">
-                            <div
-                                class="
+                  v-model.trim="updateState.email"
+              />
+            </div>
+            <div class="flex flex-col mb-2">
+              <div
+                  class="
                                     text-red-600
                                     font-montserrat font-medium
                                     text-xs
                                     w-full
                                 "
-                                v-for="error in updateValidation.email.$errors"
-                                :key="error.$uid"
-                            >
-                                {{ error.$message }}
-                            </div>
-                        </div>
-                        <div class="mb-1">
-                            <input
-                                type="text"
-                                :placeholder="$t('buyForm.phone')"
-                                class="
+                  v-for="error in updateValidation.email.$errors"
+                  :key="error.$uid"
+              >
+                {{ error.$message }}
+              </div>
+            </div>
+            <div class="mb-1">
+              <input
+                  type="text"
+                  :placeholder="$t('buyForm.phone')"
+                  class="
                                     w-full
                                     bg-transparent
                                     outline-0
@@ -305,97 +305,99 @@
                                     px-4
                                     py-2
                                 "
-                                v-model="updateState.phone"
-                            />
-                        </div>
+                  v-model="updateState.phone"
+              />
+            </div>
 
-                        <div class="flex flex-col mb-2">
-                            <div
-                                class="
+            <div class="flex flex-col mb-2">
+              <div
+                  class="
                                     text-red-600
                                     font-montserrat font-medium
                                     text-xs
                                     w-full
                                 "
-                                v-for="error in updateValidation.phone.$errors"
-                                :key="error.$uid"
-                            >
-                                {{ error.$message }}
-                            </div>
-                        </div>
-                        <c-select
-                            class="text-white"
-                            v-model="updateState.paymentType"
-                            :options="[
+                  v-for="error in updateValidation.phone.$errors"
+                  :key="error.$uid"
+              >
+                {{ error.$message }}
+              </div>
+            </div>
+            <c-select
+                class="text-white"
+                v-model="updateState.paymentType"
+                :options="[
                                 { title: 'Payme', value: 'payme' },
                                 { title: 'Visa/MasterCard', value: 'paybox' },
                             ]"
-                            :disabled="true"
-                            option-key="id"
-                        >
-                            <template #default="{ title }">
-                                <div class="underline underline-offset-2">
-                                    {{ $t("buyForm.paymentType") }}
-                                </div>
-                                <div
-                                    class="
+                :disabled="true"
+                v-if="updateState.order.price > 0"
+                option-key="id"
+            >
+              <template #default="{ title }">
+                <div class="underline underline-offset-2">
+                  {{ $t("buyForm.paymentType") }}
+                </div>
+                <div
+                    class="
                                         text-[13px]
                                         tracking-normal
                                         font-thin font-montserrat
                                     "
-                                >
-                                    {{ title }}
-                                </div>
-                            </template>
-                            <template #option="{ option }">
-                                <div>{{ option.title }}</div>
-                            </template>
-                        </c-select>
+                >
+                  {{ title }}
+                </div>
+              </template>
+              <template #option="{ option }">
+                <div>{{ option.title }}</div>
+              </template>
+            </c-select>
 
-                        <div class="py-3">
-                            <div class="flex justify-between mb-2">
+            <div class="py-3">
+              <div class="flex justify-between mb-2">
                                 <span
                                     class="
                                         text-lg text-neutral-500
                                         font-montserrat
                                     "
-                                    >{{ $t("buyForm.event") }}</span
+                                >{{ $t("buyForm.event") }}</span
                                 >
-                                <span class="text-sm">{{
-                                    updateState.order.event.title
-                                }}</span>
-                            </div>
-                            <div class="flex justify-between mb-2">
+                <span class="text-sm">{{
+                    updateState.order.event.title
+                  }}</span>
+              </div>
+              <div class="flex justify-between mb-2">
                                 <span
                                     class="
                                         text-lg text-neutral-500
                                         font-montserrat
                                     "
-                                    >{{ $t("buyForm.quan") }}</span
+                                >{{ $t("buyForm.quan") }}</span
                                 >
-                                <span class="text-sm"
-                                    >{{ updateState.order.quantity }}
+                <span class="text-sm"
+                >{{ updateState.order.quantity }}
                                     {{ $t("buyForm.counts") }}.</span
-                                >
-                            </div>
-                            <div class="flex justify-between">
+                >
+              </div>
+              <div class="flex justify-between" v-if="updateState.order.price > 0">
                                 <span
                                     class="
                                         text-lg text-neutral-500
                                         font-montserrat
                                     "
-                                    >{{ $t("buyForm.total") }}</span
+                                >{{ $t("buyForm.total") }}</span
                                 >
-                                <span class="text-sm">
+                <span
+                    class="text-sm">
                                     {{ updateState.order.price }}
                                     {{ $t("buyForm.currency") }}.
                                 </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button
-                    class="
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+            class="
                         text-center
                         w-full
                         p-4
@@ -406,17 +408,17 @@
                         tracking-[.2rem]
                         font-neutralFace
                     "
-                    :disabled="createState.event.groupedTickets.length == 0"
-                    @click.prevent="onCreate"
-                    v-if="!updateState.order"
-                    :class="{
+            :disabled="createState.event.groupedTickets.length == 0"
+            @click.prevent="onCreate"
+            v-if="!updateState.order"
+            :class="{
                         'bg-white animate-pulse text-white': createIsLoading,
                     }"
-                >
-                    {{ $t("buyForm.next") }}
-                </button>
-                <button
-                    class="
+        >
+          {{ $t("buyForm.next") }}
+        </button>
+        <button
+            class="
                         text-center
                         block
                         w-full
@@ -428,44 +430,44 @@
                         tracking-[.2rem]
                         font-neutralFace
                     "
-                    v-else-if="updateState.order"
-                    @click="onUpdate"
-                    :class="{
+            v-else-if="updateState.order"
+            @click="onUpdate"
+            :class="{
                         'bg-white animate-pulse text-white': updateIsLoading,
                     }"
-                >
-                    {{ $t("buttons.buyTicket") }}
-                </button>
-            </div>
-            <div
-                class="
+        >
+          {{ updateState.order.price > 0 ? $t("buttons.buyTicket"): $t("buttons.buyFreeTicket") }}
+        </button>
+      </div>
+      <div
+          class="
                     border border-white
                     shadow-2xl
                     bg-black
                     text-white
                     max-w-sm
                 "
-                v-else-if="globalError"
-            >
-                <div class="p-2 sm:p-4 pb-4">
-                    <img src="@/assets/logo.svg" alt="" class="mx-auto" />
-                </div>
-                <div class="p-4 text-rose-900">
-                    {{ globalError }}
-                    <p class="mt-2">{{ $t("buyForm.reload") }}</p>
-                </div>
-            </div>
+          v-else-if="globalError"
+      >
+        <div class="p-2 sm:p-4 pb-4">
+          <img src="@/assets/logo.svg" alt="" class="mx-auto" />
         </div>
-        <div v-else>
-            <div class="p-5 mb-2 justify-center flex">
-                <div class="h-10 w-10 animate-pulse rounded-full bg-white">
-                    <div
-                        class="animate-ping h-10 w-10 rounded-full bg-white"
-                    ></div>
-                </div>
-            </div>
+        <div class="p-4 text-rose-900">
+          {{ globalError }}
+          <p class="mt-2">{{ $t("buyForm.reload") }}</p>
         </div>
+      </div>
     </div>
+    <div v-else>
+      <div class="p-5 mb-2 justify-center flex">
+        <div class="h-10 w-10 animate-pulse rounded-full bg-white">
+          <div
+              class="animate-ping h-10 w-10 rounded-full bg-white"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -486,7 +488,7 @@ import { useI18n } from "vue-i18n";
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
 onMounted(() => {
-    if (!isLoaded.value) fetchEvents();
+  if (!isLoaded.value) fetchEvents();
 });
 
 const { t } = useI18n();
@@ -503,189 +505,189 @@ const count = ref(times.value[0]?.count || []);
 
 
 const createState = reactive({
-    event: { ...props.event },
-    date: dates.value[0],
-    time: times.value[0],
-    quantity: 1,
+  event: { ...props.event },
+  date: dates.value[0],
+  time: times.value[0],
+  quantity: 1,
 });
 
 watch(
     () => createState.event,
     (newEvent) => {
-        dates.value = grouper(newEvent.groupedTickets);
-        createState.date = dates.value[0];
-        createExternalResults.event = [];
+      dates.value = grouper(newEvent.groupedTickets);
+      createState.date = dates.value[0];
+      createExternalResults.event = [];
     }
 );
 
 watch(
     () => createState.date,
     (newDate) => {
-        times.value = newDate?.times || [];
-        createState.time = times.value[0];
-        createExternalResults.date = [];
+      times.value = newDate?.times || [];
+      createState.time = times.value[0];
+      createExternalResults.date = [];
     }
 );
 
 watch(
     () => createState.time,
     (newTime) => {
-        count.value = newTime?.count || [];
+      count.value = newTime?.count || [];
 
-        createExternalResults.time = [];
+      createExternalResults.time = [];
     }
 );
 watch(count, (newCount) => {
-    createState.quantity =
-        createState.quantity < newCount
-            ? createState.quantity
-            : newCount;
+  createState.quantity =
+      createState.quantity < newCount
+          ? createState.quantity
+          : newCount;
 });
 
 watch(
     () => createState.quantity,
     () => {
-        createExternalResults.quantity = [];
+      createExternalResults.quantity = [];
     }
 );
 const createRules = {
-    event: {
-        required: helpers.withMessage(t("buyForm.requiredError"), required),
-    },
-    date: {
-        required: helpers.withMessage(t("buyForm.requiredError"), required),
-    },
-    time: {
-        required: helpers.withMessage(t("buyForm.requiredError"), required),
-    },
-    quantity: {
-        // numeric,
-        min: helpers.withMessage(
-            t("buyForm.countError"),
-            (value) => value >= 1
-        ),
-        // max: helpers.withMessage(
-        // 	"Количество не верно",
-        // 	(value) => value <= times.value[0].tickets.length
-        // ),
-    },
+  event: {
+    required: helpers.withMessage(t("buyForm.requiredError"), required),
+  },
+  date: {
+    required: helpers.withMessage(t("buyForm.requiredError"), required),
+  },
+  time: {
+    required: helpers.withMessage(t("buyForm.requiredError"), required),
+  },
+  quantity: {
+    // numeric,
+    min: helpers.withMessage(
+        t("buyForm.countError"),
+        (value) => value >= 1
+    ),
+    // max: helpers.withMessage(
+    // 	"Количество не верно",
+    // 	(value) => value <= times.value[0].tickets.length
+    // ),
+  },
 };
 
 const createExternalResults = reactive({});
 const createValidation = useVuelidate(createRules, createState, {
-    $externalResults: createExternalResults,
+  $externalResults: createExternalResults,
 });
 
 const {
-    orders,
-    onCreate: onCreateOrder,
-    onUpdate: onUpdateOrder,
-    onPay: onPayOrder,
+  orders,
+  onCreate: onCreateOrder,
+  onUpdate: onUpdateOrder,
+  onPay: onPayOrder,
 } = useOrder();
 
 const {
-    exec: createExec,
-    data: createData,
-    isLoading: createIsLoading,
-    error: createError,
+  exec: createExec,
+  data: createData,
+  isLoading: createIsLoading,
+  error: createError,
 } = onCreateOrder();
 
 const onCreate = async () => {
-    const isValid = await createValidation.value.$validate();
-    if (!isValid) return;
+  const isValid = await createValidation.value.$validate();
+  if (!isValid) return;
 
-    await createExec({
-        event: createState.event.id,
-        date: createState.date.title,
-        time: createState.time.title,
-        quantity: createState.quantity,
-    });
+  await createExec({
+    event: createState.event.id,
+    date: createState.date.title,
+    time: createState.time.title,
+    quantity: createState.quantity,
+  });
 
-    if (createError.value?.type == "validation") {
-        Object.assign(createExternalResults, createError.value.fields);
-    }
-    if (createData.value) {
-        updateState.order = createData.value;
-    }
+  if (createError.value?.type == "validation") {
+    Object.assign(createExternalResults, createError.value.fields);
+  }
+  if (createData.value) {
+    updateState.order = createData.value;
+  }
 };
 
 const updateState = reactive({
-    order: null,
-    email: "",
-    phone: "",
-    paymentType: { title: "Payme" },
+  order: null,
+  email: "",
+  phone: "",
+  paymentType: { title: "Payme" },
 });
 
 watch(
     () => updateState.email,
     () => {
-        updateExternalResults.email = [];
+      updateExternalResults.email = [];
     }
 );
 
 watch(
     () => updateState.phone,
     () => {
-        updateExternalResults.phone = [];
+      updateExternalResults.phone = [];
     }
 );
 
 const updateRules = {
-    email: {
-        required: helpers.withMessage(t("buyForm.requiredError"), required),
-        email: helpers.withMessage(t("buyForm.emailError"), email),
-    },
-    phone: {
-        required: helpers.withMessage(t("buyForm.requiredError"), required),
-    },
+  email: {
+    required: helpers.withMessage(t("buyForm.requiredError"), required),
+    email: helpers.withMessage(t("buyForm.emailError"), email),
+  },
+  phone: {
+    required: helpers.withMessage(t("buyForm.requiredError"), required),
+  },
 };
 
 const updateExternalResults = reactive({});
 const updateValidation = useVuelidate(updateRules, updateState, {
-    $externalResults: updateExternalResults,
+  $externalResults: updateExternalResults,
 });
 
 const {
-    exec: updateExec,
-    data: updateData,
-    isLoading: updateIsLoading,
-    error: updateError,
+  exec: updateExec,
+  data: updateData,
+  isLoading: updateIsLoading,
+  error: updateError,
 } = onUpdateOrder();
 const onUpdate = async () => {
-    const isValid = await updateValidation.value.$validate();
-    if (!isValid) return;
-    await updateExec(updateState.order.id, {
-        email: updateState.email,
-        phone: updateState.phone,
-        payment_type: updateState.paymentType?.value || "payme",
-    });
+  const isValid = await updateValidation.value.$validate();
+  if (!isValid) return;
+  await updateExec(updateState.order.id, {
+    email: updateState.email,
+    phone: updateState.phone,
+    payment_type: updateState.paymentType?.value || "payme",
+  });
 
-    if (updateError.value?.type == "validation") {
-        Object.assign(updateExternalResults, updateError.value.fields);
-    } else if (updateError.value) {
-        globalError.value = updateError.value.message;
-    }
-    if (updateData.value) {
-        onPay(updateData.value);
-    }
+  if (updateError.value?.type == "validation") {
+    Object.assign(updateExternalResults, updateError.value.fields);
+  } else if (updateError.value) {
+    globalError.value = updateError.value.message;
+  }
+  if (updateData.value) {
+    onPay(updateData.value);
+  }
 };
 
 const {
-    exec: payExec,
-    data: payData,
-    isLoading: payIsLoading,
-    error: payError,
+  exec: payExec,
+  data: payData,
+  isLoading: payIsLoading,
+  error: payError,
 } = onPayOrder();
 
 const router = useRouter();
 
 const onPay = async (order) => {
-    await payExec(order.id);
-    if (payError.value) {
-        globalError.value = payError.value.message;
-    }
-    if (payData.value?.redirect) {
-        window.location.href = payData.value.redirect;
-    }
+  await payExec(order.id);
+  if (payError.value) {
+    globalError.value = payError.value.message;
+  }
+  if (payData.value?.redirect) {
+    window.location.href = payData.value.redirect;
+  }
 };
 </script>
