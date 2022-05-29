@@ -14,7 +14,8 @@ export default {
             description: "ранее на moc fest"
         },
         buttons: {
-            buyTicket: "купи билет"
+            buyTicket: "купи билет",
+            buyFreeTicket: "Регистрация"
         },
         buyForm: {
             purchaseDisabled: "ожидается старт продаж",
@@ -72,7 +73,8 @@ export default {
             description: "previously on moc fest"
         },
         buttons: {
-            buyTicket: "purchase tickets"
+            buyTicket: "purchase tickets",
+            buyFreeTicket: "Registration"
         },
         buyForm: {
             purchaseDisabled: "waiting for start of sales",
@@ -130,7 +132,8 @@ export default {
             description: "avvalroq moc festda"
         },
         buttons: {
-            buyTicket: "chipta sotib ol"
+            buyTicket: "chipta sotib ol",
+            buyFreeTicket: "Roʻyxatdan oʻtish"
         },
         buyForm: {
             purchaseDisabled: "sotishni boshlashi kutilmoqda",
@@ -153,7 +156,7 @@ export default {
             emailError: "noto'g'ri pochta kiritildi",
             reload: "sahifani yangila va qaytadan urin",
         },
-        
+
         orderStatus: {
             text: "chiptalar va qo'shimcha ma'lumotlar <span class=\"font-bold\">{email}</span>ga yuborildi",
             thank: "sotib olganing uchun rahmat",
