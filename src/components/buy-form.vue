@@ -393,10 +393,11 @@
                             </div>
                         </div>
                     </div>
-                  
-                    <template v-if="createState.event.id === 2">
-                      <BookinSeats @redirectFromSeats="redirectFromSeats" />
-                    </template>
+
+                  <div v-if="createState.event.id === 2 && !updateState.order">
+                    <BookinSeats @seat-ordered="onSeatOrdered"/>
+                  </div>
+
                 </div>
                 <button
                     class="
@@ -693,4 +694,7 @@ const onPay = async (order) => {
     }
 };
 
+ function onSeatOrdered(order) {
+   updateState.order = order;
+ }
 </script>

@@ -20,12 +20,12 @@
           </div>
           <div class="sector-main">
             <div class="row" v-for="(row, idx) in seats" :key="idx">
-              <div class="seat" v-for="item in row" :key="item.number" 
+              <div class="seat" v-for="item in row" :key="item.number"
               :style="{background: item.color}" :class="{selected: item.selected, reserved: item.is_booked}"
               @click="addToBasket(item)">
                 <div class="seat-tooltip">
-                  <span>{{ $t("seats.info.row") }} {{item.row}}</span>, 
-                  <span>{{ $t("seats.info.number") }} {{item.number}}</span>, 
+                  <span>{{ $t("seats.info.row") }} {{item.row}}</span>,
+                  <span>{{ $t("seats.info.number") }} {{item.number}}</span>,
                   <span>{{ $t("seats.info.price") }}: {{item.price}}</span>
                   <div>{{item.is_booked ? 'Забронировано' :  'Свободно'}}</div>
                 </div>
@@ -53,14 +53,14 @@
         </div>
         <div class="sector-basket__item" v-for="(item, idx) in basket" :key="idx"
         :style="{background: item.color}">
-          {{ $t("seats.info.row") }}:{{item.row}} {{ $t("seats.info.number") }}:{{item.seat}} {{ $t("seats.info.price") }}:{{ formatPrice(item.price) }}
+          {{ $t("seats.info.row") }}:{{item.row}} {{ $t("seats.info.number") }}:{{item.number}} {{ $t("seats.info.price") }}:{{ formatPrice(item.price) }}
           <span class="delete" @click="removeItem(idx)">-</span>
         </div>
       </div>
       <div class="sector-basket__total">
         {{ $t("seats.total") }}: {{totalPrice}}
       </div>
-      <div class="sector-basket__buy" @click="addBasketToStore" :class="{disabled: !basket.length}"> 
+      <div class="sector-basket__buy" @click="book" :class="{disabled: !basket.length}">
         {{ $t("seats.buy") }}
       </div>
     </div>
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import { bookSeat} from "@/api/seats";
+
 export default {
     name: 'sector-component',
     props: {
@@ -115,9 +117,13 @@ export default {
         }))
           this.basket.splice(i, 1)
         },
-        addBasketToStore() {
+        book() {
           this.$store.dispatch('addBasket', this.basket)
-          this.$emit('redirectFromSeats')
+
+          bookSeat(this.basket)
+                .then(res => {
+                  this.$emit('seatOrdered', res.data)
+              })
         }
     },
     computed: {
