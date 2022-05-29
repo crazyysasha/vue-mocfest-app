@@ -124,6 +124,9 @@ export default {
                 .then(res => {
                   this.$emit('seatOrdered', res.data)
               })
+              .catch(({response}) => {
+                  alert(response.data.error)
+              })
         }
     },
     computed: {
