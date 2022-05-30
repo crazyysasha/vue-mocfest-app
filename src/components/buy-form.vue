@@ -236,26 +236,30 @@
                 <div>{{ createState.time.title }}</div>
               </div>
             </div>
-            <div
-                class="
+
+            <template v-if="createState.event.id !== 2">
+              <div
+                  class="
                                 text-red-600
                                 font-montserrat font-medium
                                 text-xs text-center
                             "
-                v-if="createState.event.is_disabled_for_sales"
-            >
-              {{ $t("buyForm.purchaseDisabled") }}
-            </div>
-            <div
-                class="
+                  v-if="createState.event.is_disabled_for_sales"
+              >
+                {{ $t("buyForm.purchaseDisabled") }}
+              </div>
+              <div
+                  class="
                                 text-red-600
                                 font-montserrat font-medium
                                 text-xs text-center
                             "
-                v-else-if="createState.event.groupedTickets.length == 0"
-            >
-              {{ $t("buyForm.ticketsNotFound") }}
-            </div>
+                  v-else-if="createState.event.groupedTickets.length == 0"
+              >
+                {{ $t("buyForm.ticketsNotFound") }}
+              </div>
+            </template>
+
           </div>
           <div v-else-if="updateState.order">
             <div class="mb-1">
@@ -396,7 +400,7 @@
             </div>
           </div>
 
-          <div v-if="testParam && createState.event.id === 2 && !updateState.order">
+          <div v-if="createState.event.id === 2 && !updateState.order">
             <BookinSeats @seat-ordered="onSeatOrdered"/>
           </div>
 
@@ -556,10 +560,6 @@ watch(
       createExternalResults.quantity = [];
     }
 );
-const testParam = computed(() => {
-  const route = useRoute();
-  return route.query.test
-});
 const createRules = {
   event: {
     required: helpers.withMessage(t("buyForm.requiredError"), required),
