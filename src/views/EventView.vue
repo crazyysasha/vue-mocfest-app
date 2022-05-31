@@ -193,7 +193,7 @@
                     @click="modalIsOpen = true"
                     :disabled="isLoading"
                 >
-                    {{$t("buttons.buyTicket")}}
+                  {{ event?.id !== 5 ?  $t("buttons.buyTicket") : $t("buttons.buyFreeTicket") }}
                 </button>
             </div>
         </div>
