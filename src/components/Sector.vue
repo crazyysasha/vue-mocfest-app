@@ -100,6 +100,10 @@ export default {
             this.$emit("closeSector");
         },
         addToBasket(item) {
+          if (item['is_booked']) {
+            return
+          }
+
           if(!this.basket.includes(item) && !item.reserved) {
             item['selected'] = true
             this.basket.push(item)
