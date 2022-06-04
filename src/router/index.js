@@ -79,6 +79,22 @@ const routes = [
     component: () => import(/* webpackChunkName: "order" */ '../views/OrderStatusView.vue')
   },
   {
+    path: '/ticket/:id',
+    name: 'ticket',
+    meta: {
+      layout: WithoutHeaderLayout
+    },
+    component: () => import(/* webpackChunkName: "ticket" */ '../views/VerifyTicket.vue')
+  },
+  {
+    path: '/seat/:id',
+    name: 'seat',
+    meta: {
+      layout: WithoutHeaderLayout
+    },
+    component: () => import(/* webpackChunkName: "ticket" */ '../views/VerifySeat.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: '404',
     meta: {
