@@ -54,12 +54,16 @@ function getCookie(name) {
 }
 
 onMounted(() => {
+  console.log(route.query)
+})
+onMounted(() => {
   let password = getCookie('password') ?? prompt("Пароль" )
+  let endpoint = route.query.type  === 'seat' ? 'seats' : 'tickets'
 
   if (password === '1993testtest') {
     setCookie('password', '1993testtest', 1);
 
-    axios.post(`verify/tickets/${ticketId}`, {
+    axios.post(`verify/${endpoint}/${ticketId}`, {
       id: ticketId
     }).then(res => {
       verified.value = true;
