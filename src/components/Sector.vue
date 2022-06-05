@@ -45,7 +45,7 @@
         <img src="../assets/images/icons/basket.svg" alt="ico">
       </div>
       <div class="sector-basket__title">
-        {{ $t("seats.basket") }} <span class="delete" @click="removeAll">-</span>
+        {{ $t("seats.basket") }}
       </div>
       <div class="sector-basket__list">
         <div class="sector-basket__empty" v-if="!basket.length">
