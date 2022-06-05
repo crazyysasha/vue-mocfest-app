@@ -366,12 +366,12 @@
                 </template>
               </c-select>
 
-              <!--            <div v-if="order.uses_promocodes" class="mb-1">-->
-              <div class="my-2 flex" v-show="!promoCode.hideForm">
-                <input
-                    type="text"
-                    :placeholder="$t('buyForm.promoCode')"
-                    class="
+              <template v-if="createState.event.uses_promocodes">
+                <div class="my-2 flex" v-show="!promoCode.hideForm">
+                  <input
+                      type="text"
+                      :placeholder="$t('buyForm.promoCode')"
+                      class="
                                     w-5/6
                                     bg-transparent
                                     outline-0
@@ -382,28 +382,29 @@
                                     px-4
                                     py-2
                                 "
-                    v-model="promoCode.value"
-                />
-                <button
-                    @click="verifyPromoCode"
-                    :disabled="!promoCode.value"
-                    :class="{ 'opacity-50': !promoCode.value }"
-                    class="w-1/6 ml-2 flex justify-center
+                      v-model="promoCode.value"
+                  />
+                  <button
+                      @click="verifyPromoCode"
+                      :disabled="!promoCode.value"
+                      :class="{ 'opacity-50': !promoCode.value }"
+                      class="w-1/6 ml-2 flex justify-center
                         items-center border-2 border-neutral-700
                         hover:opacity-80
                         ease-in
                       ">
-                  <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24 1L8 17L0 9" stroke="white"/>
-                  </svg>
-                </button>
-              </div>
+                    <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M24 1L8 17L0 9" stroke="white"/>
+                    </svg>
+                  </button>
+                </div>
 
-              <div v-show="promoCode.hasError" class="flex flex-col mb-2">
-                <div class="text-red-600 font-montserrat font-medium text-xs w-full">
-                  {{ $t('buyForm.wrongPromoCode') }}
-                 </div>
-              </div>
+                <div v-show="promoCode.hasError" class="flex flex-col mb-2">
+                  <div class="text-red-600 font-montserrat font-medium text-xs w-full">
+                    {{ $t('buyForm.wrongPromoCode') }}
+                  </div>
+                </div>
+              </template>
 
               <div class="py-3">
                 <div class="flex justify-between mb-2">
