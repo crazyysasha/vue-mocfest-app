@@ -32,7 +32,7 @@ export default function useOrder() {
 		return {
 			isLoading: readonly(isLoading),
 			error: readonly(error),
-			data: readonly(data),
+			data: data,
 			exec,
 		};
 	};

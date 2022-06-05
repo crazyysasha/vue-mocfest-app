@@ -37,6 +37,8 @@ export default {
             phone: "номер телефона",
             reload: "обнови страницу и попробуй снова",
             emailError: "введен неправильный email",
+            promoCode: 'Промо код',
+            wrongPromoCode: 'Неверный промокод'
         },
         orderStatus: {
             text: "билеты и дополнительная информация отправлены на <span class=\"font-bold\">{email}</span>",
@@ -96,6 +98,8 @@ export default {
             phone: "phone number",
             reload: "refresh the page and try again",
             emailError: "invalid email entered",
+            promoCode: 'Promo Code',
+            wrongPromoCode: 'Wrong promo code'
         },
         orderStatus: {
             text: "tickets and additional information were sent to <span class=\"font-bold\">{email}</span>",
@@ -155,6 +159,8 @@ export default {
             phone: "telefon raqam",
             emailError: "noto'g'ri pochta kiritildi",
             reload: "sahifani yangila va qaytadan urin",
+            promoCode: 'Kupon kodi',
+            wrongPromoCode: 'Yaroqsiz promo-kod'
         },
 
         orderStatus: {

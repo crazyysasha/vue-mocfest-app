@@ -14,259 +14,268 @@
         <div class="p-2 sm:p-4 pb-4">
           <img src="@/assets/logo.svg" alt="" class="mx-auto" />
         </div>
-        <div class="flex flex-col font-neutralFace p-4 sm:p-6">
-          <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
+
+        <div v-if="promoCode.isLoading" class="p-5 mb-2 justify-center flex min-h-[300px] flex items-center justify-center">
+          <div class="h-10 w-10 animate-pulse rounded-full bg-white">
             <div
-                class="
+                class="animate-ping h-10 w-10 rounded-full bg-white"
+            ></div>
+          </div>
+        </div>
+        <template v-else>
+          <div class="flex flex-col font-neutralFace p-4 sm:p-6">
+            <div v-if="isLoading" class="p-5 mb-2 justify-center flex">
+              <div
+                  class="
                                 h-10
                                 w-10
                                 animate-pulse
                                 rounded-full
                                 bg-white
                             "
-            >
-              <div
-                  class="
+              >
+                <div
+                    class="
                                     animate-ping
                                     h-10
                                     w-10
                                     rounded-full
                                     bg-white
                                 "
-              ></div>
+                ></div>
+              </div>
             </div>
-          </div>
-          <div v-if="!updateState.order">
-            <div class="py-1">
-              <c-select
-                  class="text-white"
-                  :class="{}"
-                  v-model="createState.event"
-                  :options="events"
-                  :disabled="true"
-                  option-key="id"
-              >
-                <template #default="{ title, subtitle }">
-                  <div class="underline underline-offset-2">
-                    {{ title }}
-                  </div>
-                  <div
-                      class="
+            <div v-if="!updateState.order">
+              <div class="py-1">
+                <c-select
+                    class="text-white"
+                    :class="{}"
+                    v-model="createState.event"
+                    :options="events"
+                    :disabled="true"
+                    option-key="id"
+                >
+                  <template #default="{ title, subtitle }">
+                    <div class="underline underline-offset-2">
+                      {{ title }}
+                    </div>
+                    <div
+                        class="
                                             text-[13px]
                                             leading-5
                                             tracking-normal
                                             font-thin font-montserrat
                                             text-center
                                         "
-                      v-html="subtitle"
-                  ></div>
-                </template>
-                <template #option="{ option }">
-                  <div>{{ option.title }}</div>
-                </template>
-              </c-select>
-              <div
-                  class="text-red-600 my-1"
-                  v-for="error in createValidation.event.$errors"
-                  :key="error.$uid"
-              >
-                {{ error.$message }}
+                        v-html="subtitle"
+                    ></div>
+                  </template>
+                  <template #option="{ option }">
+                    <div>{{ option.title }}</div>
+                  </template>
+                </c-select>
+                <div
+                    class="text-red-600 my-1"
+                    v-for="error in createValidation.event.$errors"
+                    :key="error.$uid"
+                >
+                  {{ error.$message }}
+                </div>
               </div>
-            </div>
-            <div class="py-1">
-              <c-select
-                  class="text-white"
-                  v-model="createState.date"
-                  :options="dates"
-                  :disabled="true"
-                  option-key="id"
-                  v-if="
+              <div class="py-1">
+                <c-select
+                    class="text-white"
+                    v-model="createState.date"
+                    :options="dates"
+                    :disabled="true"
+                    option-key="id"
+                    v-if="
                                     dates.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-              >
-                <template #default="{ title }">
-                  <div class="underline underline-offset-2">
-                    {{ $t("buyForm.date") }}
-                  </div>
-                  <div
-                      class="
+                >
+                  <template #default="{ title }">
+                    <div class="underline underline-offset-2">
+                      {{ $t("buyForm.date") }}
+                    </div>
+                    <div
+                        class="
                                             text-[13px]
                                             tracking-normal
                                             font-thin font-montserrat
                                         "
-                  >
-                    {{ title }}
-                  </div>
-                </template>
-                <template #option="{ option }">
-                  <div>{{ option.title }}</div>
-                </template>
-              </c-select>
-              <div
-                  v-if="
+                    >
+                      {{ title }}
+                    </div>
+                  </template>
+                  <template #option="{ option }">
+                    <div>{{ option.title }}</div>
+                  </template>
+                </c-select>
+                <div
+                    v-if="
                                     dates.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-                  class="flex flex-col"
-              >
-                <div
-                    class="
+                    class="flex flex-col"
+                >
+                  <div
+                      class="
                                         text-red-600
                                         font-montserrat font-medium
                                         text-xs
                                         w-full
                                         my-1
                                     "
-                    v-for="error in createValidation.date
+                      v-for="error in createValidation.date
                                         .$errors"
-                    :key="error.$uid"
-                >
-                  {{ error.$message }}
+                      :key="error.$uid"
+                  >
+                    {{ error.$message }}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-                class="py-1"
-                v-if="
+              <div
+                  class="py-1"
+                  v-if="
                                 times.length > 1 &&
                                 createState.event.groupedTickets.length > 0
                             "
-            >
-              <c-select
-                  class="text-white"
-                  v-model="createState.time"
-                  :options="times"
-                  :disabled="true"
-                  option-key="id"
-                  v-if="
+              >
+                <c-select
+                    class="text-white"
+                    v-model="createState.time"
+                    :options="times"
+                    :disabled="true"
+                    option-key="id"
+                    v-if="
                                     times.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-              >
-                <template #default="{ title }">
-                  <div class="underline underline-offset-2">
-                    {{ $t("buyForm.selectTime") }}
-                  </div>
-                  <div
-                      class="
+                >
+                  <template #default="{ title }">
+                    <div class="underline underline-offset-2">
+                      {{ $t("buyForm.selectTime") }}
+                    </div>
+                    <div
+                        class="
                                             text-[13px]
                                             tracking-normal
                                             font-thin font-montserrat
                                         "
-                  >
-                    {{ title }}
-                  </div>
-                </template>
-                <template #option="{ option }">
-                  <div>{{ option.title }}</div>
-                </template>
-              </c-select>
-              <div
-                  v-if="
+                    >
+                      {{ title }}
+                    </div>
+                  </template>
+                  <template #option="{ option }">
+                    <div>{{ option.title }}</div>
+                  </template>
+                </c-select>
+                <div
+                    v-if="
                                     times.length > 1 &&
                                     createState.event.groupedTickets.length > 0
                                 "
-                  class="flex flex-col"
-              >
-                <div
-                    class="
+                    class="flex flex-col"
+                >
+                  <div
+                      class="
                                         text-red-600
                                         font-montserrat font-medium
                                         text-xs
                                         w-full
                                         my-1
                                     "
-                    v-for="error in createValidation.time
+                      v-for="error in createValidation.time
                                         .$errors"
-                    :key="error.$uid"
-                >
-                  {{ error.$message }}
+                      :key="error.$uid"
+                  >
+                    {{ error.$message }}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="py-1">
-              <c-counter
-                  v-model="createState.quantity"
-                  :min="1"
-                  :max="count"
-                  v-if="createState.event.groupedTickets.length > 0"
-              >
-              </c-counter>
-              <div
-                  class="flex flex-col"
-                  v-if="createState.event.groupedTickets.length > 0"
-              >
+              <div class="py-1">
+                <c-counter
+                    v-model="createState.quantity"
+                    :min="1"
+                    :max="count"
+                    v-if="createState.event.groupedTickets.length > 0"
+                >
+                </c-counter>
                 <div
-                    class="
+                    class="flex flex-col"
+                    v-if="createState.event.groupedTickets.length > 0"
+                >
+                  <div
+                      class="
                                         text-red-600
                                         font-montserrat font-medium
                                         text-xs
                                         w-full
                                         my-1
                                     "
-                    v-for="error in createValidation.quantity
+                      v-for="error in createValidation.quantity
                                         .$errors"
-                    :key="error.$uid"
+                      :key="error.$uid"
+                  >
+                    {{ error.$message }}
+                  </div>
+                </div>
+              </div>
+              <div
+                  class="pt-5 font-montserrat"
+                  v-if="createState.event.groupedTickets.length > 0"
+              >
+                <div
+                    class="flex justify-between my-2"
+                    v-if="dates.length <= 1"
                 >
-                  {{ error.$message }}
+                  <div class="opacity-50">
+                    {{ $t("buyForm.eventDate") }}
+                  </div>
+                  <div>{{ createState.date.title }}</div>
+                </div>
+                <div
+                    class="flex justify-between my-2"
+                    v-if="times.length <= 1"
+                >
+                  <div class="opacity-50">
+                    {{ $t("buyForm.time") }}
+                  </div>
+                  <div>{{ createState.time.title }}</div>
                 </div>
               </div>
-            </div>
-            <div
-                class="pt-5 font-montserrat"
-                v-if="createState.event.groupedTickets.length > 0"
-            >
-              <div
-                  class="flex justify-between my-2"
-                  v-if="dates.length <= 1"
-              >
-                <div class="opacity-50">
-                  {{ $t("buyForm.eventDate") }}
-                </div>
-                <div>{{ createState.date.title }}</div>
-              </div>
-              <div
-                  class="flex justify-between my-2"
-                  v-if="times.length <= 1"
-              >
-                <div class="opacity-50">
-                  {{ $t("buyForm.time") }}
-                </div>
-                <div>{{ createState.time.title }}</div>
-              </div>
-            </div>
 
-            <template v-if="createState.event.id !== 2">
-              <div
-                  class="
+              <template v-if="createState.event.id !== 2">
+                <div
+                    class="
                                 text-red-600
                                 font-montserrat font-medium
                                 text-xs text-center
                             "
-                  v-if="createState.event.is_disabled_for_sales"
-              >
-                {{ $t("buyForm.purchaseDisabled") }}
-              </div>
-              <div
-                  class="
+                    v-if="createState.event.is_disabled_for_sales"
+                >
+                  {{ $t("buyForm.purchaseDisabled") }}
+                </div>
+                <div
+                    class="
                                 text-red-600
                                 font-montserrat font-medium
                                 text-xs text-center
                             "
-                  v-else-if="createState.event.groupedTickets.length == 0"
-              >
-                {{ $t("buyForm.ticketsNotFound") }}
-              </div>
-            </template>
+                    v-else-if="createState.event.groupedTickets.length == 0"
+                >
+                  {{ $t("buyForm.ticketsNotFound") }}
+                </div>
+              </template>
 
-          </div>
-          <div v-else-if="updateState.order">
-            <div class="mb-1">
-              <input
-                  type="text"
-                  placeholder="email"
-                  class="
+            </div>
+            <div v-else-if="updateState.order">
+              <div class="mb-1">
+                <input
+                    type="text"
+                    placeholder="email"
+                    class="
                                     w-full
                                     bg-transparent
                                     outline-0
@@ -277,28 +286,28 @@
                                     px-4
                                     py-2
                                 "
-                  v-model.trim="updateState.email"
-              />
-            </div>
-            <div class="flex flex-col mb-2">
-              <div
-                  class="
+                    v-model.trim="updateState.email"
+                />
+              </div>
+              <div class="flex flex-col mb-2">
+                <div
+                    class="
                                     text-red-600
                                     font-montserrat font-medium
                                     text-xs
                                     w-full
                                 "
-                  v-for="error in updateValidation.email.$errors"
-                  :key="error.$uid"
-              >
-                {{ error.$message }}
+                    v-for="error in updateValidation.email.$errors"
+                    :key="error.$uid"
+                >
+                  {{ error.$message }}
+                </div>
               </div>
-            </div>
-            <div class="mb-1">
-              <input
-                  type="text"
-                  :placeholder="$t('buyForm.phone')"
-                  class="
+              <div class="mb-1">
+                <input
+                    type="text"
+                    :placeholder="$t('buyForm.phone')"
+                    class="
                                     w-full
                                     bg-transparent
                                     outline-0
@@ -309,56 +318,95 @@
                                     px-4
                                     py-2
                                 "
-                  v-model="updateState.phone"
-              />
-            </div>
+                    v-model="updateState.phone"
+                />
+              </div>
 
-            <div class="flex flex-col mb-2">
-              <div
-                  class="
+              <div class="flex flex-col mb-2">
+                <div
+                    class="
                                     text-red-600
                                     font-montserrat font-medium
                                     text-xs
                                     w-full
                                 "
-                  v-for="error in updateValidation.phone.$errors"
-                  :key="error.$uid"
-              >
-                {{ error.$message }}
+                    v-for="error in updateValidation.phone.$errors"
+                    :key="error.$uid"
+                >
+                  {{ error.$message }}
+                </div>
               </div>
-            </div>
-            <c-select
-                class="text-white"
-                v-model="updateState.paymentType"
-                :options="[
+              <c-select
+                  class="text-white"
+                  v-model="updateState.paymentType"
+                  :options="[
                                 { title: 'Payme', value: 'payme' },
                                 { title: 'Visa/MasterCard', value: 'paybox' },
                             ]"
-                :disabled="true"
-                v-if="updateState.order.price > 0"
-                option-key="id"
-            >
-              <template #default="{ title }">
-                <div class="underline underline-offset-2">
-                  {{ $t("buyForm.paymentType") }}
-                </div>
-                <div
-                    class="
+                  :disabled="true"
+                  v-if="updateState.order.price > 0"
+                  option-key="id"
+              >
+                <template #default="{ title }">
+                  <div class="underline underline-offset-2">
+                    {{ $t("buyForm.paymentType") }}
+                  </div>
+                  <div
+                      class="
                                         text-[13px]
                                         tracking-normal
                                         font-thin font-montserrat
                                     "
-                >
-                  {{ title }}
-                </div>
-              </template>
-              <template #option="{ option }">
-                <div>{{ option.title }}</div>
-              </template>
-            </c-select>
+                  >
+                    {{ title }}
+                  </div>
+                </template>
+                <template #option="{ option }">
+                  <div>{{ option.title }}</div>
+                </template>
+              </c-select>
 
-            <div class="py-3">
-              <div class="flex justify-between mb-2">
+              <!--            <div v-if="order.uses_promocodes" class="mb-1">-->
+              <div class="my-2 flex" v-show="!promoCode.hideForm">
+                <input
+                    type="text"
+                    :placeholder="$t('buyForm.promoCode')"
+                    class="
+                                    w-5/6
+                                    bg-transparent
+                                    outline-0
+                                    text-white
+                                    font-montserrat
+                                    text-lg
+                                    border-2 border-neutral-700
+                                    px-4
+                                    py-2
+                                "
+                    v-model="promoCode.value"
+                />
+                <button
+                    @click="verifyPromoCode"
+                    :disabled="!promoCode.value"
+                    :class="{ 'opacity-50': !promoCode.value }"
+                    class="w-1/6 ml-2 flex justify-center
+                        items-center border-2 border-neutral-700
+                        hover:opacity-80
+                        ease-in
+                      ">
+                  <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 1L8 17L0 9" stroke="white"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div v-show="promoCode.hasError" class="flex flex-col mb-2">
+                <div class="text-red-600 font-montserrat font-medium text-xs w-full">
+                  {{ $t('buyForm.wrongPromoCode') }}
+                 </div>
+              </div>
+
+              <div class="py-3">
+                <div class="flex justify-between mb-2">
                                 <span
                                     class="
                                         text-lg text-neutral-500
@@ -366,11 +414,11 @@
                                     "
                                 >{{ $t("buyForm.event") }}</span
                                 >
-                <span class="text-sm">{{
-                    updateState.order.event.title
-                  }}</span>
-              </div>
-              <div class="flex justify-between mb-2">
+                  <span class="text-sm">{{
+                      updateState.order.event.title
+                    }}</span>
+                </div>
+                <div class="flex justify-between mb-2">
                                 <span
                                     class="
                                         text-lg text-neutral-500
@@ -378,12 +426,12 @@
                                     "
                                 >{{ $t("buyForm.quan") }}</span
                                 >
-                <span class="text-sm"
-                >{{ updateState.order.quantity }}
+                  <span class="text-sm"
+                  >{{ updateState.order.quantity }}
                                     {{ $t("buyForm.counts") }}.</span
-                >
-              </div>
-              <div class="flex justify-between" v-if="updateState.order.price > 0">
+                  >
+                </div>
+                <div class="flex justify-between" v-if="updateState.order.price > 0">
                                 <span
                                     class="
                                         text-lg text-neutral-500
@@ -391,22 +439,22 @@
                                     "
                                 >{{ $t("buyForm.total") }}</span
                                 >
-                <span
-                    class="text-sm">
+                  <span
+                      class="text-sm">
                                     {{ updateState.order.price }}
                                     {{ $t("buyForm.currency") }}.
                                 </span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div v-if="createState.event.id === 2 && !updateState.order">
-            <BookinSeats @seat-ordered="onSeatOrdered"/>
-          </div>
+            <div v-if="createState.event.id === 2 && !updateState.order">
+              <BookinSeats @seat-ordered="onSeatOrdered"/>
+            </div>
 
-        </div>
-        <button
-            class="
+          </div>
+          <button
+              class="
                         text-center
                         w-full
                         p-4
@@ -417,17 +465,17 @@
                         tracking-[.2rem]
                         font-neutralFace
                     "
-            :disabled="createState.event.groupedTickets.length == 0"
-            @click.prevent="onCreate"
-            v-if="!updateState.order"
-            :class="{
+              :disabled="createState.event.groupedTickets.length == 0"
+              @click.prevent="onCreate"
+              v-if="!updateState.order"
+              :class="{
                         'bg-white animate-pulse text-white': createIsLoading,
                     }"
-        >
-          {{ $t("buyForm.next") }}
-        </button>
-        <button
-            class="
+          >
+            {{ $t("buyForm.next") }}
+          </button>
+          <button
+              class="
                         text-center
                         block
                         w-full
@@ -439,14 +487,15 @@
                         tracking-[.2rem]
                         font-neutralFace
                     "
-            v-else-if="updateState.order"
-            @click="onUpdate"
-            :class="{
+              v-else-if="updateState.order"
+              @click="onUpdate"
+              :class="{
                         'bg-white animate-pulse text-white': updateIsLoading,
                     }"
-        >
-          {{ updateState.order.price > 0 ? $t("buttons.buyTicket"): $t("buttons.buyFreeTicket") }}
-        </button>
+          >
+            {{ updateState.order.price > 0 ? $t("buttons.buyTicket"): $t("buttons.buyFreeTicket") }}
+          </button>
+        </template>
       </div>
       <div
           class="
@@ -488,12 +537,10 @@ import useOrder from "@/composables/order";
 import useVuelidate from "@vuelidate/core";
 import grouper from "@/utils/grouper";
 import { required, email, helpers, numeric } from "@vuelidate/validators";
-
 import { computed, onMounted, reactive, ref, watch } from "vue";
-import { pay } from "@/api/orders";
 import { useRouter } from "vue-router";
-import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
+import axios from "@/utils/axios";
 
 const { isLoaded, isLoading, events, error, fetchEvents } = useEvents();
 
@@ -704,4 +751,30 @@ function onSeatOrdered(order) {
   updateState.order = order;
 }
 
+const promoCode = reactive({
+  value: '',
+  isLoading: false,
+  hideForm: false,
+  hasError: false
+})
+
+const verifyPromoCode = async () => {
+  promoCode.isLoading = true
+
+  await axios.post(`verify/promo-code/${promoCode.value}`, {
+    orderId: updateState.order.id,
+    eventId: updateState.order.event
+  })
+      .then(({data}) => {
+        promoCode.hideForm = true
+        updateState.order.price = data.price
+        promoCode.hasError = false
+      })
+      .catch((response) => {
+        promoCode.hasError = true
+      })
+      .finally(() => {
+        promoCode.isLoading = false
+      })
+}
 </script>
