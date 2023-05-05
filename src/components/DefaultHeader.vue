@@ -140,7 +140,8 @@
                         'my-2': isCollapsed,
                     }">
                     <a :href="settings.support.link_url"
-                       class="hover:opacity-50 transition duration-200 writing-vertical"
+                       class="hover:opacity-50 transition duration-200"
+                       :class="{ 'writing-vertical': !isCollapsed }"
                        target="_blank">
                         <div>
                             {{ settings.support.link_text }}
