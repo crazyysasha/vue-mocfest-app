@@ -134,6 +134,19 @@
                 ref="menu"
             >
                 <li class="my-auto"></li>
+                <li v-if="settings.support.is_active"
+                    :class="{
+                        'my-auto': !isCollapsed,
+                        'my-2': isCollapsed,
+                    }">
+                    <a :href="settings.support.link_url"
+                       class="hover:opacity-50 transition duration-200 writing-vertical"
+                       target="_blank">
+                        <div>
+                            {{ settings.support.link_text }}
+                        </div>
+                    </a>
+                </li>
                 <li
                     v-for="link in computedLinks"
                     :key="link.url"
@@ -192,6 +205,7 @@ import {
 import LangList from "@/components/lang-list.vue";
 import SettingsSocials from "@/components/settings-socials.vue";
 import { useI18n } from "vue-i18n";
+import useSettings from "@/composables/settings";
 
 export default {
     components: {
@@ -216,12 +230,6 @@ export default {
         const { t } = useI18n();
 
         const links = reactive([
-            // {
-            //     title: "магаз",
-            //     url: "https://mocfest.avlo.site/",
-            //     withoutRouter: true,
-            // },
-            // { title: "FAQ", url: "/faq" },
             { title: () => t("header.links.partners"), url: "/partners" },
             { title: () => t("header.links.gallery"), url: "/gallery" },
             { title: () => t("header.links.map"), url: "/events" },
@@ -241,6 +249,7 @@ export default {
             hideMenu,
             links,
             computedLinks,
+            settings: useSettings().settings
         };
     },
 };
