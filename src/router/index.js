@@ -71,6 +71,12 @@ const routes = [
     meta: { layout: WithHeaderLayout },
   },
   {
+    path: '/privacy-policy',
+    name: 'terms',
+    component: () => import(/* webpackChunkName: "terms" */ '../views/PrivacyPolicyView.vue'),
+    meta: { layout: WithHeaderLayout },
+  },
+  {
     path: '/orders/:id/status',
     name: 'order',
     meta: {
