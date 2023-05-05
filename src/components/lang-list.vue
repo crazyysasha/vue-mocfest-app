@@ -5,7 +5,6 @@
             items-center
             text-sm
             p-3
-            right-10
             z-20
             cursor-pointer
             text-center

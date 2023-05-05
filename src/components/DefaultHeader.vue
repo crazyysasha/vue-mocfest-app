@@ -134,7 +134,7 @@
                 ref="menu"
             >
                 <li class="my-auto"></li>
-                <li v-if="settings.support.is_active"
+                <li v-if="settings?.support?.is_active"
                     :class="{
                         'my-auto': !isCollapsed,
                         'my-2': isCollapsed,
