@@ -11,6 +11,7 @@
         "
         :class="{
             absolute: !isCollapsed,
+            'right-[15px]': $route.path !== '/',
         }"
     >
         <div class="relative">
