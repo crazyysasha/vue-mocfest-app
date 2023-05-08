@@ -63,12 +63,14 @@ const { onChange, locale } = useLocale();
 const isCollapsed = inject("isCollapsed");
 
 const isOpen = ref(false);
+const currentLocale = ref(i18n.global.locale)
 const onClickLanguage = () => {
     isOpen.value = !isOpen.value;
 };
 
 const onSelect = (locale) => {
     onChange(locale);
+    currentLocale.value = locale
     isOpen.value = false;
 };
 

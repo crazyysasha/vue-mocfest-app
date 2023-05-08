@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="font-montserrat text-center text-sm mt-8" v-else-if="isLoaded">
+    <div class="font-montserrat text-center text-sm mt-8 pb-5" v-else-if="isLoaded">
         <div class="my-1" v-for="socials in settings.socials" :key="socials">
             <span v-for="(social, index) in socials" :key="social">
                 <router-link

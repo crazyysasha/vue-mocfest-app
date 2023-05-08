@@ -34,19 +34,22 @@ export default {
             if (width.value < 640) {
                 return true;
             }
+
             if (menu.value == null) {
                 return false;
             }
-            let menuHeight = 0;
 
-            menu.value?.querySelectorAll("a").forEach((element) => {
-                if (isCollapsed.value) {
-                    menuHeight += element.offsetWidth;
-                } else {
-                    menuHeight += element.offsetHeight;
-                }
-            });
-            return height.value < menuHeight + 20;
+            return false
+            // let menuHeight = 0;
+            //
+            // menu.value?.querySelectorAll("a").forEach((element) => {
+            //     if (isCollapsed.value) {
+            //         menuHeight += element.offsetWidth;
+            //     } else {
+            //         menuHeight += element.offsetHeight;
+            //     }
+            // });
+            // return height.value < menuHeight + 20;
         });
         
         provide("isCollapsed", isCollapsed);

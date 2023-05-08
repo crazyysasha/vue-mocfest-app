@@ -1,7 +1,7 @@
 <template>
     <header>
         <div
-            class="
+                class="
                 flex
                 justify-between
                 absolute
@@ -13,37 +13,37 @@
             "
         >
             <transition
-                enter-active-class="transform transition duration-200"
-                enter-from-class="scale-0"
-                enter-to-class="scale-100"
-                leave-active-class="transform transition duration-200"
-                leave-to-class="scale-0"
-                leave-from-class="scale-100"
+                    enter-active-class="transform transition duration-200"
+                    enter-from-class="scale-0"
+                    enter-to-class="scale-100"
+                    leave-active-class="transform transition duration-200"
+                    leave-to-class="scale-0"
+                    leave-from-class="scale-100"
             >
                 <router-link
-                    v-if="$route.path != '/'"
-                    to="/"
-                    @click="hideMenu"
-                    class="flex items-center p-3 left-2.5 z-20"
-                    :class="{
+                        v-if="$route.path != '/'"
+                        to="/"
+                        @click="hideMenu"
+                        class="flex items-center p-3 left-2.5 z-20"
+                        :class="{
                         absolute: !isCollapsed,
                         'mr-auto': $route.path != '/',
                     }"
                 >
                     <svg
-                        class="h-6 w-6 mr-1"
-                        viewBox="0 0 14 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 mr-1"
+                            viewBox="0 0 14 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
                     >
-                        <path d="M13 24L1 12L13 0" stroke="white" />
+                        <path d="M13 24L1 12L13 0" stroke="white"/>
                     </svg>
                     <span v-if="!isCollapsed"> {{ $t("home") }} </span>
                 </router-link>
             </transition>
 
             <LangList
-                :class="{
+                    :class="{
                     hidden: $route.path == '/' && !isCollapsed,
                     'top-0 right-0': $route.path == '/' && isCollapsed,
                 }"
@@ -51,8 +51,8 @@
 
             <transition name="margin" mode="out-in">
                 <button
-                    @click.prevent="toggleMenu"
-                    class="
+                        @click.prevent="toggleMenu"
+                        class="
                         focus:outline-none
                         block
                         py-2
@@ -61,15 +61,13 @@
                         duration-200
                         z-20
                     "
-                    :class="{
+                        :class="{
                         hidden: !isCollapsed,
-                        //'mx-auto': $route.path == '/',
-                        //'ml-auto': $route.path != '/',
                     }"
-                    v-bind:key="$route.path"
+                        v-bind:key="$route.path"
                 >
                     <span
-                        class="
+                            class="
                             w-6
                             scale-110
                             h-px
@@ -81,10 +79,10 @@
                             duration-200
                             ease
                         "
-                        :class="{ 'rotate-45 translate-y-[4.5px]': isOpen }"
+                            :class="{ 'rotate-45 translate-y-[4.5px]': isOpen }"
                     ></span>
                     <span
-                        class="
+                            class="
                             w-6
                             scale-110
                             h-px
@@ -96,99 +94,19 @@
                             duration-200
                             ease
                         "
-                        :class="{ '-rotate-45 -translate-y-[4.5px]': isOpen }"
+                            :class="{ '-rotate-45 -translate-y-[4.5px]': isOpen }"
                     ></span>
                 </button>
             </transition>
         </div>
-        <div
-            class="
-                transition-all
-                duration-200
-                ease
-                flex flex-col
-                overflow-hidden
-                h-screen
-                z-10
-            "
-            :class="{
-                'top-0 bg-opacity-0 h-0': !isOpen && isCollapsed,
-                'bg-opacity-100 h-screen': isOpen && isCollapsed,
-                'absolute backdrop-blur-sm bg-black/75 w-full top-0 overflow-y-auto':
-                    isCollapsed,
-            }"
-        >
-            <ul
-                class="
-                    flex flex-col
-                    transform
-                    text-sm
-                    uppercase
-                    text-center
-                    h-screen
-                "
-                :class="{
-                    'rotate-180 h-full': !isCollapsed,
-                    'my-5 mt-20 w-full': isCollapsed,
-                }"
-                ref="menu"
-            >
-                <li class="my-auto"></li>
-                <li v-if="settings?.support?.is_active"
-                    :class="{
-                        'my-auto': !isCollapsed,
-                        'my-2': isCollapsed,
-                    }">
-                    <a :href="settings.support.link_url"
-                       class="hover:opacity-50 transition duration-200"
-                       :class="{ 'writing-vertical': !isCollapsed }"
-                       target="_blank">
-                        <div>
-                            {{ settings.support.link_text }}
-                        </div>
-                    </a>
-                </li>
-                <li
-                    v-for="link in computedLinks"
-                    :key="link.url"
-                    :class="{
-                        'my-auto': !isCollapsed,
-                        'my-2': isCollapsed,
-                    }"
-                >
-                    <a
-                        v-if="link.withoutRouter"
-                        :href="link.url"
-                        class="hover:opacity-50 transition duration-200"
-                        :class="{ 'writing-vertical': !isCollapsed }"
-                        @click="hideMenu"
-                    >
-                        <div class="p-1 inline-block">
-                            {{ link.title }}
-                        </div>
-                    </a>
-                    <router-link
-                        v-else
-                        :to="link.url"
-                        @click="hideMenu"
-                        :exact="link.exact"
-                        class="hover:opacity-50 transition duration-200"
-                        :class="{ 'writing-vertical': !isCollapsed }"
-                    >
-                        <div class="p-1 inline-block">
-                            {{ link.title() }}
-                        </div>
-                    </router-link>
-                </li>
-                <li class="my-auto"></li>
-            </ul>
-            <div
-                class="font-montserrat text-center text-sm mt-auto mb-20"
-                :class="{ hidden: !isCollapsed }"
-            >
-                <SettingsSocials />
-            </div>
-        </div>
+        <transition class="block sm:hidden">
+            <HeaderLinks v-if="isOpen"
+                         :isOpen="isOpen"
+                         @updateIsOpen="handleIsOpen"
+            />
+        </transition>
+        <HeaderLinks class="hidden sm:block"
+                     @updateIsOpen="handleIsOpen" />
     </header>
 </template>
 
@@ -197,21 +115,14 @@
 import {
     inject,
     ref,
-    onMounted,
-    onUnmounted,
-    computed,
-    shallowRef,
-    reactive,
 } from "vue";
 import LangList from "@/components/lang-list.vue";
-import SettingsSocials from "@/components/settings-socials.vue";
-import { useI18n } from "vue-i18n";
-import useSettings from "@/composables/settings";
+import HeaderLinks from "@/components/HeaderLinks.vue";
 
 export default {
     components: {
         LangList,
-        SettingsSocials,
+        HeaderLinks
     },
     data: () => ({}),
     setup() {
@@ -221,43 +132,26 @@ export default {
 
         let isOpen = ref(false);
 
+        const handleIsOpen = (value) => {
+            isOpen.value = value
+        }
+
         const toggleMenu = () => {
-            isOpen.value = !isOpen.value;
+            handleIsOpen(!isOpen.value)
         };
+
         const hideMenu = () => {
-            isOpen.value = false;
+            handleIsOpen(false)
         };
 
-        const { t } = useI18n();
-
-        const links = reactive([
-            { title: () => t("header.links.partners"), url: "/partners" },
-            { title: () => t("header.links.gallery"), url: "/gallery" },
-            { title: () => t("header.links.map"), url: "/events" },
-            {
-                title: () => t("header.links.about"),
-                url: "/about",
-                exact: true,
-            },
-        ]);
-
-        const computedLinks = computed(() => links, { deep: true });
         return {
             menu,
             isCollapsed,
             isOpen,
             toggleMenu,
             hideMenu,
-            links,
-            computedLinks,
-            settings: useSettings().settings
+            handleIsOpen
         };
     },
 };
 </script>
-
-<style scoped>
-.writing-vertical {
-    writing-mode: vertical-rl;
-}
-</style>
