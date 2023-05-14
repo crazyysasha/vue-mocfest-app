@@ -72,7 +72,7 @@ const routes = [
   },
   {
     path: '/privacy-policy',
-    name: 'terms',
+    name: 'privacy-policy',
     component: () => import(/* webpackChunkName: "terms" */ '../views/PrivacyPolicyView.vue'),
     meta: { layout: WithHeaderLayout },
   },
